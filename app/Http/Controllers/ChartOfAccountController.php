@@ -38,7 +38,6 @@ class ChartOfAccountController extends Controller
             'nature'=>'required|max:500'
         ]);
         $this->chartOfAccount->Store([
-
         ]);
     }
 
