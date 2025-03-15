@@ -7,5 +7,5 @@ Route::get('/', function () {
 });
 
 Route::post('dashboard', function () {
-    return view('admin/dashboard');
+    return view('partials/app');
 });

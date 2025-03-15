@@ -48,7 +48,7 @@ License: You must have a valid license purchased only from templatemonster to le
 							<div class="auth-form-wrap pt-xl-0 pt-70">
 								<div class="auth-form w-xl-30 w-lg-55 w-sm-75 w-100">
 									<a class="auth-brand text-center d-block mb-20" href="#">
-										<img class="brand-img" src="dist/img/logo.png" alt="brand"/>
+										<img class="brand-img" src="{{ asset('dist/img/logo_dwi.png') }}" alt="brand"/>
 									</a>
 									<form method="POST" action="{{ url('dashboard') }}">
 										@csrf

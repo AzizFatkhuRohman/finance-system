@@ -12,14 +12,14 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 	
 	<!-- vector map CSS -->
-    <link href="vendors/vectormap/jquery-jvectormap-2.0.3.css" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('vendors/vectormap/jquery-jvectormap-2.0.3.css') }}" rel="stylesheet" type="text/css" />
 
     <!-- Toggles CSS -->
-    <link href="vendors/jquery-toggles/css/toggles.css" rel="stylesheet" type="text/css">
-    <link href="vendors/jquery-toggles/css/themes/toggles-light.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('vendors/jquery-toggles/css/toggles.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('vendors/jquery-toggles/css/themes/toggles-light.css') }}" rel="stylesheet" type="text/css">
 	
     <!-- Custom CSS -->
-    <link href="dist/css/style.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('dist/css/style.css') }}" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -35,8 +35,8 @@
         <!-- Top Navbar -->
         <nav class="navbar navbar-expand-xl navbar-light fixed-top hk-navbar hk-navbar-alt">
             <a class="navbar-toggle-btn nav-link-hover navbar-toggler" href="javascript:void(0);" data-toggle="collapse" data-target="#navbarCollapseAlt" aria-controls="navbarCollapseAlt" aria-expanded="false" aria-label="Toggle navigation"><span class="feather-icon"><i data-feather="menu"></i></span></a>
-            <a class="navbar-brand" href="dashboard.html">
-                <img class="brand-img d-inline-block align-top" src="dist/img/logo.png" alt="brand" />
+            <a class="navbar-brand" href="#">
+                <img class="brand-img d-inline-block align-top" src="{{ asset('dist/img/logo_dwi2.png') }}" alt="brand" />
             </a>
             <div class="collapse navbar-collapse" id="navbarCollapseAlt">
                 <ul class="navbar-nav">
@@ -97,7 +97,7 @@
                         <div class="media">
                             <div class="media-img-wrap">
                                 <div class="avatar">
-                                    <img src="dist/img/avatar5.jpg" alt="user" class="avatar-img rounded-circle">
+                                    <img src="{{ asset('dist/img/avatar5.jpg') }}" alt="user" class="avatar-img rounded-circle">
                                 </div>
                                 <span class="badge badge-success badge-indicator"></span>
                             </div>
@@ -115,7 +115,7 @@
                             
                         </div>
                         <div class="dropdown-divider"></div>                        
-                        <a class="dropdown-item" href="login.html"><i class="dropdown-icon zmdi zmdi-power"></i><span>Log out</span></a>
+                        <a class="dropdown-item" href="#"><i class="dropdown-icon zmdi zmdi-power"></i><span>Log out</span></a>
                     </div>
                 </li>
             </ul>
@@ -281,46 +281,46 @@
     <!-- /HK Wrapper -->
 
     <!-- jQuery -->
-    <script src="vendors/jquery/dist/jquery.min.js"></script>
+    <script src="{{ asset('vendors/jquery/dist/jquery.min.js') }}"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="vendors/popper.js/dist/umd/popper.min.js"></script>
-    <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="{{ asset('vendors/popper.js/dist/umd/popper.min.js') }}"></script>
+    <script src="{{ asset('vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
     <!-- Slimscroll JavaScript -->
-    <script src="dist/js/jquery.slimscroll.js"></script>
+    <script src="{{ asset('dist/js/jquery.slimscroll.js') }}"></script>
 
     <!-- Fancy Dropdown JS -->
-    <script src="dist/js/dropdown-bootstrap-extended.js"></script>
+    <script src="{{ asset('dist/js/dropdown-bootstrap-extended.js') }}"></script>
 
     <!-- FeatherIcons JavaScript -->
-    <script src="dist/js/feather.min.js"></script>
+    <script src="{{ asset('dist/js/feather.min.js') }}"></script>
 
     <!-- Toggles JavaScript -->
-    <script src="vendors/jquery-toggles/toggles.min.js"></script>
-    <script src="dist/js/toggle-data.js"></script>
+    <script src="{{ asset('vendors/jquery-toggles/toggles.min.js') }}"></script>
+    <script src="{{ asset('dist/js/toggle-data.js') }}"></script>
 	
 	<!-- Counter Animation JavaScript -->
-	<script src="vendors/waypoints/lib/jquery.waypoints.min.js"></script>
-	<script src="vendors/jquery.counterup/jquery.counterup.min.js"></script>
+	<script src="{{ asset('vendors/waypoints/lib/jquery.waypoints.min.js') }}"></script>
+	<script src="{{ asset('vendors/jquery.counterup/jquery.counterup.min.js') }}"></script>
 	
 	<!-- Morris Charts JavaScript -->
-    <script src="vendors/raphael/raphael.min.js"></script>
-    <script src="vendors/morris.js/morris.min.js"></script>
+    <script src="{{ asset('vendors/raphael/raphael.min.js') }}"></script>
+    <script src="{{ asset('vendors/morris.js/morris.min.js') }}"></script>
 	
 	<!-- EChartJS JavaScript -->
-    <script src="vendors/echarts/dist/echarts-en.min.js"></script>
+    <script src="{{ asset('vendors/echarts/dist/echarts-en.min.js') }}"></script>
     
 	<!-- Sparkline JavaScript -->
-    <script src="vendors/jquery.sparkline/dist/jquery.sparkline.min.js"></script>
+    <script src="{{ asset('vendors/jquery.sparkline/dist/jquery.sparkline.min.js') }}"></script>
 	
 	<!-- Owl JavaScript -->
-    <script src="vendors/owl.carousel/dist/owl.carousel.min.js"></script>
+    <script src="{{ asset('vendors/owl.carousel/dist/owl.carousel.min.js') }}"></script>
 	
 	<!-- Init JavaScript -->
-    <script src="dist/js/init.js"></script>
-	<script src="dist/js/ecStat.min.js"></script>
-	<script src="dist/js/dashboard5-data.js"></script>
+    <script src="{{ asset('dist/js/init.js') }}"></script>
+	<script src="{{ asset('dist/js/ecStat.min.js') }}"></script>
+	<script src="{{ asset('dist/js/dashboard5-data.js') }}"></script>
 	
 </body>
 
