@@ -18,11 +18,11 @@ License: You must have a valid license purchased only from templatemonster to le
 		<link rel="icon" href="favicon.ico" type="image/x-icon">
 		
 		<!-- Toggles CSS -->
-		<link href="{{asset('assets/vendors/jquery-toggles/css/toggles.css')}}" rel="stylesheet" type="text/css">
-		<link href="assets/vendors/jquery-toggles/css/themes/toggles-light.css" rel="stylesheet" type="text/css">
+		<link href="vendors/jquery-toggles/css/toggles.css" rel="stylesheet" type="text/css">
+		<link href="vendors/jquery-toggles/css/themes/toggles-light.css" rel="stylesheet" type="text/css">
 		
 		<!-- Custom CSS -->
-		<link href="{{asset('assets/dist/css/style.css')}}" rel="stylesheet" type="text/css">
+		<link href="dist/css/style.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
 		<!-- Preloader -->
@@ -48,9 +48,10 @@ License: You must have a valid license purchased only from templatemonster to le
 							<div class="auth-form-wrap pt-xl-0 pt-70">
 								<div class="auth-form w-xl-30 w-lg-55 w-sm-75 w-100">
 									<a class="auth-brand text-center d-block mb-20" href="#">
-										<img class="brand-img" src="dist/img/logo.png" alt="brand"/>
+										<img class="brand-img" src="{{ asset('dist/img/logo_dwi.png') }}" alt="brand"/>
 									</a>
-									<form>
+									<form method="POST" action="{{ url('dashboard') }}">
+										@csrf
 										<h1 class="display-4 text-center mb-10">Welcome</h1>
 										<p class="text-center mb-30">Sign in to your account</p> 
 										<div class="form-group">
@@ -88,22 +89,22 @@ License: You must have a valid license purchased only from templatemonster to le
 		<!-- JavaScript -->
 		
 		<!-- jQuery -->
-		<script src="{{asset('assets/vendors/jquery/dist/jquery.min.js')}}"></script>
+		<script src="vendors/jquery/dist/jquery.min.js"></script>
 		
 		<!-- Bootstrap Core JavaScript -->
-		<script src="{{asset('assets/vendors/popper.js/dist/umd/popper.min.js')}}"></script>
-		<script src="{{asset('assets/vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+		<script src="vendors/popper.js/dist/umd/popper.min.js"></script>
+		<script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 		
 		<!-- Slimscroll JavaScript -->
-		<script src="{{asset('assets/dist/js/jquery.slimscroll.js')}}"></script>
+		<script src="dist/js/jquery.slimscroll.js"></script>
 	
 		<!-- Fancy Dropdown JS -->
-		<script src="{{ASSET('assets/dist/js/dropdown-bootstrap-extended.js')}}"></script>
+		<script src="dist/js/dropdown-bootstrap-extended.js"></script>
 		
 		<!-- FeatherIcons JavaScript -->
-		<script src="{{asset('assets/dist/js/feather.min.js')}}"></script>
+		<script src="dist/js/feather.min.js"></script>
 		
 		<!-- Init JavaScript -->
-		<script src="{{asset('assets/dist/js/init.js')}}"></script>
+		<script src="dist/js/init.js"></script>
 	</body>
 </html>
