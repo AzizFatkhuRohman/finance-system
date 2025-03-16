@@ -10,7 +10,7 @@ class ChartOfAccount extends Model
     use HasUuids;
     protected $guarded=[];
     public function Index(){
-        return $this->latest();
+        return $this->latest()->get();
     }
     public function Show($id){
         return $this->find($id);
