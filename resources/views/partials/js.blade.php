@@ -39,3 +39,37 @@
 <script src="{{ asset('dist/js/init.js') }}"></script>
 <script src="{{ asset('dist/js/ecStat.min.js') }}"></script>
 <script src="{{ asset('dist/js/dashboard5-data.js') }}"></script>
+
+ <!-- Data Table JavaScript -->
+ <script src="{{ asset('vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('vendors/datatables.net-dt/js/dataTables.dataTables.min.js') }}"></script>
+    <script src="{{ asset('vendors/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('vendors/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('vendors/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
+    <script src="{{ asset('vendors/jszip/dist/jszip.min.js') }}"></script>
+    <script src="{{ asset('vendors/pdfmake/build/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('vendors/pdfmake/build/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('vendors/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('vendors/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('vendors/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('dist/js/dataTables-data.js') }}"></script>
+
+<!-- Jasny-bootstrap  JavaScript -->
+<script src="{{ asset('vendors/jasny-bootstrap/dist/js/jasny-bootstrap.min.js') }}"></script>
+
+ <!-- Ion JavaScript -->
+ <script src="{{ asset('vendors/ion-rangeslider/js/ion.rangeSlider.min.js') }}"></script>
+ <script src="{{ asset('dist/js/rangeslider-data.js') }}"></script>
+
+<!-- Select2 JavaScript -->
+<script src="{{ asset('vendors/select2/dist/js/select2.full.min.js') }}"></script>
+<script src="{{ asset('dist/js/select2-data.js') }}"></script>
+
+<!-- Bootstrap Tagsinput JavaScript -->
+<script src="{{ asset('vendors/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
+
+<!-- Daterangepicker JavaScript -->
+<script src="{{ asset('vendors/moment/min/moment.min.js') }}"></script>
+<script src="{{ asset('vendors/daterangepicker/daterangepicker.js') }}"></script>
+<script src="{{ asset('dist/js/daterangepicker-data.js') }}"></script>
