@@ -23,6 +23,17 @@
         <!-- Main Content -->
         <div class="hk-pg-wrapper">
 			<!-- Container -->
+            @if (session('success'))
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: '{{ session("success") }}',
+                    showConfirmButton: false,
+                    timer:3000
+                });
+            </script>
+            @endif
             @yield('content')
             <!-- /Container -->
 			

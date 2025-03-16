@@ -60,7 +60,7 @@ class ChartOfAccountController extends Controller
      */
     public function show($id)
     {
-        return view('admin.data_akun', [
+        return view('admin.edit_akun', [
             'data' => $this->chartOfAccount->Show($id)
         ]);
     }
@@ -95,7 +95,7 @@ class ChartOfAccountController extends Controller
             'description' => $request->description,
             'nature' => $request->nature
         ]);
-        return redirect()->back()->with('success', 'Data berhasil di ubah');
+        return redirect('akun')->with('success', 'Data berhasil di ubah');
     }
 
     /**
