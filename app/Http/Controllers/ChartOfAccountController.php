@@ -24,7 +24,7 @@ class ChartOfAccountController extends Controller
      */
     public function create()
     {
-        return view('admin.data_akun');
+        return view('admin.form_akun');
     }
 
     /**

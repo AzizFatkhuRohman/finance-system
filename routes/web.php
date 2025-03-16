@@ -46,5 +46,20 @@ Route::get('jurnal', function(){
     return view('admin.jurnal');
 });
 
+//Neraca
+Route::get('neraca', function(){
+    return view('admin.neraca');
+});
+
+//Buku Besar
+Route::get('buku_besar', function(){
+    return view('admin.buku_besar');
+});
+
+//Rugi Laba
+Route::get('rl', function(){
+    return view('admin.rl');
+});
+
 //Akun
 Route::resource('akun', ChartOfAccountController::class)->middleware('auth');

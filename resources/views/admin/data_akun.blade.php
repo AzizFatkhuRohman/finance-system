@@ -22,7 +22,7 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <section class="hk-sec-wrapper">
-                            <h5 class="hk-sec-title">Data Akun &nbsp;&nbsp; <a href="form_customer.html"><button class="btn btn-primary btn-sm">Tambah data</button></a></h5>
+                            <h5 class="hk-sec-title">Data Akun &nbsp;&nbsp; <a href="{{ url('akun/create') }}"><button class="btn btn-primary btn-sm">Tambah data</button></a></h5>
                             <p class="mb-40">Data <code>akun</code> adalah data awal proses pencatatan keuangan bisa melihat tabel akun di bawah ini.</p>
                             <div class="row">
                                 <div class="col-sm">
