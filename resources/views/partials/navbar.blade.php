@@ -38,8 +38,8 @@
                 <div class="dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                     <a class="dropdown-item" href="{{ url('jurnal') }}">Jurnal Umum</a>
                     <a class="dropdown-item" href="{{ url('neraca') }}">Neraca</a>
-                    <a class="dropdown-item" href="buku_besar.html">Buku Besar</a>
-                    <a class="dropdown-item" href="rl.html">Rugi/Laba</a>
+                    <a class="dropdown-item" href="{{ url('buku_besar') }}">Buku Besar</a>
+                    <a class="dropdown-item" href="{{ url('rl') }}">Rugi/Laba</a>
                 </div>
             </li>
             <li class="nav-item dropdown show-on-hover">

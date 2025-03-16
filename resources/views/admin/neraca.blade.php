@@ -1,5 +1,5 @@
-        <!-- Main Content -->
-        <div class="hk-pg-wrapper">
+@extends('partials.app')
+@section('content')
             <!-- Breadcrumb -->
             <nav class="hk-breadcrumb" aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-light bg-transparent">
@@ -99,6 +99,4 @@
 
             </div>
             <!-- /Container -->
-
-        </div>
-        <!-- /Main Content -->
+@endsection

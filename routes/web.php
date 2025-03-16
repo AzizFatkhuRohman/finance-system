@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChartOfAccountController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,6 +47,4 @@ Route::get('jurnal', function(){
 });
 
 //Akun
-Route::get('akun', function(){
-    return view('admin.data_akun');
-});
+Route::resource('akun',ChartOfAccountController::class)->middleware('auth');
