@@ -36,8 +36,8 @@
                     Laporan
                 </a>
                 <div class="dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                    <a class="dropdown-item" href="jurnal.html">Jurnal Umum</a>
-                    <a class="dropdown-item" href="neraca.html">Neraca</a>
+                    <a class="dropdown-item" href="{{ url('jurnal') }}">Jurnal Umum</a>
+                    <a class="dropdown-item" href="{{ url('neraca') }}">Neraca</a>
                     <a class="dropdown-item" href="buku_besar.html">Buku Besar</a>
                     <a class="dropdown-item" href="rl.html">Rugi/Laba</a>
                 </div>
@@ -48,7 +48,7 @@
                     Setting
                 </a>
                 <div class="dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                    <a class="dropdown-item" href="data_akun.html">Akun</a>
+                    <a class="dropdown-item" href="{{ asset('akun') }}">Akun</a>
                     <a class="dropdown-item" href="#">Akses</a>
                 </div>
             </li>
