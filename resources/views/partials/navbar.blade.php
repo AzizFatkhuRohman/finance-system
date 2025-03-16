@@ -6,7 +6,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapseAlt">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown show-on-hover active">
-                        <a class="nav-link dropdown-toggle" href="dashboard.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								Dashboard
 							</a>                        
                     </li>
@@ -15,16 +15,16 @@
 								Master Data
 							</a>
                         <div class="dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">                            
-                            <a class="dropdown-item" href="data_customer.html">Customer</a>
-                            <a class="dropdown-item" href="data_suplier.html">Suplier</a>
-                            <a class="dropdown-item" href="data_produk.html">Product</a>                            
+                            <a class="dropdown-item" href="{{url('customer')}}">Customer</a>
+                            <a class="dropdown-item" href="{{ url('suplier') }}">Suplier</a>
+                            <a class="dropdown-item" href="{{ url('produk') }}">Product</a>                            
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="penjualan.html" >Penjualan</a>
+                        <a class="nav-link" href="{{ url('penjualan') }}" >Penjualan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="biaya.html" >Biaya</a>
+                        <a class="nav-link" href="{{ url('biaya') }}" >Biaya</a>
                     </li>
                     <li class="nav-item dropdown show-on-hover">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

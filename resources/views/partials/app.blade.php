@@ -19,9 +19,6 @@
         @include('partials.navbar')
         <!-- /Top Navbar -->
 
-        
-
-        
 
         <!-- Main Content -->
         <div class="hk-pg-wrapper">
