@@ -47,4 +47,6 @@ Route::get('jurnal', function(){
 });
 
 //Akun
-Route::resource('akun',ChartOfAccountController::class)->middleware('auth');
+Route::get('akun', function(){
+    return view('admin.data_akun');
+});
