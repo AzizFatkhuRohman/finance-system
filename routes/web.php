@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\ChartOfAccountController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -12,25 +15,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::resource('akun', ChartOfAccountController::class);
+    Route::resource('customer',CustomerController::class);
+    Route::resource('supplier',SupplierController::class);
+    Route::resource('produk',ProductController::class);
 });
 
 require __DIR__.'/auth.php';
-
-//Customer
-Route::get('customer', function (){
-    return view('admin.data_customer');
-});
-
-//Suplier
-Route::get('suplier', function(){
-    return view('admin.data_suplier');
-});
-
-//Produk
-Route::get('produk', function(){
-    return view('admin.data_produk');
-});
-
 //Penjualan
 Route::get('penjualan', function(){
     return view('admin.penjualan');
@@ -62,4 +53,3 @@ Route::get('rl', function(){
 });
 
 //Akun
-Route::resource('akun', ChartOfAccountController::class)->middleware('auth');
