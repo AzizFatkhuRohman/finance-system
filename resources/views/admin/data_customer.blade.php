@@ -22,7 +22,7 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <section class="hk-sec-wrapper">
-                            <h5 class="hk-sec-title">Data Customers &nbsp;&nbsp; <a href="form_customer.html"><button class="btn btn-primary btn-sm">Tambah data</button></a></h5>
+                            <h5 class="hk-sec-title">Data Customers &nbsp;&nbsp; <a href="{{ url('customer/create') }}"><button class="btn btn-primary btn-sm">Tambah data</button></a></h5>
                             <p class="mb-40">Untuk berinteraksi dengan para <code>customers</code> bisa melihat beberapa data berikut dan bisa di lihat lebih detail dari tabel customer di bawah ini.</p>
                             <div class="row">
                                 <div class="col-sm">

@@ -1,6 +1,6 @@
 @extends('partials.app')
-@section('content')      
-       <!-- Main Content -->
+@section('content')    
+        <!-- Main Content -->
         <div class="hk-pg-wrapper">
             <!-- Breadcrumb -->
             <nav class="hk-breadcrumb" aria-label="breadcrumb">
@@ -80,6 +80,10 @@
             </div>
             <!-- /Container -->
 
+            <!-- Footer -->
+            
+            <!-- /Footer -->
+
         </div>
         <!-- /Main Content -->
-@endsection 
+@endsection
