@@ -81,12 +81,12 @@
                                         <div class="row">
                                             <div class="col-md-6 form-group">
                                                 <label for="cc-name">No Rekening</label>
-                                                <input class="form-control" id="cc-name" placeholder="" type="text">
+                                                <input class="form-control" id="cc-number" placeholder="" type="text">
                                                 <small class="form-text text-muted">Nomor Rekening aktif</small>
                                             </div>
                                             <div class="col-md-6 form-group">
                                                 <label for="cc-number">Nama Pemilik Rekening</label>
-                                                <input class="form-control" id="cc-number" placeholder="" data-mask="9999-9999-9999-9999" type="text">
+                                                <input class="form-control" id="cc-name" placeholder=""  type="text">
                                             </div>
                                         </div>
                                         <div class="row">
