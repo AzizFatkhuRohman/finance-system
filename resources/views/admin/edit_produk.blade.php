@@ -1,6 +1,6 @@
 @extends('partials.app')
-@section('content')    
-        <!-- Main Content -->
+@section('content')      
+       <!-- Main Content -->
         <div class="hk-pg-wrapper">
             <!-- Breadcrumb -->
             <nav class="hk-breadcrumb" aria-label="breadcrumb">
@@ -27,29 +27,41 @@
                             <p class="mb-25">Untuk menambah <code>Produk</code> isi form berikut dengan lengkap.</p>
                             <div class="row">
                                 <div class="col-sm">
-                                    <form>
+                                    <form action="{{ url('produk/'.$data->id) }}" method="post">
+                                        @csrf
+                                        @method('put')
                                         <div class="row">
                                             <div class="col-md-6 form-group">
                                                 <label for="firstName">Nama Produk</label>
-                                                <input class="form-control" id="firstName" placeholder="" value="" type="text">
+                                                <input class="form-control" id="firstName" placeholder="" name="nm_produk" value="{{ $data->nama_produk }}" type="text">
                                             </div>
                                             <div class="col-md-6 form-group">
-                                                <label for="firstName">Satuan</label>
-                                                <input class="form-control" placeholder="" value="" type="text">
+                                                <label for="firstName">Kode Produk</label>
+                                                <input class="form-control" id="firstName" placeholder="" name="kd_produk" value="{{ $data->kode_produk }}" type="text">
                                             </div>
                                         </div>
                                        
                                         <div class="row">
+                                        <div class="col-md-6 form-group">
+                                                <label for="firstName">Satuan</label>
+                                                <select class="form-control custom-select" name="satuan">
+                                                <option selected value="{{ $data->satuan }}">{{ $data->satuan }}</option>
+                                                <option value="pcs">pcs</option>
+                                                <option value="pack">pack</option>
+                                                <option value="buah">buah</option>
+                                                <option value="kg">kg</option>
+                                            </select>
+                                            </div>
                                             <div class="col-md-6 form-group">
                                                 <label for="firstName">Harga Jual</label>
-                                                <input class="form-control" placeholder="" value="" type="text">
+                                                <input class="form-control" placeholder="" name="harga" value="{{ $data->harga }}" type="text">
                                             </div>              
                                         </div>
 
                                         <div class="row">
                                             <div class="col-md-3 mb-10">
                                                 <label for="zip">Stock</label>
-                                                <input class="form-control" id="zip" placeholder="" type="text">
+                                                <input class="form-control" id="zip" name="stok" placeholder="" value="{{ $data->stok }}" type="text">
                                             </div>
                                             <!-- <div class="col-md-3 mb-10">
                                                 <label for="zip">Kecamatan</label>
@@ -80,10 +92,6 @@
             </div>
             <!-- /Container -->
 
-            <!-- Footer -->
-            
-            <!-- /Footer -->
-
         </div>
         <!-- /Main Content -->
-@endsection
+@endsection 

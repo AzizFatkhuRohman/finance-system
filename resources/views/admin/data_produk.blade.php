@@ -14,7 +14,7 @@
 
                 <!-- Title -->
                 <div class="hk-pg-header">
-                    <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="database"></i></span></span>Produk &nbsp; <a href="form_produk.html"><button class="btn btn-primary btn-sm">Tambah data</button></a></h4>
+                    <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="database"></i></span></span>Produk &nbsp; <a href="{{ url('produk/create') }}"><button class="btn btn-primary btn-sm">Tambah data</button></a></h4>
                 </div>
                 <!-- /Title -->
 
@@ -38,38 +38,30 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                            @foreach ($data as $item )
                                                 <tr>
-                                                    <td>Baja Ringan</td>
-                                                    <td>Kg</td>
-                                                    <td>10.000</td>
-                                                    <td>100</td>
-                                                    <td><a href="#" class="mr-25" data-toggle="tooltip" data-original-title="Edit"> <i class="icon-pencil"></i> </a>                           <a href="#" data-toggle="tooltip" data-original-title="Hapus"> <i class="icon-trash txt-danger"></i> </a>
+                                                    
+                                                    <td>{{$item->nama_produk}}</td>
+                                                    <td>{{$item->satuan}}</td>
+                                                    <td>{{$item->harga}}</td>
+                                                    <td>{{$item->stok}}</td>
+                                                    <td>
+                                                    <div class="d-flex align-items-center">
+                                                    <a href="{{url('produk/'.$item->id)}}" class="mr-2" data-toggle="tooltip" data-original-title="Edit">
+                                                        <i class="icon-pencil"></i>
+                                                    </a>
+                                                    <form action="{{ url('produk/' . $item->id) }}" method="post">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit" class="btn btn-sm">
+                                                            <i class="icon-trash txt-danger" data-toggle="tooltip" data-original-title="Hapus"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
                                                     </td>
+                                                    
                                                 </tr>
-                                                <tr>
-                                                    <td>Baja Ringan</td>
-                                                    <td>Kg</td>
-                                                    <td>10.000</td>
-                                                    <td>100</td>
-                                                    <td><a href="#" class="mr-25" data-toggle="tooltip" data-original-title="Edit"> <i class="icon-pencil"></i> </a>                           <a href="#" data-toggle="tooltip" data-original-title="Hapus"> <i class="icon-trash txt-danger"></i> </a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Baja Ringan</td>
-                                                    <td>Kg</td>
-                                                    <td>10.000</td>
-                                                    <td>100</td>
-                                                    <td><a href="#" class="mr-25" data-toggle="tooltip" data-original-title="Edit"> <i class="icon-pencil"></i> </a>                           <a href="#" data-toggle="tooltip" data-original-title="Hapus"> <i class="icon-trash txt-danger"></i> </a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Baja Ringan</td>
-                                                    <td>Kg</td>
-                                                    <td>10.000</td>
-                                                    <td>100</td>    
-                                                    <td><a href="#" class="mr-25" data-toggle="tooltip" data-original-title="Edit"> <i class="icon-pencil"></i> </a>                           <a href="#" data-toggle="tooltip" data-original-title="Hapus"> <i class="icon-trash txt-danger"></i> </a>
-                                                    </td>
-                                                </tr>
+                                            @endforeach
                                             </tbody>
                                             <tfoot>
                                                 <tr>
