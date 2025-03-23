@@ -22,25 +22,24 @@
                         <section class="hk-sec-wrapper hk-gallery-wrap">
                             <ul class="nav nav-light nav-tabs" role="tablist">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link active">Faktur</a>
+                                    <a href="#faktur" class="nav-link" data-toggle="tab">Faktur</a>
+                                </li>
+                                <!-- <li class="nav-item">
+                                    <a href="#invoice" class="nav-link" data-toggle="tab">Invoice</a>
+                                </li> -->
+                                <li class="nav-item">
+                                    <a href="#pengiriman" class="nav-link" data-toggle="tab">Pengiriman</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">Invoice</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">Pengiriman</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">Penawaran</a>
+                                    <a href="#penawaran" class="nav-link active" data-toggle="tab">Penawaran</a>
                                 </li>
                             </ul>
                             <div class="tab-content">
-                                <div class="tab-pane fade show active" role="tabpanel">
+                                <div class="tab-pane fade" id="faktur" role="tabpanel">
                                     <div class="row">
                                         <div class="col-sm">
                                             </br>
-                                            <!-- <h6 class="mb-10">Breakpoint specific</h6> -->
-                                            <p class="mb-25">Data pada table ini adalah data semua penjualan yang sudah di bayar oleh customer.</p>
+                                            <p class="mb-25">Data pada tabel ini adalah data semua penjualan yang sudah dibayar oleh customer.</p>
                                             <div class="table-wrap">
                                                 <div class="table-responsive-md">
                                                     <table class="table mb-0">
@@ -58,46 +57,34 @@
                                                             <tr>
                                                                 <td><a href="javascript:void(0)">Order #26589</a></td>
                                                                 <td>PT. ABC</td>
-                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Oct 16, 2016</span> </td>
+                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Oct 16, 2016</span></td>
                                                                 <td>Rp. 450.000</td>
-                                                                <td>
-                                                                <div class="badge badge-success">Paid</div>
-                                                                </td>
-                                                                <td>
-                                                                <a href="invoice.html">Print</a>
-                                                                </td>
+                                                                <td><div class="badge badge-warning">Unpaid</div></td>
+                                                                <td><a href="#">Print</a></td>
                                                             </tr>
                                                             <tr>
                                                                 <td><a href="javascript:void(0)">Order #58746</a></td>
                                                                 <td>PT. ABC</td>
-                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Oct 12, 2016</span> </td>
+                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Oct 12, 2016</span></td>
                                                                 <td>Rp. 245.300</td>
-                                                                <td>
-                                                                    <div class="badge badge-warning">Pending</div>
-                                                                </td>
-                                                                <td><a href="invoice.html">Print</a></td>
+                                                                <td><div class="badge badge-warning">Unpaid</div></td>
+                                                                <td><a href="#">Print</a></td>
                                                             </tr>
                                                             <tr>
                                                                 <td><a href="javascript:void(0)">Order #98458</a></td>
                                                                 <td>PT. ABC</td>
-                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> May 18, 2016</span> </td>
+                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> May 18, 2016</span></td>
                                                                 <td>Rp. 380.000</td>
-                                                                <td>
-                                                                    <div class="badge badge-success">Paid</div>
-                                                                </td>
-                                                                <td><a href="invoice.html">Print</a></td>
+                                                                <td><div class="badge badge-success">Paid</div></td>
+                                                                <td><a href="#">Faktur</a></td>
                                                             </tr>
                                                             <tr>
                                                                 <td><a href="javascript:void(0)">Order #32658</a></td>
                                                                 <td>PT. ABC</td>
-                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Apr 28, 2016</span> </td>
+                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Apr 28, 2016</span></td>
                                                                 <td>Rp. 770.990</td>
-                                                                <td>
-                                                                    <div class="badge badge-success">Paid</div>
-                                                                </td>
-                                                                <td>
-                                                                <a href="invoice.html">Print</a>
-                                                                </td>
+                                                                <td><div class="badge badge-success">Paid</div></td>
+                                                                <td><a href="#">Faktur</a></td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -105,7 +92,181 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>     
+                                </div>
+                                <!-- <div class="tab-pane fade" id="invoice" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            </br>
+                                            <p class="mb-25">Data pada tabel ini adalah data invoice.</p>
+                                            <div class="table-wrap">
+                                                <div class="table-responsive-md">
+                                                <table class="table mb-0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Invoice</th>
+                                                                <th>Customer</th>
+                                                                <th>Date</th>
+                                                                <th>Amount</th>
+                                                                <th>Status</th>
+                                                                <th>Invoice</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><a href="javascript:void(0)">Order #26589</a></td>
+                                                                <td>PT. ABC</td>
+                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Oct 16, 2016</span></td>
+                                                                <td>Rp. 450.000</td>
+                                                                <td><div class="badge badge-success">Paid</div></td>
+                                                                <td><a href="#">Print</a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><a href="javascript:void(0)">Order #58746</a></td>
+                                                                <td>PT. ABC</td>
+                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Oct 12, 2016</span></td>
+                                                                <td>Rp. 245.300</td>
+                                                                <td><div class="badge badge-warning">Pending</div></td>
+                                                                <td><a href="#">Print</a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><a href="javascript:void(0)">Order #98458</a></td>
+                                                                <td>PT. ABC</td>
+                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> May 18, 2016</span></td>
+                                                                <td>Rp. 380.000</td>
+                                                                <td><div class="badge badge-success">Paid</div></td>
+                                                                <td><a href="#">Print</a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><a href="javascript:void(0)">Order #32658</a></td>
+                                                                <td>PT. ABC</td>
+                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Apr 28, 2016</span></td>
+                                                                <td>Rp. 770.990</td>
+                                                                <td><div class="badge badge-success">Paid</div></td>
+                                                                <td><a href="#">Print</a></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <div class="tab-pane fade" id="pengiriman" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            </br>
+                                            <p class="mb-25">Data pada tabel ini adalah data pengiriman.</p>
+                                            <div class="table-wrap">
+                                                <div class="table-responsive-md">
+                                                <table class="table mb-0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Invoice</th>
+                                                                <th>Customer</th>
+                                                                <th>Date</th>
+                                                                <th>Amount</th>
+                                                                <th>Status</th>
+                                                                <th>Surat Jalan</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><a href="javascript:void(0)">Order #26589</a></td>
+                                                                <td>PT. ABC</td>
+                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Oct 16, 2016</span></td>
+                                                                <td>Rp. 450.000</td>
+                                                                <td><div class="badge badge-warning">Pending</div></td>
+                                                                <td><a href="#">Print</a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><a href="javascript:void(0)">Order #58746</a></td>
+                                                                <td>PT. ABC</td>
+                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Oct 12, 2016</span></td>
+                                                                <td>Rp. 245.300</td>
+                                                                <td><div class="badge badge-warning">Pending</div></td>
+                                                                <td><a href="#">Print</a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><a href="javascript:void(0)">Order #98458</a></td>
+                                                                <td>PT. ABC</td>
+                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> May 18, 2016</span></td>
+                                                                <td>Rp. 380.000</td>
+                                                                <td><div class="badge badge-warning">Pending</div></td>
+                                                                <td><a href="#">Print</a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><a href="javascript:void(0)">Order #32658</a></td>
+                                                                <td>PT. ABC</td>
+                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Apr 28, 2016</span></td>
+                                                                <td>Rp. 770.990</td>
+                                                                <td><div class="badge badge-success">Send</div></td>
+                                                                <td><a href="#">Print</a></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade show active" id="penawaran" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            </br>
+                                            <p class="mb-25">Data pada tabel ini adalah data penawaran.</p>
+                                            <div class="table-wrap">
+                                                <div class="table-responsive-md">
+                                                <table class="table mb-0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Invoice</th>
+                                                                <th>Customer</th>
+                                                                <th>Date</th>
+                                                                <th>Amount</th>
+                                                                <th>Status</th>
+                                                                <th>Quotation</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><a href="javascript:void(0)">Order #26589</a></td>
+                                                                <td>PT. ABC</td>
+                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Oct 16, 2016</span></td>
+                                                                <td>Rp. 450.000</td>
+                                                                <td><div class="badge badge-success">created</div></td>
+                                                                <td><a href="#">Print</a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><a href="javascript:void(0)">Order #58746</a></td>
+                                                                <td>PT. ABC</td>
+                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Oct 12, 2016</span></td>
+                                                                <td>Rp. 245.300</td>
+                                                                <td><div class="badge badge-success">created</div></td>
+                                                                <td><a href="#">Print</a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><a href="javascript:void(0)">Order #98458</a></td>
+                                                                <td>PT. ABC</td>
+                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> May 18, 2016</span></td>
+                                                                <td>Rp. 380.000</td>
+                                                                <td><div class="badge badge-success">created</div></td>
+                                                                <td><a href="#">Print</a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><a href="javascript:void(0)">Order #32658</a></td>
+                                                                <td>PT. ABC</td>
+                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Apr 28, 2016</span></td>
+                                                                <td>Rp. 770.990</td>
+                                                                <td><div class="badge badge-success">created</div></td>
+                                                                <td><a href="#">Print</a></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </section>
                     </div>
