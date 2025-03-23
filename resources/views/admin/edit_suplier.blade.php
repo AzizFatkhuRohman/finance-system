@@ -4,7 +4,7 @@
             <nav class="hk-breadcrumb" aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-light bg-transparent">
                     <li class="breadcrumb-item"><a href="#">Forms</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Form Edit Customer</li>
+                    <li class="breadcrumb-item active" aria-current="page">Form Edit Suplier</li>
                 </ol>
             </nav>
             <!-- /Breadcrumb -->
@@ -13,7 +13,7 @@
             <div class="container-fluid">
                 <!-- Title -->
                 <div class="hk-pg-header">
-                    <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="align-left"></i></span></span>Form Customer</h4>
+                    <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="align-left"></i></span></span>Form Suplier</h4>
                 </div>
                 <!-- /Title -->
 
@@ -21,15 +21,15 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <section class="hk-sec-wrapper">
-                            <h5 class="hk-sec-title">Edit Customer</h5>
-                            <p class="mb-25">Untuk menambah customer isi form berikut dengan lengkap.</p>
+                            <h5 class="hk-sec-title">Edit Suplier</h5>
+                            <p class="mb-25">Untuk menambah <code>suplier</code> isi form berikut dengan lengkap.</p>
                             <div class="row">
                                 <div class="col-sm">
                                     <form>
                                         <div class="row">
                                             <div class="col-md-6 form-group">
                                                 <label for="firstName">Nama PT/CV</label>
-                                                <input class="form-control" id="firstName" placeholder="Company name" value="" type="text">
+                                                <input class="form-control" id="firstName" placeholder="" value="" type="text">
                                             </div>
                                             <!-- <div class="col-md-6 form-group">
                                                 <label for="lastName">Nama Singkat</label>
@@ -79,12 +79,12 @@
                                         <div class="row">
                                             <div class="col-md-6 form-group">
                                                 <label for="cc-name">No Rekening</label>
-                                                <input class="form-control" id="cc-number" placeholder="" type="number">
+                                                <input class="form-control" id="cc-name" placeholder="" type="number">
                                                 <small class="form-text text-muted">Nomor Rekening aktif</small>
                                             </div>
                                             <div class="col-md-6 form-group">
                                                 <label for="cc-number">Nama Pemilik Rekening</label>
-                                                <input class="form-control" id="cc-name" placeholder=""  type="text">
+                                                <input class="form-control" id="cc-name" placeholder="" type="text">
                                             </div>
                                         </div>
                                         <div class="row">

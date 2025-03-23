@@ -1,7 +1,5 @@
 @extends('partials.app')
 @section('content')
-       <!-- Main Content -->
-        <div class="hk-pg-wrapper">
             <!-- Breadcrumb -->
             <nav class="hk-breadcrumb" aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-light bg-transparent">
@@ -31,12 +29,12 @@
                                         <div class="row">
                                             <div class="col-md-6 form-group">
                                                 <label for="firstName">Nama PT/CV</label>
-                                                <input class="form-control" id="firstName" placeholder="" value="" type="text">
+                                                <input class="form-control" id="firstName" placeholder="Company name" value="" type="text">
                                             </div>
-                                            <div class="col-md-6 form-group">
+                                            <!-- <div class="col-md-6 form-group">
                                                 <label for="lastName">Nama Singkat</label>
                                                 <input class="form-control" id="lastName" placeholder="" value="" type="text">
-                                            </div>
+                                            </div> -->
                                         </div>
 
                                         <div class="form-group">
@@ -69,7 +67,7 @@
                                             </div>
                                             <div class="col-md-3 mb-10">
                                                 <label for="zip">Kode Pos <span class="text-muted">(Optional)</span></label>
-                                                <input class="form-control" id="zip" placeholder="" type="text">
+                                                <input class="form-control" id="zip" placeholder="" type="number">
                                             </div>
                                         </div>
                                         
@@ -81,7 +79,7 @@
                                         <div class="row">
                                             <div class="col-md-6 form-group">
                                                 <label for="cc-name">No Rekening</label>
-                                                <input class="form-control" id="cc-number" placeholder="" type="text">
+                                                <input class="form-control" id="cc-number" placeholder="" type="number">
                                                 <small class="form-text text-muted">Nomor Rekening aktif</small>
                                             </div>
                                             <div class="col-md-6 form-group">
@@ -101,7 +99,7 @@
                                             </div>
                                             <div class="col-md-3 form-group">
                                                 <label for="cc-cvv">NPWP</label>
-                                                <input class="form-control" placeholder="" type="text">
+                                                <input class="form-control" placeholder="" type="number">
                                             </div>
                                         </div>
                                         <hr>
@@ -118,7 +116,4 @@
                 <!-- /Row -->
             </div>
             <!-- /Container -->
-
-        </div>
-        <!-- /Main Content -->
 @endsection
