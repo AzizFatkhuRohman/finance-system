@@ -1,181 +1,168 @@
 @extends('partials.app')
 @section('content')
-    <!-- Main Content -->
-    <div class="hk-pg-wrapper">
-        <!-- Breadcrumb -->
-        <nav class="hk-breadcrumb" aria-label="breadcrumb">
-            <ol class="breadcrumb breadcrumb-light bg-transparent">
-                <li class="breadcrumb-item"><a href="#">Forms</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Form Customer</li>
-            </ol>
-        </nav>
-        <!-- /Breadcrumb -->
+<div class="hk-pg-wrapper">
+    <nav class="hk-breadcrumb" aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-light bg-transparent">
+            <li class="breadcrumb-item"><a href="#">Forms</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Form Customer</li>
+        </ol>
+    </nav>
 
-        <!-- Container -->
-        <div class="container-fluid">
-            <!-- Title -->
-            <div class="hk-pg-header">
-                <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i
-                                data-feather="align-left"></i></span></span>Form Customer</h4>
-            </div>
-            <!-- /Title -->
-
-            <!-- Row -->
-            <div class="row">
-                <div class="col-xl-12">
-                    <section class="hk-sec-wrapper">
-                        <h5 class="hk-sec-title">Tambah Customer</h5>
-                        <p class="mb-25">Untuk menambah customer isi form berikut dengan lengkap.</p>
-                        <div class="row">
-                            <div class="col-sm">
-                                <form action="{{ url('customer') }}" method="post">
-                                    @csrf
-                                    <div class="row">
-                                        <div class="col-md-6 form-group">
-                                            <label for="firstName">Nama PT/CV</label>
-                                            <input class="form-control" id="firstName" placeholder="" value=""
-                                                type="text">
-                                        </div>
-                                        <div class="col-md-6 form-group">
-                                            <label for="lastName">Nama Singkat</label>
-                                            <input class="form-control" id="lastName" placeholder="" value=""
-                                                type="text">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input class="form-control" id="email" placeholder="you@example.com"
-                                            type="email">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="address">Alamat</label>
-                                        <input class="form-control" id="address" placeholder="jalan .. " type="text">
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6 mb-10">
-                                            <label for="address2">Provinsi</label>
-                                            <select class="custom-select" aria-label="Default select example" name="province" id="province">
-                                                @foreach ($provinsi as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6 mb-10">
-                                            <label for="zip">Kabupaten</label>
-                                            <select id="regency" name="regency" class="custom-select">
-                                                <option value="">Pilih Kota/Kabupaten</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-4 mb-10">
-                                            <label for="zip">Kecamatan</label>
-                                            <select id="district" name="district" class="custom-select">
-                                                <option value="">Pilih Kecamatan</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-4 mb-10">
-                                            <label for="zip">Kelurahan</label>
-                                            <select id="village" name="village" class="custom-select">
-                                                <option value="">Pilih Kelurahan/Desa</option>
-                                            </select>                                
-                                        </div>
-                                        <div class="col-md-4 mb-10">
-                                            <label for="zip">Kode Pos <span
-                                                    class="text-muted">(Optional)</span></label>
-                                            <input class="form-control" id="zip" placeholder="" type="text">
-                                        </div>
-                                    </div>
-
-                                    <hr>
-
-                                    <h6 class="form-group">Payment</h6>
-
-
-                                    <div class="row">
-                                        <div class="col-md-6 form-group">
-                                            <label for="cc-name">No Rekening</label>
-                                            <input class="form-control" id="cc-name" placeholder="" type="text">
-                                            <small class="form-text text-muted">Nomor Rekening aktif</small>
-                                        </div>
-                                        <div class="col-md-6 form-group">
-                                            <label for="cc-number">Nama Pemilik Rekening</label>
-                                            <input class="form-control" id="cc-number" placeholder=""
-                                                data-mask="9999-9999-9999-9999" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-3 form-group">
-                                            <label for="cc-expiration">Nama Bank</label>
-                                            <input class="form-control" type="text">
-
-                                        </div>
-                                        <div class="col-md-3 form-group">
-                                            <label for="cc-cvv">Cabang</label>
-                                            <input class="form-control" placeholder="" type="text">
-                                        </div>
-                                        <div class="col-md-3 form-group">
-                                            <label for="cc-cvv">NPWP</label>
-                                            <input class="form-control" placeholder="" type="text">
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <button class="btn btn-primary" type="submit">Submit</button>
-                                </form>
-                            </div>
-                        </div>
-                    </section>
-
-
-
-                </div>
-            </div>
-            <!-- /Row -->
+    <div class="container-fluid">
+        <div class="hk-pg-header">
+            <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="align-left"></i></span></span>Form Customer</h4>
         </div>
-        <!-- /Container -->
 
+        <div class="row">
+            <div class="col-xl-12">
+                <section class="hk-sec-wrapper">
+                    <h5 class="hk-sec-title">Tambah Customer</h5>
+                    <p class="mb-25">Isi form berikut dengan lengkap.</p>
+                    <div class="row">
+                        <div class="col-sm">
+                            <form action="{{ url('customer') }}" method="post">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label for="nama_perusahaan">Nama PT/CV</label>
+                                        <input type="text" name="nama_perusahaan" class="form-control @error('nama_perusahaan') is-invalid @enderror" value="{{ old('nama_perusahaan') }}">
+                                        @error('nama_perusahaan')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="akronim">Akronim</label>
+                                        <input type="text" name="akronim" class="form-control @error('akronim') is-invalid @enderror" value="{{ old('akronim') }}">
+                                        @error('akronim')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}">
+                                    @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="alamat">Alamat</label>
+                                    <input type="text" name="alamat" class="form-control @error('alamat') is-invalid @enderror" value="{{ old('alamat') }}">
+                                    @error('alamat')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-10">
+                                        <label for="province">Provinsi</label>
+                                        <select name="province" id="province" class="custom-select @error('province') is-invalid @enderror">
+                                            <option value="">Pilih Provinsi</option>
+                                            @foreach ($provinsi as $item)
+                                                <option value="{{ $item->id }}" {{ old('province') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('province')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                    </div>
+                                    <div class="col-md-6 mb-10">
+                                        <label for="regency">Kabupaten</label>
+                                        <select name="regency" id="regency" class="custom-select @error('regency') is-invalid @enderror">
+                                            <option value="">Pilih Kabupaten</option>
+                                        </select>
+                                        @error('regency')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 mb-10">
+                                        <label for="regency">Kecamatan</label>
+                                        <select name="district" id="district" class="custom-select @error('district') is-invalid @enderror">
+                                            <option value="">Pilih Kecamatan</option>
+                                        </select>
+                                        @error('district')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                    </div>
+                                    <div class="col-md-4 mb-10">
+                                        <label for="regency">Desa</label>
+                                        <select name="village" id="village" class="custom-select @error('village') is-invalid @enderror">
+                                            <option value="">Pilih Desa</option>
+                                        </select>
+                                        @error('village')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                    </div>
+                                    <div class="col-md-4 mb-10">
+                                        <label for="kode_pos">Kode Pos</label>
+                                        <input type="text" name="kode_pos" class="form-control @error('kode_pos') is-invalid @enderror" value="{{ old('kode_pos') }}">
+                                        @error('kode_pos')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                    </div>
+                                </div>
+                                
+                                
+                                <h6 class="form-group">Informasi Bank</h6>
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label for="nomor_rekening">No Rekening</label>
+                                        <input type="text" name="nomor_rekening" class="form-control @error('nomor_rekening') is-invalid @enderror" value="{{ old('nomor_rekening') }}">
+                                        @error('nomor_rekening')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="nama_pemilik">Nama Pemilik Rekening</label>
+                                        <input type="text" name="nama_pemilik" class="form-control @error('nama_pemilik') is-invalid @enderror" value="{{ old('nama_pemilik') }}">
+                                        @error('nama_pemilik')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="npwp">NPWP</label>
+                                    <input type="text" name="npwp" class="form-control @error('npwp') is-invalid @enderror" value="{{ old('npwp') }}">
+                                    @error('npwp')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
     </div>
-    <!-- /Main Content -->
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#province').on('change', function () {
+        $(document).ready(function() {
+            $('#province').on('change', function() {
                 let province_id = $(this).val();
                 $('#regency').html('<option value="">Pilih Kota/Kabupaten</option>');
                 $('#district').html('<option value="">Pilih Kecamatan</option>');
                 $('#village').html('<option value="">Pilih Kelurahan/Desa</option>');
-    
+
                 if (province_id) {
-                    $.get('/cities', { province_id: province_id }, function (data) {
-                        $.each(data, function (id, name) {
+                    $.get('/cities', {
+                        province_id: province_id
+                    }, function(data) {
+                        $.each(data, function(id, name) {
                             $('#regency').append(new Option(name, id));
                         });
                     });
                 }
             });
-    
-            $('#regency').on('change', function () {
+
+            $('#regency').on('change', function() {
                 let regency_id = $(this).val();
                 $('#district').html('<option value="">Pilih Kecamatan</option>');
                 $('#village').html('<option value="">Pilih Kelurahan/Desa</option>');
-    
+
                 if (regency_id) {
-                    $.get('/districts', { regency_id: regency_id }, function (data) {
-                        $.each(data, function (id, name) {
+                    $.get('/districts', {
+                        regency_id: regency_id
+                    }, function(data) {
+                        $.each(data, function(id, name) {
                             $('#district').append(new Option(name, id));
                         });
                     });
                 }
             });
-    
-            $('#district').on('change', function () {
+
+            $('#district').on('change', function() {
                 let district_id = $(this).val();
                 $('#village').html('<option value="">Pilih Kelurahan/Desa</option>');
-    
+
                 if (district_id) {
-                    $.get('/villages', { district_id: district_id }, function (data) {
-                        $.each(data, function (id, name) {
+                    $.get('/villages', {
+                        district_id: district_id
+                    }, function(data) {
+                        $.each(data, function(id, name) {
                             $('#village').append(new Option(name, id));
                         });
                     });
@@ -183,5 +170,4 @@
             });
         });
     </script>
-    
 @endsection

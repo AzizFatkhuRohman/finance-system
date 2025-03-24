@@ -1,12 +1,10 @@
 @extends('partials.app')
 @section('content')
-       <!-- Main Content -->
-        <div class="hk-pg-wrapper">
             <!-- Breadcrumb -->
             <nav class="hk-breadcrumb" aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-light bg-transparent">
                     <li class="breadcrumb-item"><a href="#">Forms</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Form Customer</li>
+                    <li class="breadcrumb-item active" aria-current="page">Form Edit Customer</li>
                 </ol>
             </nav>
             <!-- /Breadcrumb -->
@@ -23,7 +21,7 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <section class="hk-sec-wrapper">
-                            <h5 class="hk-sec-title">Tambah Customer</h5>
+                            <h5 class="hk-sec-title">Edit Customer</h5>
                             <p class="mb-25">Untuk menambah customer isi form berikut dengan lengkap.</p>
                             <div class="row">
                                 <div class="col-sm">
@@ -31,12 +29,12 @@
                                         <div class="row">
                                             <div class="col-md-6 form-group">
                                                 <label for="firstName">Nama PT/CV</label>
-                                                <input class="form-control" id="firstName" placeholder="" value="" type="text">
+                                                <input class="form-control" id="firstName" placeholder="Company name" value="" type="text">
                                             </div>
-                                            <div class="col-md-6 form-group">
+                                            <!-- <div class="col-md-6 form-group">
                                                 <label for="lastName">Nama Singkat</label>
                                                 <input class="form-control" id="lastName" placeholder="" value="" type="text">
-                                            </div>
+                                            </div> -->
                                         </div>
 
                                         <div class="form-group">
@@ -69,7 +67,7 @@
                                             </div>
                                             <div class="col-md-3 mb-10">
                                                 <label for="zip">Kode Pos <span class="text-muted">(Optional)</span></label>
-                                                <input class="form-control" id="zip" placeholder="" type="text">
+                                                <input class="form-control" id="zip" placeholder="" type="number">
                                             </div>
                                         </div>
                                         
@@ -81,12 +79,12 @@
                                         <div class="row">
                                             <div class="col-md-6 form-group">
                                                 <label for="cc-name">No Rekening</label>
-                                                <input class="form-control" id="cc-name" placeholder="" type="text">
+                                                <input class="form-control" id="cc-number" placeholder="" type="number">
                                                 <small class="form-text text-muted">Nomor Rekening aktif</small>
                                             </div>
                                             <div class="col-md-6 form-group">
                                                 <label for="cc-number">Nama Pemilik Rekening</label>
-                                                <input class="form-control" id="cc-number" placeholder="" data-mask="9999-9999-9999-9999" type="text">
+                                                <input class="form-control" id="cc-name" placeholder=""  type="text">
                                             </div>
                                         </div>
                                         <div class="row">
@@ -101,7 +99,7 @@
                                             </div>
                                             <div class="col-md-3 form-group">
                                                 <label for="cc-cvv">NPWP</label>
-                                                <input class="form-control" placeholder="" type="text">
+                                                <input class="form-control" placeholder="" type="number">
                                             </div>
                                         </div>
                                         <hr>
@@ -118,7 +116,4 @@
                 <!-- /Row -->
             </div>
             <!-- /Container -->
-
-        </div>
-        <!-- /Main Content -->
 @endsection

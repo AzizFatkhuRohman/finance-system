@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Province;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,9 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        return view('admin.form_supplier');
+        return view('admin.form_supplier',[
+            'provinsi'=>Province::all()
+        ]);
     }
 
     /**
@@ -39,10 +42,10 @@ class SupplierController extends Controller
             'akronim' => 'required|string|max:20',
             'email' => 'required|email|max:50|unique:your_table_name',
             'alamat' => 'required|string|max:255',
-            'province_id' => 'required|string|size:2|exists:provinces,id',
-            'regency_id' => 'required|string|size:4|exists:regencies,id',
-            'district_id' => 'required|string|size:7|exists:districts,id',
-            'village_id' => 'required|string|size:10|exists:villages,id',
+            'province' => 'required|string|size:2|exists:provinces,id',
+            'regency' => 'required|string|size:4|exists:regencies,id',
+            'district' => 'required|string|size:7|exists:districts,id',
+            'village' => 'required|string|size:10|exists:villages,id',
             'kode_pos' => 'nullable|string|size:5',
             'nomor_rekening' => 'required|string|max:30|unique:your_table_name',
             'nama_bank' => 'required|string|max:255',
@@ -62,10 +65,10 @@ class SupplierController extends Controller
             'akronim' => 'Akronim',
             'email' => 'Email',
             'alamat' => 'Alamat',
-            'province_id' => 'Provinsi',
-            'regency_id' => 'Kabupaten/Kota',
-            'district_id' => 'Kecamatan',
-            'village_id' => 'Desa/Kelurahan',
+            'province' => 'Provinsi',
+            'regency' => 'Kabupaten/Kota',
+            'district' => 'Kecamatan',
+            'village' => 'Desa/Kelurahan',
             'kode_pos' => 'Kode Pos',
             'nomor_rekening' => 'Nomor Rekening',
             'nama_bank' => 'Nama Bank',
@@ -96,10 +99,10 @@ class SupplierController extends Controller
             'akronim' => 'required|string|max:20',
             'email' => 'required|email|max:50|unique:your_table_name',
             'alamat' => 'required|string|max:255',
-            'province_id' => 'required|string|size:2|exists:provinces,id',
-            'regency_id' => 'required|string|size:4|exists:regencies,id',
-            'district_id' => 'required|string|size:7|exists:districts,id',
-            'village_id' => 'required|string|size:10|exists:villages,id',
+            'province' => 'required|string|size:2|exists:provinces,id',
+            'regency' => 'required|string|size:4|exists:regencies,id',
+            'district' => 'required|string|size:7|exists:districts,id',
+            'village' => 'required|string|size:10|exists:villages,id',
             'kode_pos' => 'nullable|string|size:5',
             'nomor_rekening' => 'required|string|max:30|unique:your_table_name',
             'nama_bank' => 'required|string|max:255',
@@ -119,10 +122,10 @@ class SupplierController extends Controller
             'akronim' => 'Akronim',
             'email' => 'Email',
             'alamat' => 'Alamat',
-            'province_id' => 'Provinsi',
-            'regency_id' => 'Kabupaten/Kota',
-            'district_id' => 'Kecamatan',
-            'village_id' => 'Desa/Kelurahan',
+            'province' => 'Provinsi',
+            'regency' => 'Kabupaten/Kota',
+            'district' => 'Kecamatan',
+            'village' => 'Desa/Kelurahan',
             'kode_pos' => 'Kode Pos',
             'nomor_rekening' => 'Nomor Rekening',
             'nama_bank' => 'Nama Bank',

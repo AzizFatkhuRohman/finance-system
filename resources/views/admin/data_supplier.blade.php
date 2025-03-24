@@ -22,7 +22,7 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <section class="hk-sec-wrapper">
-                            <h5 class="hk-sec-title">Data Supliers &nbsp; <a href="#"><button class="btn btn-primary btn-sm">Tambah data</button></a></h5>
+                            <h5 class="hk-sec-title">Data Supliers &nbsp; <a href="{{ url('suplier/create') }}"><button class="btn btn-primary btn-sm">Tambah data</button></a></h5>
                             <p class="mb-40">Untuk berinteraksi dengan para <code>Supliers</code> bisa melihat beberapa data berikut dan bisa di lihat lebih detail dari tabel Supliers di bawah ini. </p>
                             <div class="row">
                                 <div class="col-sm">
