@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Province;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -17,7 +18,7 @@ class CustomerController extends Controller
     public function index()
     {
         return view('admin.data_customer',[
-            'data'=>$this->customer->Index()
+            'data'=>$this->customer->Index(),
         ]);
     }
 
@@ -26,7 +27,9 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('admin.form_customer');
+        return view('admin.form_customer',[
+            'provinsi'=>Province::all()
+        ]);
     }
 
     /**
