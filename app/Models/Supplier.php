@@ -34,7 +34,7 @@ class Supplier extends Model
 
     public function Index()
     {
-        return $this->latest();
+        return $this->with('regency')->latest()->get();
     }
     public function Show($id)
     {

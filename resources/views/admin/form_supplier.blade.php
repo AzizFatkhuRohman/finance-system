@@ -95,7 +95,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4 mb-10">
-                                        <label for="regency">Kecamatan</label>
+                                        <label for="district">Kecamatan</label>
                                         <select name="district" id="district"
                                             class="custom-select @error('district') is-invalid @enderror">
                                             <option value="">Pilih Kecamatan</option>
@@ -135,13 +135,23 @@
                                     @enderror
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="nama_bank">Nama Bank</label>
-                                    <input class="form-control @error('nama_bank') is-invalid @enderror" id="nama_bank"
-                                        name="nama_bank" type="text" value="{{ old('nama_bank') }}">
-                                    @error('nama_bank')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label for="nama_bank">Nama Bank</label>
+                                        <input class="form-control @error('nama_bank') is-invalid @enderror" id="nama_bank"
+                                            name="nama_bank" type="text" value="{{ old('nama_bank') }}">
+                                        @error('nama_bank')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="nama_bank">Cabang Bank</label>
+                                        <input class="form-control @error('cabang') is-invalid @enderror" id="cabang"
+                                            name="cabang" type="text" value="{{ old('cabang') }}">
+                                        @error('cabang')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
