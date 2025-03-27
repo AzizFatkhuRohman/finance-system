@@ -6,14 +6,18 @@
                     <li class="breadcrumb-item"><a href="#">Pages</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Penjualan</li>
                 </ol>
+                
             </nav>
+            
             <!-- /Breadcrumb -->
 			<!-- Container -->
             <div class="container-fluid">
                 <!-- Title -->
                 <div class="hk-pg-header">
                     <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="layers"></i></span></span>Penjualan</h4>
+                    <a href="{{ url('penjualan/create') }}"><button class="btn btn-primary btn-sm">Tambah data</button></a>
                 </div>
+                
                 <!-- /Title -->
 
                 <!-- Row -->

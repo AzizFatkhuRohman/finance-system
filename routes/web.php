@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChartOfAccountController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegionController;
@@ -20,6 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('customer', CustomerController::class);
     Route::resource('suplier', SupplierController::class);
     Route::resource('produk', ProductController::class);
+    Route::resource('penjualan',PenjualanController::class);
 
     //Region
     Route::get('/cities', [RegionController::class, 'getCities']);
@@ -57,5 +59,3 @@ Route::get('buku_besar', function () {
 Route::get('rl', function () {
     return view('admin.rl');
 });
-
-//Akun
