@@ -11,9 +11,9 @@
         <div class="loader-pendulums"></div>
     </div>
     <!-- /Preloader -->
-	
-	<!-- HK Wrapper -->
-	<div class="hk-wrapper hk-alt-nav">
+
+    <!-- HK Wrapper -->
+    <div class="hk-wrapper hk-alt-nav">
 
         <!-- Top Navbar -->
         @include('partials.navbar')
@@ -22,21 +22,21 @@
 
         <!-- Main Content -->
         <div class="hk-pg-wrapper">
-			<!-- Container -->
+            <!-- Container -->
             @if (session('success'))
-            <script>
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Berhasil!',
-                    text: '{{ session("success") }}',
-                    showConfirmButton: false,
-                    timer:3000
-                });
-            </script>
+                <script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil!',
+                        text: '{{ session('success') }}',
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+                </script>
             @endif
             @yield('content')
             <!-- /Container -->
-			
+
             <!-- Footer -->
             <div class="hk-footer-wrap container-fluid">
                 @include('partials.footer')
@@ -50,7 +50,7 @@
 
     <!-- Assets JS -->
     @include('partials.js')
-	
+
 </body>
 
 </html>

@@ -55,10 +55,25 @@
                                                             data-toggle="tooltip" data-original-title="Edit">
                                                             <i class="icon-pencil"></i>
                                                         </a>
-                                                        <form action="{{ url('customer/' . $item->id) }}" method="post">
+                                                        <form action="{{ url('customer/' . $item->id) }}" method="post"
+                                                            id="delete-form-{{ $item->id }}">
                                                             @csrf
                                                             @method('delete')
-                                                            <button type="submit" class="btn btn-sm">
+                                                            <button type="button" class="btn btn-sm"
+                                                                onclick="Swal.fire({
+                                                                title: 'Apakah Anda yakin?',
+                                                                text: 'Data ini akan dihapus permanen!',
+                                                                icon: 'warning',
+                                                                showCancelButton: true,
+                                                                confirmButtonText: 'Hapus',
+                                                                cancelButtonText: 'Batal',
+                                                                reverseButtons: true
+                                                            }).then((result) => {
+                                                                if (result.isConfirmed) {
+                                                                    // Jika user memilih 'Hapus', submit form untuk menghapus data
+                                                                    document.getElementById('delete-form-{{ $item->id }}').submit();
+                                                                }
+                                                            });">
                                                                 <i class="icon-trash txt-danger" data-toggle="tooltip"
                                                                     data-original-title="Hapus"></i>
                                                             </button>

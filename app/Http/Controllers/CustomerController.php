@@ -103,8 +103,9 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        return view('admin.form_edit',[
-            'data'=>$this->customer->Show($id)
+        return view('admin.edit_customer',[
+            'data'=>$this->customer->Show($id),
+            'provinsi'=>Province::all()
         ]);
     }
 
@@ -114,9 +115,9 @@ class CustomerController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nama_perusahaan'=>'required|unique:customers|max:255',
+            'nama_perusahaan'=>'required|max:255',
             'akronim'=>'required|max:20',
-            'email'=>'required|unique:customers|max:50',
+            'email'=>'required|max:50',
             'alamat'=>'required|max:255',
             'province'=>'required',
             'regency'=>'required',

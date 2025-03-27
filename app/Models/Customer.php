@@ -36,7 +36,7 @@ class Customer extends Model
         return $this->with('regency')->latest()->get();
     }
     public function Show($id){
-        return $this->find($id);
+        return $this->with('province','regency','district','village')->find($id);
     }
     public function Store($data){
         return $this->create($data);

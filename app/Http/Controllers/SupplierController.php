@@ -101,8 +101,9 @@ class SupplierController extends Controller
      */
     public function show($id)
     {
-        return view('admin.data_supplier', [
-            'data' => $this->supplier->Show($id)
+        return view('admin.edit_suplier', [
+            'data' => $this->supplier->Show($id),
+            'provinsi' => Province::all()
         ]);
     }
     /**
@@ -111,16 +112,16 @@ class SupplierController extends Controller
     public function update(Request $request, $id)
     {
         $val = $request->validate([
-            'nama_perusahaan' => 'required|string|max:255|unique:suppliers',
+            'nama_perusahaan' => 'required|string|max:255',
             'akronim' => 'required|string|max:20',
-            'email' => 'required|email|max:50|unique:suppliers',
+            'email' => 'required|email|max:50',
             'alamat' => 'required|string|max:255',
             'province' => 'required|string|size:2|exists:provinces,id',
             'regency' => 'required|string|size:4|exists:regencies,id',
             'district' => 'required|string|size:7|exists:districts,id',
             'village' => 'required|string|size:10|exists:villages,id',
             'kode_pos' => 'nullable|string|size:5',
-            'nomor_rekening' => 'required|string|max:30|unique:suppliers',
+            'nomor_rekening' => 'required|string|max:30',
             'nama_bank' => 'required|string|max:255',
             'nama_pemilik' => 'required|string|max:255',
             'cabang' => 'required|string|max:255',
@@ -130,7 +131,6 @@ class SupplierController extends Controller
             'string' => ':attribute harus berupa teks.',
             'max' => ':attribute tidak boleh lebih dari :max karakter.',
             'size' => ':attribute harus :size karakter.',
-            'unique' => ':attribute sudah digunakan, silakan gunakan yang lain.',
             'email' => ':attribute harus berupa alamat email yang valid.',
             'exists' => ':attribute tidak valid.',
         ], [
@@ -149,8 +149,23 @@ class SupplierController extends Controller
             'cabang' => 'Cabang Bank',
             'npwp' => 'NPWP',
         ]);
-        $this->supplier->Edit($id, $val);
-        return redirect('supplier')->with('success', 'Supplier berhasil di ubah');
+        $this->supplier->Edit($id, [
+            'nama_perusahaan' => $request->input('nama_perusahaan'),
+            'akronim' => $request->input('akronim'),
+            'email' => $request->input('email'),
+            'alamat' => $request->input('alamat'),
+            'province_id' => $request->input('province'),
+            'regency_id' => $request->input('regency'),
+            'district_id' => $request->input('district'),
+            'village_id' => $request->input('village'),
+            'kode_pos' => $request->input('kode_pos'),
+            'nomor_rekening' => $request->input('nomor_rekening'),
+            'nama_bank' => $request->input('nama_bank'),
+            'nama_pemilik' => $request->input('nama_pemilik'),
+            'cabang' => $request->input('cabang'),
+            'npwp' => $request->input('npwp')
+        ]);
+        return redirect('suplier')->with('success', 'Supplier berhasil di ubah');
     }
 
     /**
@@ -159,6 +174,6 @@ class SupplierController extends Controller
     public function destroy($id)
     {
         $this->supplier->Trash($id);
-        return redirect('supplier')->with('success', 'Supplier berhasil di hapus');
+        return redirect('suplier')->with('success', 'Supplier berhasil di hapus');
     }
 }
