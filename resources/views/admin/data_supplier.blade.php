@@ -34,8 +34,9 @@
                                     <thead>
                                         <tr>
                                             <th>Nama PT/CV</th>
+                                            <th>Kode</th>
                                             <th>Email</th>
-                                            <th>Kota</th>
+                                            <th>Alamat</th>
                                             <th>Pemilik</th>
                                             <th>Start date</th>
                                             <th>Option</th>
@@ -45,8 +46,9 @@
                                         @foreach ($data as $item)
                                             <tr>
                                                 <td>{{ $item->nama_perusahaan }}</td>
+                                                <td>{{$item->code_supplier}}</td>
                                                 <td>{{ $item->email }}</td>
-                                                <td>{{ $item->regency->name }}</td>
+                                                <td>{{ $item->alamat }}</td>
                                                 <td>{{ $item->nama_pemilik }}</td>
                                                 <td>{{ $item->created_at }}</td>
                                                 <td>
@@ -85,8 +87,9 @@
                                     <tfoot>
                                         <tr>
                                             <th>Nama PT/CV</th>
+                                            <th>Kode</th>
                                             <th>Email</th>
-                                            <th>Kota</th>
+                                            <th>Alamat</th>
                                             <th>Pemilik</th>
                                             <th>Start date</th>
                                             <th>Option</th>

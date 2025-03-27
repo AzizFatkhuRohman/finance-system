@@ -39,14 +39,14 @@
                                     @enderror
                                 </div>
 
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="akronim">Akronim</label>
                                     <input class="form-control @error('akronim') is-invalid @enderror" id="akronim"
                                         name="akronim" type="text" value="{{ old('akronim') }}">
                                     @error('akronim')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
-                                </div>
+                                </div> --}}
 
                                 <div class="form-group">
                                     <label for="email">Email</label>
@@ -59,14 +59,13 @@
 
                                 <div class="form-group">
                                     <label for="alamat">Alamat</label>
-                                    <input class="form-control @error('alamat') is-invalid @enderror" id="alamat"
-                                        name="alamat" type="text" value="{{ old('alamat') }}">
+                                    <textarea name="alamat" class="form-control @error('alamat') is-invalid @enderror" rows="4">{{ old('alamat') }}</textarea>
                                     @error('alamat')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
 
-                                <div class="row">
+                                {{-- <div class="row">
                                     <div class="col-md-6 mb-10">
                                         <label for="province">Provinsi</label>
                                         <select name="province" id="province"
@@ -123,7 +122,7 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="form-group">
                                     <label for="nomor_rekening">No Rekening</label>

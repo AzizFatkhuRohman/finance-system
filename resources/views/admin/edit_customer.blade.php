@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-xl-12">
                 <section class="hk-sec-wrapper">
-                    <h5 class="hk-sec-title">Edit Customer</h5>
+                    <h5 class="hk-sec-title">Edit Customer {{$data->code_customer}}</h5>
                     <p class="mb-25">Isi form berikut dengan lengkap.</p>
                     <div class="row">
                         <div class="col-sm">
@@ -26,7 +26,7 @@
                                 @csrf
                                 @method('put')
                                 <div class="row">
-                                    <div class="col-md-6 form-group">
+                                    <div class="col-md-12 form-group">
                                         <label for="nama_perusahaan">Nama PT/CV</label>
                                         <input type="text" name="nama_perusahaan"
                                             class="form-control @error('nama_perusahaan') is-invalid @enderror"
@@ -35,7 +35,7 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="col-md-6 form-group">
+                                    {{-- <div class="col-md-6 form-group">
                                         <label for="akronim">Akronim</label>
                                         <input type="text" name="akronim"
                                             class="form-control @error('akronim') is-invalid @enderror"
@@ -43,7 +43,7 @@
                                         @error('akronim')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
-                                    </div>
+                                    </div> --}}
                                 </div>
 
                                 <div class="form-group">
@@ -58,15 +58,13 @@
 
                                 <div class="form-group">
                                     <label for="alamat">Alamat</label>
-                                    <input type="text" name="alamat"
-                                        class="form-control @error('alamat') is-invalid @enderror"
-                                        value="{{ old('alamat',$data->alamat) }}">
+                                    <textarea name="alamat" class="form-control @error('alamat') is-invalid @enderror" rows="4">{{ old('alamat', $data->alamat) }}</textarea>
                                     @error('alamat')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
-                                </div>
+                                </div>                                
 
-                                <div class="row">
+                                {{-- <div class="row">
                                     <div class="col-md-6 mb-10">
                                         <label for="province">Provinsi</label>
                                         <select name="province" id="province"
@@ -124,7 +122,7 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <h6 class="form-group">Informasi Bank</h6>
                                 <div class="row">
