@@ -6,9 +6,9 @@
                     <li class="breadcrumb-item"><a href="#">Pages</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Penjualan</li>
                 </ol>
-                
+
             </nav>
-            
+
             <!-- /Breadcrumb -->
 			<!-- Container -->
             <div class="container-fluid">
@@ -17,7 +17,7 @@
                     <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="layers"></i></span></span>Penjualan</h4>
                     <a href="{{ url('penjualan/create') }}"><button class="btn btn-primary btn-sm">Tambah data</button></a>
                 </div>
-                
+
                 <!-- /Title -->
 
                 <!-- Row -->
@@ -238,32 +238,9 @@
                                                                 <td><span class="text-muted"><i class="icon-clock font-13"></i> Oct 16, 2016</span></td>
                                                                 <td>Rp. 450.000</td>
                                                                 <td><div class="badge badge-success">created</div></td>
-                                                                <td><a href="#">Print</a></td>
+                                                                <td><a href="{{ url('penjualan/create') }}">Print</a></td>
                                                             </tr>
-                                                            <tr>
-                                                                <td><a href="javascript:void(0)">Order #58746</a></td>
-                                                                <td>PT. ABC</td>
-                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Oct 12, 2016</span></td>
-                                                                <td>Rp. 245.300</td>
-                                                                <td><div class="badge badge-success">created</div></td>
-                                                                <td><a href="#">Print</a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><a href="javascript:void(0)">Order #98458</a></td>
-                                                                <td>PT. ABC</td>
-                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> May 18, 2016</span></td>
-                                                                <td>Rp. 380.000</td>
-                                                                <td><div class="badge badge-success">created</div></td>
-                                                                <td><a href="#">Print</a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><a href="javascript:void(0)">Order #32658</a></td>
-                                                                <td>PT. ABC</td>
-                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Apr 28, 2016</span></td>
-                                                                <td>Rp. 770.990</td>
-                                                                <td><div class="badge badge-success">created</div></td>
-                                                                <td><a href="#">Print</a></td>
-                                                            </tr>
+
                                                         </tbody>
                                                     </table>
                                                 </div>

@@ -70,4 +70,7 @@ class PenjualanController extends Controller
     {
         //
     }
+    public function quotation(){
+        return view('admin.quotation');
+    }
 }

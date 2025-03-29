@@ -24,7 +24,9 @@
             <div class="col-xl-12">
                 <section class="hk-sec-wrapper">
                     <h5 class="hk-sec-title">Data Customers &nbsp;&nbsp; <a href="{{ url('customer/create') }}"><button
-                                class="btn btn-primary btn-sm">Tambah data</button></a></h5>
+                                class="btn btn-primary btn-sm">Tambah data</button></a>&nbsp;&nbsp;<a href="{{ url('customer/araging') }}"><button
+                                    class="btn btn-warning btn-sm">AR Aging</button></a></h5>
+
                     <p class="mb-40">Untuk berinteraksi dengan para <code>customers</code> bisa melihat beberapa data
                         berikut dan bisa di lihat lebih detail dari tabel customer di bawah ini.</p>
                     <div class="row">
@@ -33,11 +35,11 @@
                                 <table id="datable_1" class="table table-hover mb-x0">
                                     <thead>
                                         <tr>
+                                            <th>No</th>
+                                            <th>Kode Customer</th>
                                             <th>Nama PT/CV</th>
-                                            <th>Kode</th>
                                             <th>Email</th>
                                             <th>Alamat</th>
-                                            <th>Pemilik</th>
                                             <th>Start date</th>
                                             <th>Option</th>
                                         </tr>
@@ -49,7 +51,7 @@
                                                 <td>{{$item->code_customer}}</td>
                                                 <td>{{ $item->email }}</td>
                                                 <td>{{ $item->alamat}}</td>
-                                                <td>{{ $item->nama_pemilik }}</td>
+
                                                 <td>{{ $item->created_at }}</td>
                                                 <td>
                                                     <div class="d-flex align-items-center">
@@ -87,11 +89,12 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
+                                            <th>No</th>
+                                            <th>Kode Customer</th>
                                             <th>Nama PT/CV</th>
-                                            <th>Kode</th>
                                             <th>Email</th>
                                             <th>Alamat</th>
-                                            <th>Pemilik</th>
+
                                             <th>Start date</th>
                                             <th>Option</th>
                                         </tr>

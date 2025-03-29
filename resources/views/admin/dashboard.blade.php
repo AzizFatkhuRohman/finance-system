@@ -24,7 +24,7 @@
 											</div>
 										</div>
 									</div>
-								
+
 									<div class="card card-sm">
 										<div class="card-body">
 											<div class="d-flex justify-content-between mb-5">
@@ -41,7 +41,7 @@
 											</div>
 										</div>
 									</div>
-								
+
 									<div class="card card-sm">
 										<div class="card-body">
 											<div class="d-flex justify-content-between mb-5">
@@ -58,7 +58,7 @@
 											</div>
 										</div>
 									</div>
-								
+
 									<div class="card card-sm">
 										<div class="card-body">
 											<div class="d-flex justify-content-between mb-5">
@@ -76,7 +76,7 @@
 										</div>
 									</div>
 								</div>
-							</div>	
+							</div>
 						</div>
 					   <!-- card -->
                        <section class="hk-sec-wrapper">
@@ -93,7 +93,7 @@
                                                 <div class="card-body">
                                                     <h5 class="card-title">Informasi Penjualan</h5>
                                                     <p class="card-text">Mendukung segala pencatatan Penjualan dengan konten yang sudah disediakan.</p>
-                                                    <a href="#" class="btn btn-primary">Jalan Pintas</a>
+                                                    <a href="{{ url('penjualan') }}" class="btn btn-primary">Jalan Pintas</a>
                                                 </div>
                                                 <div class="card-footer text-muted">
                                                     Tentang Penjualan
@@ -108,7 +108,7 @@
                                                 <div class="card-body">
                                                     <h5 class="card-title">Informasi Biaya</h5>
                                                     <p class="card-text">Mendukung segala pencatatan Biaya dengan konten yang sudah disediakan.</p>
-                                                    <a href="#" class="btn btn-primary">Jalan Pintas</a>
+                                                    <a href="{{ url('biaya') }}" class="btn btn-primary">Jalan Pintas</a>
                                                 </div>
                                                 <div class="card-footer text-muted">
                                                     Tentang Biaya
@@ -116,13 +116,13 @@
                                             </div>
                                         </div>
 
-                                        
+
                                     </div>
                                 </div>
                             </div>
                         </section>
                         <!-- close card -->
-						
+
 					</div>
                 </div>
                 <!-- /Row -->

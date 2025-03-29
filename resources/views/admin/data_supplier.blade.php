@@ -33,11 +33,12 @@
                                 <table id="datable_1" class="table table-hover mb-x0">
                                     <thead>
                                         <tr>
+                                            <th>No</th>
                                             <th>Nama PT/CV</th>
                                             <th>Kode</th>
                                             <th>Email</th>
                                             <th>Alamat</th>
-                                            <th>Pemilik</th>
+
                                             <th>Start date</th>
                                             <th>Option</th>
                                         </tr>
@@ -45,11 +46,12 @@
                                     <tbody>
                                         @foreach ($data as $item)
                                             <tr>
+                                                <td></td>
                                                 <td>{{ $item->nama_perusahaan }}</td>
                                                 <td>{{$item->code_supplier}}</td>
                                                 <td>{{ $item->email }}</td>
                                                 <td>{{ $item->alamat }}</td>
-                                                <td>{{ $item->nama_pemilik }}</td>
+
                                                 <td>{{ $item->created_at }}</td>
                                                 <td>
                                                     <div class="d-flex align-items-center">
@@ -86,11 +88,12 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
+                                            <th>No</th>
                                             <th>Nama PT/CV</th>
                                             <th>Kode</th>
                                             <th>Email</th>
                                             <th>Alamat</th>
-                                            <th>Pemilik</th>
+
                                             <th>Start date</th>
                                             <th>Option</th>
                                         </tr>

@@ -73,3 +73,12 @@
 <script src="{{ asset('vendors/moment/min/moment.min.js') }}"></script>
 <script src="{{ asset('vendors/daterangepicker/daterangepicker.js') }}"></script>
 <script src="{{ asset('dist/js/daterangepicker-data.js') }}"></script>
+
+<!-- Dropzone JavaScript -->
+<script src="{{ asset('vendors/dropzone/dist/dropzone.js') }}"></script>
+
+<!-- Form Flie Upload Data JavaScript -->
+<script src="{{ asset('dist/js/form-file-upload-data.js') }}"></script>
+
+<!-- Dropify JavaScript -->
+<script src="{{ asset('vendors/dropify/dist/js/dropify.min.js')}}"></script>

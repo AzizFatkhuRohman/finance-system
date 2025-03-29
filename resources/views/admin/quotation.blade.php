@@ -5,7 +5,7 @@
     <!-- Title -->
     <div class="hk-pg-header mb-10">
         <div>
-            <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="book"></i></span></span>Invoice</h4>
+            <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="book"></i></span></span>Quotation</h4>
         </div>
 
     </div>
@@ -28,9 +28,9 @@
                                 </address>
                         </div>
                         <div class="col-md-5 mb-20">
-                            <h4 class="mb-35 font-weight-600">Invoice</h4>
+                            <h4 class="mb-35 font-weight-600">Quotation</h4>
                             <span class="d-block">Date:<span class="pl-10 text-dark">Nov 17,2017 11:23 AM</span></span>
-                            <span class="d-block">Invoice No #<span class="pl-10 text-dark">21321434</span></span>
+                            <span class="d-block">Quotation No #<span class="pl-10 text-dark">21321434</span></span>
                             <span class="d-block">Customer #<span class="pl-10 text-dark">321434</span></span>
                         </div>
                     </div>

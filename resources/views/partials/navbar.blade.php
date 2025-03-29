@@ -2,13 +2,13 @@
     <a class="navbar-toggle-btn nav-link-hover navbar-toggler" href="javascript:void(0);" data-toggle="collapse"
         data-target="#navbarCollapseAlt" aria-controls="navbarCollapseAlt" aria-expanded="false"
         aria-label="Toggle navigation"><span class="feather-icon"><i data-feather="menu"></i></span></a>
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="{{ url('/') }}">
         <img class="brand-img d-inline-block align-top" src="{{ asset('dist/img/logo_dwi2.png') }}" alt="brand" />
     </a>
     <div class="collapse navbar-collapse" id="navbarCollapseAlt">
         <ul class="navbar-nav">
             <li class="nav-item dropdown show-on-hover active">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                <a class="nav-link dropdown-toggle" href="{{ url('/') }}" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                     Dashboard
                 </a>
@@ -70,7 +70,7 @@
                 <div class="media">
                     <div class="media-img-wrap">
                         <div class="avatar">
-                            <img src="{{ asset('dist/img/avatar5.jpg') }}" alt="user"
+                            <img src="{{ asset('dist/img/avatarb.jpg') }}" alt="user"
                                 class="avatar-img rounded-circle">
                         </div>
                         <span class="badge badge-success badge-indicator"></span>

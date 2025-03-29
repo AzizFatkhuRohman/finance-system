@@ -3,7 +3,7 @@
     <nav class="hk-breadcrumb" aria-label="breadcrumb">
         <ol class="breadcrumb breadcrumb-light bg-transparent">
             <li class="breadcrumb-item"><a href="#">Forms</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Form Penjualan</li>
+            <li class="breadcrumb-item active" aria-current="page">Form Pengiriman</li>
         </ol>
     </nav>
 
@@ -13,7 +13,7 @@
                 <span class="pg-title-icon">
                     <span class="feather-icon"><i data-feather="align-left"></i></span>
                 </span>
-                Form Penjualan
+                Form Pengiriman
             </h4>
         </div>
 
@@ -29,7 +29,7 @@
                                         <label for="nama_bank">Nama Customer</label>
                                         <input class="form-control form-control-sm @error('nama_customer') is-invalid @enderror"
                                             id="nama_bank" name="nama_bank" type="text"
-                                            value="{{ old('nama_customer') }}">
+                                            value="{{ old('nama_customer') }}" readonly>
                                         @error('nama_bank')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -37,7 +37,7 @@
                                     <div class="col-lg-6">
                                         <label for="tanggal">Tanggal</label>
                                         <input class="form-control form-control-sm @error('tgl') is-invalid @enderror" id="cabang"
-                                            name="cabang" type="date" value="{{ old('tgl') }}">
+                                            name="cabang" type="date" value="{{ old('tgl') }}" readonly>
                                         @error('tgl')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -48,7 +48,7 @@
                                     <div class="col-md-6 form-group">
                                         <label for="nomor_rekening">Alamat Pengiriman</label>
                                         <textarea name="alamat"
-                                            class="form-control @error('nomor_rekening') is-invalid @enderror">{{ old('nomor_rekening') }}</textarea>
+                                            class="form-control @error('nomor_rekening') is-invalid @enderror" readonly>{{ old('nomor_rekening') }}</textarea>
                                         @error('nomor_rekening')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -57,7 +57,7 @@
                                         <label for="nama_pemilik">Kode Transaksi</label>
                                         <input type="text" name="kode_transaksi"
                                             class="form-control form-control-sm @error('kode_transaksi') is-invalid @enderror"
-                                            value="{{ old('kode_transaksi') }}">
+                                            value="{{ old('kode_transaksi') }}" readonly>
                                         @error('kode_transaksi')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -79,7 +79,7 @@
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <select class="form-control custom-select-sm">
+                                                    <select class="form-control custom-select-sm" readonly>
                                                         <option selected>Kode Akun</option>
                                                         <option value="1">One</option>
                                                         <option value="2">Two</option>
@@ -87,15 +87,15 @@
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <select class="form-control custom-select-sm">
+                                                    <select class="form-control custom-select-sm" readonly>
                                                         <option selected>Pilih Produk</option>
                                                         <option value="1">One</option>
                                                         <option value="2">Two</option>
                                                         <option value="3">Three</option>
                                                     </select>
                                                 </td>
-                                                <td><input type="number" name="quantity" class="form-control form-control-sm" value=""></td>
-                                                <td><input type="text" name="harga" class="form-control form-control-sm" value=""></td>
+                                                <td><input type="number" name="quantity" class="form-control form-control-sm" value="" readonly></td>
+                                                <td><input type="text" name="harga" class="form-control form-control-sm" value="" readonly></td>
                                                 <td><input type="text" name="total_harga" class="form-control form-control-sm" value="" readonly></td>
                                             </tr>
                                         </tbody>
@@ -110,14 +110,14 @@
                                                 <th style="width: 20%;"></th>
                                                 <th style="width: 20%;"></th>
                                                 <th>Pajak</th>
-                                                <th><input type="text" class="form-control form-control-sm"></th>
+                                                <th><input type="text" class="form-control form-control-sm" readonly></th>
                                             </tr>
                                             <tr>
                                                 <th style="width: 20%;"></th>
                                                 <th style="width: 20%;"></th>
                                                 <th style="width: 20%;"></th>
                                                 <th>Diskon</th>
-                                                <th><input type="text" class="form-control form-control-sm"></th>
+                                                <th><input type="text" class="form-control form-control-sm" readonly></th>
                                             </tr>
                                             <tr>
                                                 <th style="width: 20%;"></th>
