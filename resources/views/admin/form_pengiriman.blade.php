@@ -124,7 +124,7 @@
                                                 <th style="width: 20%;"></th>
                                                 <th style="width: 20%;"></th>
                                                 <th><strong>Total</strong></th>
-                                                <th><input type="text" class="form-control form-control-sm" readonly></th>
+                                                <th><input type="text" name="total" class="form-control form-control-sm" readonly></th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -145,8 +145,25 @@
                                         </div>
                                     </section>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                                <button type="button" id="editButton" class="btn btn-warning btn-sm">Edit</button>
                             </form>
+                            <script>
+                                document.getElementById('editButton').addEventListener('click', function () {
+                                    const inputs = document.querySelectorAll('input, textarea, select');
+                                    const isReadonly = inputs[0].hasAttribute('readonly');
+                                    inputs.forEach(input => {
+                                        if (input.name !== 'total_harga' && input.name !== 'total') { // Exclude specific inputs
+                                            if (isReadonly) {
+                                                input.removeAttribute('readonly');
+                                            } else {
+                                                input.setAttribute('readonly', true);
+                                            }
+                                        }
+                                    });
+                                    this.textContent = isReadonly ? 'Update' : 'Edit';
+                                });
+                            </script>
                         </div>
                     </div>
                 </section>

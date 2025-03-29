@@ -233,7 +233,7 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                                <td><a href="javascript:void(0)">Order #26589</a></td>
+                                                                <td><a href="{{ url('spk') }}">Order #26589</a></td>
                                                                 <td>PT. ABC</td>
                                                                 <td><span class="text-muted"><i class="icon-clock font-13"></i> Oct 16, 2016</span></td>
                                                                 <td>Rp. 450.000</td>

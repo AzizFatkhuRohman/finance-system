@@ -191,4 +191,8 @@ class CustomerController extends Controller
         $this->customer->Trash($id);
         return redirect('customer')->with('success', 'Data berhasil di buat');
     }
+
+    public function araging(){
+        return view('admin.araging');
+    }
 }

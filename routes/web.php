@@ -23,6 +23,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('produk', ProductController::class);
     Route::resource('penjualan',PenjualanController::class);
     Route::get('quotation', [PenjualanController::class, 'quotation']);
+    Route::get('araging',[CustomerController::class, 'araging']);
+    Route::get('spk',[PenjualanController::class, 'spk']);
 
     //Region
     Route::get('/cities', [RegionController::class, 'getCities']);

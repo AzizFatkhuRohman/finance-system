@@ -73,4 +73,8 @@ class PenjualanController extends Controller
     public function quotation(){
         return view('admin.quotation');
     }
+
+    public function spk(){
+        return view('admin.form_pengiriman');
+    }
 }

@@ -24,7 +24,7 @@
             <div class="col-xl-12">
                 <section class="hk-sec-wrapper">
                     <h5 class="hk-sec-title">Data Customers &nbsp;&nbsp; <a href="{{ url('customer/create') }}"><button
-                                class="btn btn-primary btn-sm">Tambah data</button></a>&nbsp;&nbsp;<a href="{{ url('customer/araging') }}"><button
+                                class="btn btn-primary btn-sm">Tambah data</button></a>&nbsp;&nbsp;<a href="{{ url('araging') }}"><button
                                     class="btn btn-warning btn-sm">AR Aging</button></a></h5>
 
                     <p class="mb-40">Untuk berinteraksi dengan para <code>customers</code> bisa melihat beberapa data
