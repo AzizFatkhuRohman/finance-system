@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- 
+<!--
 Template Name: Griffin - Responsive Bootstrap 4 Admin Dashboard Template
 Author: Hencework
 Support: support@hencework.com
@@ -12,15 +12,15 @@ License: You must have a valid license purchased only from templatemonster to le
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<title>Login</title>
 		<meta name="description" content="A responsive bootstrap 4 admin dashboard template by hencework" />
-		
+
 		<!-- Favicon -->
-		<link rel="shortcut icon" href="favicon.ico">
-		<link rel="icon" href="favicon.ico" type="image/x-icon">
-		
+		<link rel="shortcut icon" href="{{ asset('dist/img/logo_dwi2.png') }}">
+		<link rel="icon" href="{{ asset('dist/img/logo_dwi2.png') }}" type="image/x-icon">
+
 		<!-- Toggles CSS -->
 		<link href="vendors/jquery-toggles/css/toggles.css" rel="stylesheet" type="text/css">
 		<link href="vendors/jquery-toggles/css/themes/toggles-light.css" rel="stylesheet" type="text/css">
-		
+
 		<!-- Custom CSS -->
 		<link href="dist/css/style.css" rel="stylesheet" type="text/css">
 	</head>
@@ -30,10 +30,10 @@ License: You must have a valid license purchased only from templatemonster to le
 			<div class="loader-pendulums"></div>
 		</div>
 		<!-- /Preloader -->
-		
+
 		<!-- HK Wrapper -->
 		<div class="hk-wrapper">
-			
+
 			<!-- Main Content -->
 			<div class="hk-pg-wrapper hk-auth-wrapper">
 				<!-- <header class="d-flex justify-content-end align-items-center">
@@ -53,7 +53,7 @@ License: You must have a valid license purchased only from templatemonster to le
 									<form method="POST" action="{{ url('dashboard') }}">
 										@csrf
 										<h1 class="display-4 text-center mb-10">Welcome</h1>
-										<p class="text-center mb-30">Sign in to your account</p> 
+										<p class="text-center mb-30">Sign in to your account</p>
 										<div class="form-group">
 											<input class="form-control" placeholder="Email" type="email">
 										</div>
@@ -72,7 +72,7 @@ License: You must have a valid license purchased only from templatemonster to le
 										<button class="btn btn-primary btn-block" type="submit">Login</button>
 										<!-- <p class="font-14 text-center mt-15">Having trouble logging in?</p> -->
 										<div class="option-sep">Success</div>
-										
+
 										<p class="text-center">Tidak bisa Login ? <a href="#">Forgot password</a></p>
 									</form>
 								</div>
@@ -82,28 +82,28 @@ License: You must have a valid license purchased only from templatemonster to le
 				</div>
 			</div>
 			<!-- /Main Content -->
-		
+
 		</div>
 		<!-- /HK Wrapper -->
-		
+
 		<!-- JavaScript -->
-		
+
 		<!-- jQuery -->
 		<script src="vendors/jquery/dist/jquery.min.js"></script>
-		
+
 		<!-- Bootstrap Core JavaScript -->
 		<script src="vendors/popper.js/dist/umd/popper.min.js"></script>
 		<script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-		
+
 		<!-- Slimscroll JavaScript -->
 		<script src="dist/js/jquery.slimscroll.js"></script>
-	
+
 		<!-- Fancy Dropdown JS -->
 		<script src="dist/js/dropdown-bootstrap-extended.js"></script>
-		
+
 		<!-- FeatherIcons JavaScript -->
 		<script src="dist/js/feather.min.js"></script>
-		
+
 		<!-- Init JavaScript -->
 		<script src="dist/js/init.js"></script>
 	</body>

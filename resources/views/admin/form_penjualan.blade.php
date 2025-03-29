@@ -27,9 +27,12 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <label for="nama_bank">Nama Customer</label>
-                                        <input class="form-control form-control-sm @error('nama_customer') is-invalid @enderror"
-                                            id="nama_bank" name="nama_bank" type="text"
-                                            value="{{ old('nama_customer') }}">
+                                        <select class="form-control custom-select-sm" name="nama_customer" value="{{ old('nama_customer') }}">
+                                            <option selected>Customer</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
                                         @error('nama_bank')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -76,10 +79,10 @@
                                                 <th>Total Harga</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="dynamic-rows">
                                             <tr>
                                                 <td>
-                                                    <select class="form-control custom-select-sm">
+                                                    <select class="form-control custom-select-sm" name="kode_akun[]">
                                                         <option selected>Kode Akun</option>
                                                         <option value="1">One</option>
                                                         <option value="2">Two</option>
@@ -87,20 +90,22 @@
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <select class="form-control custom-select-sm">
+                                                    <select class="form-control custom-select-sm" name="produk[]">
                                                         <option selected>Pilih Produk</option>
                                                         <option value="1">One</option>
                                                         <option value="2">Two</option>
                                                         <option value="3">Three</option>
                                                     </select>
                                                 </td>
-                                                <td><input type="number" name="quantity" class="form-control form-control-sm" value=""></td>
-                                                <td><input type="text" name="harga" class="form-control form-control-sm" value=""></td>
-                                                <td><input type="text" name="total_harga" class="form-control form-control-sm" value="" readonly></td>
+                                                <td><input type="number" name="quantity[]" class="form-control form-control-sm" value=""></td>
+                                                <td><input type="text" name="harga[]" class="form-control form-control-sm" value=""></td>
+                                                <td><input type="text" name="total_harga[]" class="form-control form-control-sm" value="" readonly></td>
+                                                <td><button type="button" class="btn btn-danger btn-sm remove-row"><i class="icon-trash txt-danger"></i></button></td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </br>
+                                <button type="button" id="add-row" class="btn btn-success btn-sm"><i class="icon-plus"> Tambah Produk</i></button>
                                 </div>
                                 <div class="table-wrap">
                                     <table class="table table-hover mb-x0">
@@ -153,4 +158,40 @@
             </div>
         </div>
     </div>
+    <script>
+        // JavaScript untuk menambah input barang
+        document.getElementById('add-row').addEventListener('click', function () {
+            const tableBody = document.getElementById('dynamic-rows');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>
+                    <select class="form-control custom-select-sm" name="kode_akun[]">
+                        <option selected>Kode Akun</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </td>
+                <td>
+                    <select class="form-control custom-select-sm" name="produk[]">
+                        <option selected>Pilih Produk</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </td>
+                <td><input type="number" name="quantity[]" class="form-control form-control-sm" value=""></td>
+                <td><input type="text" name="harga[]" class="form-control form-control-sm" value=""></td>
+                <td><input type="text" name="total_harga[]" class="form-control form-control-sm" value="" readonly></td>
+                <td><button type="button" class="btn btn-danger btn-sm remove-row"><i class="icon-trash txt-danger"></i></button></td>
+            `;
+            tableBody.appendChild(newRow);
+        });
+
+        document.getElementById('dynamic-rows').addEventListener('click', function (e) {
+            if (e.target && e.target.classList.contains('remove-row')) {
+                e.target.closest('tr').remove();
+            }
+        });
+    </script>
 @endsection

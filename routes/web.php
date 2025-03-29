@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('suplier', SupplierController::class);
     Route::resource('produk', ProductController::class);
     Route::resource('penjualan',PenjualanController::class);
+    Route::get('quotation', [PenjualanController::class, 'quotation']);
 
     //Region
     Route::get('/cities', [RegionController::class, 'getCities']);
@@ -58,4 +59,9 @@ Route::get('buku_besar', function () {
 //Rugi Laba
 Route::get('rl', function () {
     return view('admin.rl');
+});
+
+//Quotation
+Route::get('quotation', function () {
+    return view('admin.quotation');
 });

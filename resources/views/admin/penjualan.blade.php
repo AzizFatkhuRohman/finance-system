@@ -238,7 +238,7 @@
                                                                 <td><span class="text-muted"><i class="icon-clock font-13"></i> Oct 16, 2016</span></td>
                                                                 <td>Rp. 450.000</td>
                                                                 <td><div class="badge badge-success">created</div></td>
-                                                                <td><a href="{{ url('penjualan/create') }}">Print</a></td>
+                                                                <td><a href="{{ url('quotation') }}">Print</a></td>
                                                             </tr>
 
                                                         </tbody>
