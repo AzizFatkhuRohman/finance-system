@@ -12,7 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('penjualan', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->foreignUuid('customer_id')->constrained();
+            $table->foreignUuid('user_id')->constrained();
+            $table->string('kode_transaksi')->unique();
+            $table->enum('status',['draft','created','send','unpaid','paid'])->default('draft');
+            $table->date('tgl_transaksi');
+            $table->decimal('pajak');
+            $table->decimal('diskon');
+            $table->decimal('total_harga');
             $table->timestamps();
         });
     }

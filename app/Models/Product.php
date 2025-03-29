@@ -9,6 +9,9 @@ class Product extends Model
 {
     use HasUuids;
     protected $guarded=[];
+    public function detailProdukPenjualan(){
+        return $this->hasMany(DetailProdukPenjualan::class);
+    }
     public function Index(){
         return $this->latest()->get();
     }
