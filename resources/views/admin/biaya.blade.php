@@ -13,6 +13,7 @@
                 <!-- Title -->
                 <div class="hk-pg-header">
                     <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="layers"></i></span></span>Biaya</h4>
+                    <a href="{{ url('biaya/create') }}"><button class="btn btn-primary btn-sm">Tambah data</button></a>
                 </div>
                 <!-- /Title -->
 
@@ -22,12 +23,12 @@
                         <section class="hk-sec-wrapper hk-gallery-wrap">
                             <ul class="nav nav-light nav-tabs" role="tablist">
                                 <li class="nav-item">
-                                    <a href="#receipt" class="nav-link" data-toggle="tab">Receipt</a>  
+                                    <a href="#receipt" class="nav-link" data-toggle="tab">Receipt</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#permohonan" class="nav-link active" data-toggle="tab">Permohonan Pembayaran</a>
                                 </li>
-                                
+
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade" id="receipt" role="tabpanel">
@@ -51,7 +52,7 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                                <td><a href="javascript:void(0)">Order #26589</a></td>
+                                                                <td><a href="{{ url('pembayaran') }}">Order #26589</a></td>
                                                                 <td>PT. XYZ</td>
                                                                 <td><span class="text-muted"><i class="icon-clock font-13"></i> Oct 16, 2016</span> </td>
                                                                 <td>Rp. 450.000</td>
@@ -62,38 +63,8 @@
                                                                 <a href="#">Print</a>
                                                                 </td>
                                                             </tr>
-                                                            <tr>
-                                                                <td><a href="javascript:void(0)">Order #58746</a></td>
-                                                                <td>PT. XYZ</td>
-                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Oct 12, 2016</span> </td>
-                                                                <td>Rp. 245.300</td>
-                                                                <td>
-                                                                    <div class="badge badge-warning">Unpaid</div>
-                                                                </td>
-                                                                <td><a href="#">Print</a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><a href="javascript:void(0)">Order #98458</a></td>
-                                                                <td>PT. XYZ</td>
-                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> May 18, 2016</span> </td>
-                                                                <td>Rp. 380.000</td>
-                                                                <td>
-                                                                    <div class="badge badge-success">Paid</div>
-                                                                </td>
-                                                                <td><a href="#">Print</a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><a href="javascript:void(0)">Order #32658</a></td>
-                                                                <td>PT. XYZ</td>
-                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Apr 28, 2016</span> </td>
-                                                                <td>Rp. 770.990</td>
-                                                                <td>
-                                                                    <div class="badge badge-success">Paid</div>
-                                                                </td>
-                                                                <td>
-                                                                <a href="#">Print</a>
-                                                                </td>
-                                                            </tr>
+
+
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -117,7 +88,6 @@
                                                                 <th>Date</th>
                                                                 <th>Amount</th>
                                                                 <th>Status</th>
-                                                                <th>Invoice</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -129,41 +99,6 @@
                                                                 <td>
                                                                 <div class="badge badge-success">Created</div>
                                                                 </td>
-                                                                <td>
-                                                                <a href="#">Print</a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><a href="javascript:void(0)">Order #58746</a></td>
-                                                                <td>PT. XYZ</td>
-                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Oct 12, 2016</span> </td>
-                                                                <td>Rp. 245.300</td>
-                                                                <td>
-                                                                    <div class="badge badge-success">Created</div>
-                                                                </td>
-                                                                <td><a href="#">Print</a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><a href="javascript:void(0)">Order #98458</a></td>
-                                                                <td>PT. XYZ</td>
-                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> May 18, 2016</span> </td>
-                                                                <td>Rp. 380.000</td>
-                                                                <td>
-                                                                    <div class="badge badge-success">Created</div>
-                                                                </td>
-                                                                <td><a href="#">Print</a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><a href="javascript:void(0)">Order #32658</a></td>
-                                                                <td>PT. XYZ</td>
-                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Apr 28, 2016</span> </td>
-                                                                <td>Rp. 770.990</td>
-                                                                <td>
-                                                                    <div class="badge badge-success">Created</div>
-                                                                </td>
-                                                                <td>
-                                                                <a href="#">Print</a>
-                                                                </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -171,7 +106,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>       
+                                </div>
                             </div>
                         </section>
                     </div>
@@ -179,8 +114,8 @@
                 <!-- /Row -->
             </div>
             <!-- /Container -->
-			
-            
+
+
         </div>
         <!-- /Main Content -->
 @endsection

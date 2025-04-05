@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BiayaController;
 use App\Http\Controllers\ChartOfAccountController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PenjualanController;
@@ -22,9 +23,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('suplier', SupplierController::class);
     Route::resource('produk', ProductController::class);
     Route::resource('penjualan',PenjualanController::class);
+    Route::resource('biaya',BiayaController::class);
     Route::get('quotation', [PenjualanController::class, 'quotation']);
     Route::get('araging',[CustomerController::class, 'araging']);
     Route::get('spk',[PenjualanController::class, 'spk']);
+    Route::get('pembayaran',[BiayaController::class, 'pembayaran']);
 
     //Region
     Route::get('/cities', [RegionController::class, 'getCities']);
@@ -39,9 +42,9 @@ Route::get('penjualan', function () {
 });
 
 //Biaya
-Route::get('biaya', function () {
-    return view('admin.biaya');
-});
+// Route::get('biaya', function () {
+//     return view('admin.biaya');
+// });
 
 //Jurnal
 Route::get('jurnal', function () {
