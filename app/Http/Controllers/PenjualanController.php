@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\DetailProdukPenjualan;
 use App\Models\Penjualan;
 use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,7 @@ class PenjualanController extends Controller
     public function index()
     {
         return view('admin.penjualan', [
-            'data' => $this->penjualan->Index(),
+            'data' => $this->penjualan->Index()
         ]);
     }
 
@@ -30,10 +31,31 @@ class PenjualanController extends Controller
      */
     public function create()
     {
+        $monthYear = Carbon::now()->format('Y/m');
+
+        // Cari transaksi terakhir yang dibuat pada bulan dan tahun yang sama
+        $lastTransaction = Penjualan::whereDate('tgl_transaksi', 'like', Carbon::now()->format('Y-m') . '%')
+            ->orderBy('tgl_transaksi', 'desc')
+            ->first();
+
+        // Tentukan nomor urut berdasarkan transaksi terakhir
+        $lastNumber = 1; // Default jika tidak ada transaksi bulan ini
+
+        if ($lastTransaction) {
+            // Ambil nomor urut dari kode_transaksi terakhir dan extract nomor urutnya
+            preg_match('/(\d{4})$/', $lastTransaction->kode_transaksi, $matches);
+            if (isset($matches[1])) {
+                $lastNumber = (int) $matches[1] + 1; // Increment nomor urut
+            }
+        }
+
+        // Buat kode transaksi dengan format TR-Y/m/nomor_urut
+        $kodeTransaksi = 'TR-' . $monthYear . '/' . str_pad($lastNumber, 4, '0', STR_PAD_LEFT);
         return view('admin.form_penjualan', [
             'customer' => Customer::all(),
             'kode_akun' => ChartOfAccount::all(),
-            'produk' => Product::all()
+            'produk' => Product::all(),
+            'kodeTransaksi' => $kodeTransaksi
         ]);
     }
 
@@ -157,10 +179,4 @@ class PenjualanController extends Controller
     {
         return view('admin.quotation');
     }
-
-    public function spk()
-    {
-        return view('admin.form_pengiriman');
-    }
-
 }

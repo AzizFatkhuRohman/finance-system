@@ -192,7 +192,21 @@ class CustomerController extends Controller
         return redirect('customer')->with('success', 'Data berhasil di buat');
     }
 
-    public function araging(){
+    public function araging()
+    {
         return view('admin.araging');
+    }
+    public function getAlamat($id)
+    {
+        // Ambil customer berdasarkan id
+        $customer = Customer::find($id);
+
+        // Jika customer ditemukan, return alamat
+        if ($customer) {
+            return response()->json(['alamat' => $customer->alamat]);
+        }
+
+        // Jika customer tidak ditemukan, return response error
+        return response()->json(['error' => 'Customer tidak ditemukan'], 404);
     }
 }

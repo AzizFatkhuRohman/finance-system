@@ -16,6 +16,8 @@
 
     <!-- Custom CSS -->
     <link href="{{ asset('dist/css/style.css') }}" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -85,6 +87,15 @@
     <script src="{{ asset('dist/js/dropdown-bootstrap-extended.js') }}"></script>
     <script src="{{ asset('dist/js/feather.min.js') }}"></script>
     <script src="{{ asset('dist/js/init.js') }}"></script>
+    @if ($errors->any())
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Login Failed',
+                text: '{{ $errors->first() }}',
+            });
+        </script>
+    @endif
 </body>
 
 </html>

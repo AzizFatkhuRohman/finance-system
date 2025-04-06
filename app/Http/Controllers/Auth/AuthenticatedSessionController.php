@@ -24,12 +24,23 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        // Coba autentikasi
+        try {
+            $request->authenticate();
 
-        $request->session()->regenerate();
+            // Regenerasi session jika autentikasi berhasil
+            $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+            // Redirect ke halaman dashboard jika login berhasil
+            return redirect()->intended(route('dashboard', absolute: false));
+        } catch (\Illuminate\Auth\AuthenticationException $e) {
+            // Jika autentikasi gagal, redirect kembali ke form login dengan error
+            return back()->withErrors([
+                'email' => 'Autentikasi gagal, kesalahan kredensial',
+            ]);
+        }
     }
+
 
     /**
      * Destroy an authenticated session.

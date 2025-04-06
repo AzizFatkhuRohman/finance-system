@@ -114,4 +114,20 @@ class ProductController extends Controller
         $this->product->Trash($id);
         return redirect('produk')->with('success','Data berhasil di hapus');
     }
+    public function getProductDetails($id)
+    {
+        // Ambil produk berdasarkan id
+        $product = Product::find($id);
+
+        // Jika produk ditemukan, return harga dan stok
+        if ($product) {
+            return response()->json(data: [
+                'harga' => $product->harga
+                // 'stok' => $product->stok
+            ]);
+        }
+
+        // Jika produk tidak ditemukan, return error
+        return response()->json(['error' => 'Produk tidak ditemukan'], 404);
+    }
 }

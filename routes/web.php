@@ -33,6 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/cities', [RegionController::class, 'getCities']);
     Route::get('/districts', [RegionController::class, 'getDistricts']);
     Route::get('/villages', [RegionController::class, 'getVillages']);
+    Route::get('/customer/{id}/alamat', [CustomerController::class, 'getAlamat'])->name('customer.alamat');
+    Route::get('/produk/{id}/harga', [ProductController::class, 'getProductDetails'])->name('produk.details');
 });
 
 require __DIR__ . '/auth.php';
