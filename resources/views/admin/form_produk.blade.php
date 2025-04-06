@@ -1,7 +1,5 @@
 @extends('partials.app')
 @section('content')
-    <!-- Main Content -->
-    <div class="hk-pg-wrapper">
         <!-- Breadcrumb -->
         <nav class="hk-breadcrumb" aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-light bg-transparent">
@@ -33,7 +31,7 @@
                                     <div class="row">
                                         <div class="col-md-6 form-group">
                                             <label for="nm_produk">Nama Produk</label>
-                                            <input class="form-control @error('nm_produk') is-invalid @enderror"
+                                            <input class="form-control form-control-sm @error('nm_produk') is-invalid @enderror"
                                                 id="nm_produk" name="nm_produk" value="{{ old('nm_produk') }}"
                                                 type="text">
                                             @error('nm_produk')
@@ -42,7 +40,7 @@
                                         </div>
                                         <div class="col-md-6 form-group">
                                             <label for="kd_produk">Kode Produk</label>
-                                            <input class="form-control @error('kd_produk') is-invalid @enderror"
+                                            <input class="form-control form-control-sm @error('kd_produk') is-invalid @enderror"
                                                 id="kd_produk" name="kd_produk" value="{{ old('kd_produk') }}"
                                                 type="text">
                                             @error('kd_produk')
@@ -54,7 +52,7 @@
                                     <div class="row">
                                         <div class="col-md-6 form-group">
                                             <label for="satuan">Satuan</label>
-                                            <select class="form-control custom-select @error('satuan') is-invalid @enderror"
+                                            <select class="form-control form-control-sm custom-select @error('satuan') is-invalid @enderror"
                                                 name="satuan">
                                                 <option> -- Select --</option>
                                                 <option value="pcs" {{ old('satuan') == 'pcs' ? 'selected' : '' }}>pcs
@@ -72,8 +70,8 @@
                                         </div>
                                         <div class="col-md-6 form-group">
                                             <label for="harga">Harga Jual</label>
-                                            <input class="form-control @error('harga') is-invalid @enderror" name="harga"
-                                                value="{{ old('harga') }}" type="text">
+                                            <input class="form-control form-control-sm @error('harga') is-invalid @enderror" name="harga"
+                                                value="{{ old('harga') }}" type="number">
                                             @error('harga')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -83,8 +81,8 @@
                                     <div class="row">
                                         <div class="col-md-3 mb-10">
                                             <label for="stok">Stock</label>
-                                            <input class="form-control @error('stok') is-invalid @enderror" id="stok"
-                                                name="stok" value="{{ old('stok') }}" type="text">
+                                            <input class="form-control form-control-sm @error('stok') is-invalid @enderror" id="stok"
+                                                name="stok" value="{{ old('stok') }}" type="number">
                                             @error('stok')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -92,7 +90,7 @@
                                     </div>
 
                                     <hr>
-                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                    <button class="btn btn-primary btn-sm" type="submit">Submit</button>
                                 </form>
                             </div>
                         </div>
@@ -102,6 +100,4 @@
             <!-- /Row -->
         </div>
         <!-- /Container -->
-    </div>
-    <!-- /Main Content -->
 @endsection

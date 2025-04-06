@@ -40,19 +40,20 @@
                                             <th>Nama PT/CV</th>
                                             <th>Email</th>
                                             <th>Alamat</th>
-                                            <th>Start date</th>
                                             <th>Option</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $no = 1;
+                                        @endphp
                                         @foreach ($data as $item)
                                             <tr>
+                                                <td>{{ $no++ }}</td>
+                                                <td>{{ $item->code_customer }}</td>
                                                 <td>{{ $item->nama_perusahaan }}</td>
-                                                <td>{{$item->code_customer}}</td>
                                                 <td>{{ $item->email }}</td>
                                                 <td>{{ $item->alamat}}</td>
-
-                                                <td>{{ $item->created_at }}</td>
                                                 <td>
                                                     <div class="d-flex align-items-center">
                                                         <a href="{{ url('customer/' . $item->id) }}" class="mr-2"
@@ -94,8 +95,6 @@
                                             <th>Nama PT/CV</th>
                                             <th>Email</th>
                                             <th>Alamat</th>
-
-                                            <th>Start date</th>
                                             <th>Option</th>
                                         </tr>
                                     </tfoot>

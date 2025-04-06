@@ -1,7 +1,6 @@
 @extends('partials.app')
 
 @section('content')
-<div class="hk-pg-wrapper">
     <nav class="hk-breadcrumb" aria-label="breadcrumb">
         <ol class="breadcrumb breadcrumb-light bg-transparent">
             <li class="breadcrumb-item"><a href="#">Edit</a></li>
@@ -62,7 +61,7 @@
                                     @error('alamat')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
-                                </div>                                
+                                </div>
 
                                 {{-- <div class="row">
                                     <div class="col-md-6 mb-10">
@@ -184,8 +183,6 @@
             </div>
         </div>
     </div>
-</div>
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
