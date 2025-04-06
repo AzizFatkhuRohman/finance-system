@@ -34,25 +34,24 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>Kode Suplier</th>
                                             <th>Nama PT/CV</th>
-                                            <th>Kode</th>
                                             <th>Email</th>
                                             <th>Alamat</th>
-
-                                            <th>Start date</th>
                                             <th>Option</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $no = 1;
+                                        @endphp
                                         @foreach ($data as $item)
                                             <tr>
-                                                <td></td>
-                                                <td>{{ $item->nama_perusahaan }}</td>
+                                                <td>{{ $no++ }}</td>
                                                 <td>{{$item->code_supplier}}</td>
+                                                <td>{{ $item->nama_perusahaan }}</td>
                                                 <td>{{ $item->email }}</td>
                                                 <td>{{ $item->alamat }}</td>
-
-                                                <td>{{ $item->created_at }}</td>
                                                 <td>
                                                     <div class="d-flex align-items-center">
                                                         <a href="{{ url('suplier/' . $item->id) }}" class="mr-2"
@@ -89,12 +88,10 @@
                                     <tfoot>
                                         <tr>
                                             <th>No</th>
+                                            <th>Kode Suplier</th>
                                             <th>Nama PT/CV</th>
-                                            <th>Kode</th>
                                             <th>Email</th>
                                             <th>Alamat</th>
-
-                                            <th>Start date</th>
                                             <th>Option</th>
                                         </tr>
                                     </tfoot>

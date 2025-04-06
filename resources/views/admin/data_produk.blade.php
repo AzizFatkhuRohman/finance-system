@@ -33,6 +33,7 @@
                                 <table id="datable_1" class="table table-hover mb-x0">
                                     <thead>
                                         <tr>
+                                            <th>No</th>
                                             <th>Nama Produk</th>
                                             <th>Satuan</th>
                                             <th>Harga</th>
@@ -41,9 +42,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $no = 1;
+                                        @endphp
                                         @foreach ($data as $item)
                                             <tr>
-
+                                                <td>{{ $no++ }}</td>
                                                 <td>{{ $item->nama_produk }}</td>
                                                 <td>{{ $item->satuan }}</td>
                                                 <td>{{ $item->harga }}</td>
@@ -85,6 +89,7 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
+                                            <th>No</th>
                                             <th>Nama Produk</th>
                                             <th>Satuan</th>
                                             <th>Harga</th>

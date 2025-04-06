@@ -18,11 +18,11 @@ License: You must have a valid license purchased only from templatemonster to le
 		<link rel="icon" href="{{ asset('dist/img/logo_dwi2.png') }}" type="image/x-icon">
 
 		<!-- Toggles CSS -->
-		<link href="vendors/jquery-toggles/css/toggles.css" rel="stylesheet" type="text/css">
-		<link href="vendors/jquery-toggles/css/themes/toggles-light.css" rel="stylesheet" type="text/css">
+		<link href="{{ asset('vendors/jquery-toggles/css/toggles.css') }}" rel="stylesheet" type="text/css">
+		<link href="{{ asset('vendors/jquery-toggles/css/themes/toggles-light.css') }}" rel="stylesheet" type="text/css">
 
 		<!-- Custom CSS -->
-		<link href="dist/css/style.css" rel="stylesheet" type="text/css">
+		<link href="{{ asset('dist/css/style.css') }}" rel="stylesheet" type="text/css">
 	</head>
 	<body>
 		<!-- Preloader -->
@@ -89,22 +89,22 @@ License: You must have a valid license purchased only from templatemonster to le
 		<!-- JavaScript -->
 
 		<!-- jQuery -->
-		<script src="vendors/jquery/dist/jquery.min.js"></script>
+		<script src="{{ asset('vendors/jquery/dist/jquery.min.js') }}"></script>
 
 		<!-- Bootstrap Core JavaScript -->
-		<script src="vendors/popper.js/dist/umd/popper.min.js"></script>
-		<script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="{{ asset('vendors/popper.js/dist/umd/popper.min.js') }}"></script>
+		<script src="{{ asset('vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
 		<!-- Slimscroll JavaScript -->
-		<script src="dist/js/jquery.slimscroll.js"></script>
+		<script src="{{ asset('dist/js/jquery.slimscroll.js') }}"></script>
 
 		<!-- Fancy Dropdown JS -->
-		<script src="dist/js/dropdown-bootstrap-extended.js"></script>
+		<script src="{{ asset('dist/js/dropdown-bootstrap-extended.js') }}"></script>
 
 		<!-- FeatherIcons JavaScript -->
-		<script src="dist/js/feather.min.js"></script>
+		<script src="{{ asset('dist/js/feather.min.js') }}"></script>
 
 		<!-- Init JavaScript -->
-		<script src="dist/js/init.js"></script>
+		<script src="{{ asset('dist/js/init.js') }}"></script>
 	</body>
 </html>

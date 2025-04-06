@@ -1,6 +1,5 @@
 @extends('partials.app')
 @section('content')
-    <div class="hk-pg-wrapper">
         <nav class="hk-breadcrumb" aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-light bg-transparent">
                 <li class="breadcrumb-item"><a href="#">Forms</a></li>
@@ -24,7 +23,7 @@
                                 <form action="{{ url('customer') }}" method="post">
                                     @csrf
                                     <div class="row">
-                                        
+
                                         {{-- <div class="col-md-6 form-group">
                                             <label for="akronim">Akronim</label>
                                             <input type="text" name="akronim"
@@ -38,7 +37,7 @@
                                     <div class="form-group">
                                         <label for="nama_perusahaan">Nama PT/CV</label>
                                         <input type="text" name="nama_perusahaan"
-                                            class="form-control @error('nama_perusahaan') is-invalid @enderror"
+                                            class="form-control form-control-sm  @error('nama_perusahaan') is-invalid @enderror"
                                             value="{{ old('nama_perusahaan') }}">
                                         @error('nama_perusahaan')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -47,7 +46,7 @@
                                     <div class="form-group">
                                         <label for="email">Email</label>
                                         <input type="email" name="email"
-                                            class="form-control @error('email') is-invalid @enderror"
+                                            class="form-control form-control-sm @error('email') is-invalid @enderror"
                                             value="{{ old('email') }}">
                                         @error('email')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -56,7 +55,7 @@
 
                                     <div class="form-group">
                                         <label for="alamat">Alamat</label>
-                                        <textarea name="alamat" class="form-control @error('alamat') is-invalid @enderror" rows="4">{{ old('alamat') }}</textarea>
+                                        <textarea name="alamat" class="form-control form-control-sm @error('alamat') is-invalid @enderror" rows="4">{{ old('alamat') }}</textarea>
                                         @error('alamat')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -126,7 +125,7 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <label for="nama_bank">Nama Bank</label>
-                                            <input class="form-control @error('nama_bank') is-invalid @enderror"
+                                            <input class="form-control form-control-sm @error('nama_bank') is-invalid @enderror"
                                                 id="nama_bank" name="nama_bank" type="text"
                                                 value="{{ old('nama_bank') }}">
                                             @error('nama_bank')
@@ -135,7 +134,7 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <label for="nama_bank">Cabang Bank</label>
-                                            <input class="form-control @error('cabang') is-invalid @enderror" id="cabang"
+                                            <input class="form-control form-control-sm @error('cabang') is-invalid @enderror" id="cabang"
                                                 name="cabang" type="text" value="{{ old('cabang') }}">
                                             @error('cabang')
                                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -146,7 +145,7 @@
                                         <div class="col-md-6 form-group">
                                             <label for="nomor_rekening">No Rekening</label>
                                             <input type="text" name="nomor_rekening"
-                                                class="form-control @error('nomor_rekening') is-invalid @enderror"
+                                                class="form-control form-control-sm @error('nomor_rekening') is-invalid @enderror"
                                                 value="{{ old('nomor_rekening') }}">
                                             @error('nomor_rekening')
                                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -155,7 +154,7 @@
                                         <div class="col-md-6 form-group">
                                             <label for="nama_pemilik">Nama Pemilik Rekening</label>
                                             <input type="text" name="nama_pemilik"
-                                                class="form-control @error('nama_pemilik') is-invalid @enderror"
+                                                class="form-control form-control-sm @error('nama_pemilik') is-invalid @enderror"
                                                 value="{{ old('nama_pemilik') }}">
                                             @error('nama_pemilik')
                                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -166,14 +165,14 @@
                                     <div class="form-group">
                                         <label for="npwp">NPWP</label>
                                         <input type="text" name="npwp"
-                                            class="form-control @error('npwp') is-invalid @enderror"
+                                            class="form-control form-control-sm @error('npwp') is-invalid @enderror"
                                             value="{{ old('npwp') }}">
                                         @error('npwp')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
                                 </form>
                             </div>
                         </div>
@@ -181,7 +180,6 @@
                 </div>
             </div>
         </div>
-    </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
