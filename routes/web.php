@@ -38,10 +38,6 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
-//Penjualan
-Route::get('penjualan', function () {
-    return view('admin.penjualan');
-});
 
 //Biaya
 // Route::get('biaya', function () {

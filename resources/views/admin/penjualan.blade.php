@@ -59,7 +59,7 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                                <td><a href="javascript:void(0)">Order #26589</a></td>
+                                                                <td><a href="javascript:void(0)">Not Found</a></td>
                                                                 <td>PT. ABC</td>
                                                                 <td><span class="text-muted"><i class="icon-clock font-13"></i> Oct 16, 2016</span></td>
                                                                 <td>Rp. 450.000</td>
@@ -232,15 +232,16 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td><a href="{{ url('spk') }}">Order #26589</a></td>
-                                                                <td>PT. ABC</td>
-                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Oct 16, 2016</span></td>
-                                                                <td>Rp. 450.000</td>
-                                                                <td><div class="badge badge-success">created</div></td>
-                                                                <td><a href="{{ url('quotation') }}">Print</a></td>
-                                                            </tr>
-
+                                                           @foreach ($data as $item)
+                                                           <tr>
+                                                            <td><a href="{{ url('spk') }}">Not Found</a></td>
+                                                            <td>{{$item->customer->nama_perusahaan}}</td>
+                                                            <td><span class="text-muted"><i class="icon-clock font-13"></i> {{$item->tgl_transaksi}}</span></td>
+                                                            <td>Rp. {{$item->total_harga}}</td>
+                                                            <td><div class="badge badge-success">{{$item->status}}</div></td>
+                                                            <td><a href="{{ url('quotation') }}">Print</a></td>
+                                                        </tr>
+                                                           @endforeach
                                                         </tbody>
                                                     </table>
                                                 </div>

@@ -13,8 +13,14 @@ class Penjualan extends Model
     public function detailProdukPenjualan(){
         return $this->hasMany(DetailProdukPenjualan::class);
     }
+    public function customer(){
+        return $this->belongsTo(Customer::class);
+    }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
     public function Index(){
-        return $this->latest()->get();
+        return $this->with('customer','user')->latest()->get();
     }
     public function Show($id){
         return $this->find($id);

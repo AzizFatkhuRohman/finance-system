@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Biaya;
+use App\Models\Supplier;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class BiayaController extends Controller
@@ -20,7 +22,9 @@ class BiayaController extends Controller
      */
     public function create()
     {
-        return view('admin.form_biaya');
+        return view('admin.form_biaya',[
+            'supplier'=>Supplier::all(),
+        ]);
     }
 
     /**

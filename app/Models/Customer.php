@@ -31,7 +31,9 @@ class Customer extends Model
     {
         return $this->belongsTo(Village::class, 'village_id', 'id');
     }
-
+    public function penjualan(){
+        return $this->hasMany(Penjualan::class);
+    }
     public function Index(){
         return $this->with('regency')->latest()->get();
     }

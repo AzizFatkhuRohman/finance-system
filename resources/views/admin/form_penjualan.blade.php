@@ -98,36 +98,35 @@
                                                 </td>
                                                 <td>
                                                     <select
-                                                        class="form-control custom-select-sm @error('produk.*') is-invalid @enderror"
-                                                        name="produk[]" id="produk">
+                                                        class="form-control custom-select-sm @error('produk') is-invalid @enderror"
+                                                        name="produk[]">
                                                         <option selected>Pilih Produk</option>
                                                         @foreach ($produk as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->nama_produk }}
+                                                            <option value="{{ $item->id }}"
+                                                                data-harga="{{ $item->harga }}">{{ $item->nama_produk }}
                                                             </option>
                                                         @endforeach
                                                     </select>
-                                                    @error('produk.*')
+                                                    @error('produk')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                 </td>
                                                 <td><input type="number" name="quantity[]"
-                                                        class="form-control form-control-sm @error('quantity.*') is-invalid @enderror"
-                                                        value=""></td>
-                                                @error('quantity.*')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                                <td><input type="text" name="harga[]" id="harga"
-                                                        class="form-control form-control-sm @error('harga.*') is-invalid @enderror"
-                                                        value="" readonly></td>
-                                                @error('harga.*')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                                <td><input type="text" name="total_harga"
-                                                        class="form-control form-control-sm" value="" readonly></td>
+                                                        class="form-control form-control-sm @error('quantity') is-invalid @enderror"
+                                                        value="">
+                                                    @error('quantity')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                </td>
+                                                <td><input type="text" name="harga[]"
+                                                        class="form-control form-control-sm" readonly></td>
+                                                <td><input type="text" name="total_harga[]"
+                                                        class="form-control form-control-sm" readonly></td>
                                                 <td><button type="button" class="btn btn-danger btn-sm remove-row"><i
                                                             class="icon-trash txt-danger"></i></button></td>
                                             </tr>
                                         </tbody>
+
                                     </table>
                                     </br>
                                     <button type="button" id="add-row" class="btn btn-success btn-sm"><i
@@ -142,8 +141,12 @@
                                                 <th style="width: 20%;"></th>
                                                 <th style="width: 20%;"></th>
                                                 <th>Pajak</th>
-                                                <th><input type="text" class="form-control form-control-sm"
-                                                        name="pajak" value="{{ old('pajak') }}"></th>
+                                                <th class="input-group"><input type="text"
+                                                        class="form-control form-control-sm" name="pajak"
+                                                        value="{{ old('pajak') }}">
+                                                    <span class="input-group-text form-control-sm"
+                                                        id="basic-addon1">%</span>
+                                                </th>
                                                 @error('pajak')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
@@ -153,8 +156,12 @@
                                                 <th style="width: 20%;"></th>
                                                 <th style="width: 20%;"></th>
                                                 <th>Diskon</th>
-                                                <th><input type="text" class="form-control form-control-sm"
-                                                        name="diskon" value="{{ old('diskon') }}"></th>
+                                                <th class="input-group"><input type="text"
+                                                        class="form-control form-control-sm" name="diskon"
+                                                        value="{{ old('diskon') }}">
+                                                    <span class="input-group-text form-control-sm"
+                                                        id="basic-addon1">%</span>
+                                                </th>
                                                 @error('diskon')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
@@ -164,7 +171,11 @@
                                                 <th style="width: 20%;"></th>
                                                 <th style="width: 20%;"></th>
                                                 <th><strong>Total</strong></th>
-                                                <th><input type="text" class="form-control form-control-sm" readonly>
+                                                <th class="input-group">
+                                                    <span class="input-group-text form-control-sm"
+                                                        id="basic-addon1">Rp</span>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        name="total" readonly>
                                                 </th>
                                             </tr>
                                         </thead>
@@ -179,43 +190,6 @@
             </div>
         </div>
     </div>
-    <script>
-        // JavaScript untuk menambah input barang
-        document.getElementById('add-row').addEventListener('click', function() {
-            const tableBody = document.getElementById('dynamic-rows');
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                <td>
-                    <select class="form-control custom-select-sm" name="kode_akun[]">
-                                                                              <option value="">Pilih kode akun</option>
-                                                       @foreach ($kode_akun as $item)
-                                                           <option value="{{ $item->id }}">{{ $item->no_account }}</option>
-                                                       @endforeach
-                    </select>
-                </td>
-                <td>
-                    <select class="form-control custom-select-sm" name="produk[]" id="produk">
-                        <option selected>Pilih Produk</option>
-                                                        @foreach ($produk as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->nama_produk }}
-                                                            </option>
-                                                        @endforeach
-                    </select>
-                </td>
-                <td><input type="number" name="quantity[]" class="form-control form-control-sm" value=""></td>
-                <td><input type="text" name="harga[]" class="form-control form-control-sm" value="" id="harga"></td>
-                <td><input type="text" name="total_harga[]" class="form-control form-control-sm" value="" readonly></td>
-                <td><button type="button" class="btn btn-danger btn-sm remove-row"><i class="icon-trash txt-danger"></i></button></td>
-            `;
-            tableBody.appendChild(newRow);
-        });
-
-        document.getElementById('dynamic-rows').addEventListener('click', function(e) {
-            if (e.target && e.target.classList.contains('remove-row')) {
-                e.target.closest('tr').remove();
-            }
-        });
-    </script>
     <script>
         $(document).ready(function() {
             // Ketika customer dipilih
@@ -257,7 +231,7 @@
                 // Jika ID produk dipilih, kirim request AJAX untuk mengambil harga dan stok produk
                 if (productId) {
                     $.ajax({
-                        url: '/produk/' + productId + '/harga', 
+                        url: '/produk/' + productId + '/harga',
                         method: 'GET',
                         success: function(response) {
                             if (response.harga) {
@@ -287,43 +261,123 @@
             });
         });
     </script>
-     <script>
+    <script>
         $(document).ready(function() {
             // Ketika produk dipilih
-            $('#produk2').on('change', function() {
+            $('#dynamic-rows').on('change', 'select[name="produk[]"]', function() {
                 var productId = $(this).val(); // Ambil ID produk yang dipilih
+                var harga = $(this).find('option:selected').data('harga'); // Ambil harga dari data atribut
+                var row = $(this).closest('tr');
 
-                // Jika ID produk dipilih, kirim request AJAX untuk mengambil harga dan stok produk
-                if (productId) {
-                    $.ajax({
-                        url: '/produk/' + productId + '/harga', 
-                        method: 'GET',
-                        success: function(response) {
-                            if (response.harga) {
-                                // Isi textarea alamat dengan alamat yang diterima dari server
-                                $('#harga2').val(response.harga);
-                            } else {
-                                // Jika tidak ada harga, kosongkan textarea
-                                $('#harga2').val('');
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            console.log('Error:', error);
-                            $('#harga2').val(''); // Kosongkan jika terjadi error
-                        }
-                    });
-                }
+                // Isi harga dan hitung total harga berdasarkan quantity
+                row.find('input[name="harga[]"]').val(harga);
+
+                var quantity = row.find('input[name="quantity[]"]').val();
+                var totalHarga = harga * quantity;
+                row.find('input[name="total_harga[]"]').val(totalHarga);
             });
 
             // Ketika quantity diubah
-            $('input[name="quantity"]').on('input', function() {
-                var harga = $(this).closest('tr').find('input[name="harga"]').val(); // Ambil harga
+            $('#dynamic-rows').on('input', 'input[name="quantity[]"]', function() {
                 var quantity = $(this).val(); // Ambil quantity
+                var harga = $(this).closest('tr').find('input[name="harga[]"]').val(); // Ambil harga
                 var totalHarga = harga * quantity; // Hitung total harga
-
-                // Tampilkan total harga
-                $(this).closest('tr').find('input[name="total_harga"]').val(totalHarga);
+                $(this).closest('tr').find('input[name="total_harga[]"]').val(
+                    totalHarga); // Update total harga
             });
+
+            // Menambahkan baris baru
+            $('#add-row').on('click', function() {
+                const tableBody = $('#dynamic-rows');
+                const newRow = $('<tr>');
+                newRow.html(`
+           <td>
+                                                    <select
+                                                        class="form-control custom-select-sm @error('kode_akun.*') is-invalid @enderror"
+                                                        name="kode_akun[]">
+                                                        <option value="">Pilih kode akun</option>
+                                                        @foreach ($kode_akun as $item)
+                                                            <option value="{{ $item->id }}">{{ $item->no_account }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('kode_akun.*')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                </td>
+                                                <td>
+                                                    <select
+                                                        class="form-control custom-select-sm @error('produk.*') is-invalid @enderror"
+                                                        name="produk[]">
+                                                        <option selected>Pilih Produk</option>
+                                                        @foreach ($produk as $item)
+                                                            <option value="{{ $item->id }}"
+                                                                data-harga="{{ $item->harga }}">{{ $item->nama_produk }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('produk.*')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                </td>
+                                                <td><input type="number" name="quantity[]"
+                                                        class="form-control form-control-sm @error('quantity.*') is-invalid @enderror"
+                                                        value="">
+                                                    @error('quantity.*')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                </td>
+            <td><input type="text" name="harga[]" class="form-control form-control-sm" readonly></td>
+            <td><input type="text" name="total_harga[]" class="form-control form-control-sm" readonly></td>
+            <td><button type="button" class="btn btn-danger btn-sm remove-row"><i class="icon-trash txt-danger"></i></button></td>
+        `);
+                tableBody.append(newRow);
+            });
+
+            // Menghapus baris
+            $('#dynamic-rows').on('click', '.remove-row', function() {
+                $(this).closest('tr').remove();
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Hitung total harga untuk setiap baris
+            $('#dynamic-rows').on('input', 'input[name="quantity[]"], input[name="harga[]"]', function() {
+                updateTotal();
+            });
+
+            // Hitung total keseluruhan saat pajak atau diskon berubah
+            $('input[name="pajak"], input[name="diskon"]').on('input', function() {
+                updateTotal();
+            });
+
+            // Fungsi untuk menghitung total keseluruhan
+            function updateTotal() {
+                let totalHarga = 0;
+
+                // Menjumlahkan total harga dari setiap produk
+                $('input[name="total_harga[]"]').each(function() {
+                    totalHarga += parseFloat($(this).val()) || 0; // Jika kosong, anggap 0
+                });
+
+                // Ambil nilai pajak dan diskon
+                let pajak = parseFloat($('input[name="pajak"]').val()) || 0; // Default 0 jika kosong
+                let diskon = parseFloat($('input[name="diskon"]').val()) || 0; // Default 0 jika kosong
+
+                // Menghitung pajak dan diskon
+                let pajakAmount = (pajak / 100) * totalHarga; // Pajak dihitung sebagai persentase
+                let diskonAmount = (diskon / 100) * totalHarga; // Diskon dihitung sebagai persentase
+
+                // Hitung total setelah pajak dan diskon
+                let grandTotal = totalHarga + pajakAmount - diskonAmount;
+
+                // Masukkan hasil ke dalam input Total
+                $('input[name="total"]').val(grandTotal.toFixed(2)); // Menampilkan dengan 2 desimal
+            }
+
+            // Inisialisasi hitung total pertama kali jika ada data yang sudah ada
+            updateTotal();
         });
     </script>
 @endsection

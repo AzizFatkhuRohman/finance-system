@@ -64,83 +64,65 @@ class PenjualanController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'nama_customer' => 'required|exists:customers,id', // Pastikan customer ada di database
+        $request->validate([
+            'nama_customer' => 'required|exists:customers,id',
             'tgl' => 'required|date',
-            'kode_akun.*' => 'required|exists:chart_of_accounts,no_account',
-            'produk.*' => 'required|exists:products,kode_produk',
-            'quantity.*' => 'required|integer|min:1',
-            'harga.*' => 'required|numeric|min:1',
-            'pajak' => 'required|numeric',
-            'diskon' => 'required|numeric'
+            'pajak' => 'nullable|numeric',
+            'diskon' => 'nullable|numeric',
+            'produk' => 'required|array',
+            'produk.*' => 'required|exists:products,id',
+            'quantity' => 'required|array',
+            'quantity.*' => 'required|numeric',
+            'kode_akun' => 'required|array',
+            'kode_akun.*' => 'required|exists:chart_of_accounts,id',
         ], [
-            'nama_customer.required' => 'Nama customer harus diisi.',
-            'nama_customer.exists' => 'Nama customer tidak ditemukan.',
-            'tgl.required' => 'Tanggal harus diisi.',
-            'tgl.date' => 'Tanggal yang dimasukkan tidak valid.',
-            'kode_akun.*.required' => 'Kode akun harus dipilih.',
-            'kode_akun.*.exists' => 'Kode akun yang dipilih tidak valid.',
-            'produk.*.required' => 'Produk harus dipilih.',
-            'produk.*.exists' => 'Produk yang dipilih tidak valid.',
-            'quantity.*.required' => 'Jumlah produk harus diisi.',
-            'quantity.*.integer' => 'Jumlah produk harus berupa angka.',
-            'quantity.*.min' => 'Jumlah produk minimal 1.',
-            'harga.*.required' => 'Harga produk harus diisi.',
-            'harga.*.numeric' => 'Harga produk harus berupa angka.',
-            'harga.*.min' => 'Harga produk minimal 1.',
-            'pajak.required' => 'Pajak harus diisi',
-            'pajak.numeric' => 'Pajak harus berupa angka',
-            'diskon.required' => 'Diskon harus diisi',
-            'diskon.numeric' => 'Diskon harus berupa angka',
+            'nama_customer.required' => 'Nama Customer harus dipilih.',
+            'tgl.required' => 'Tanggal Transaksi harus diisi.',
+            'produk.required' => 'Produk harus dipilih.',
+            'produk.*.required' => 'Setiap produk harus dipilih.',
+            'produk.*.exists' => 'Produk yang dipilih tidak ditemukan.',
+            'quantity.required' => 'Quantity produk harus diisi.',
+            'quantity.*.required' => 'Quantity setiap produk harus diisi.',
+            'quantity.*.numeric' => 'Quantity harus berupa angka.',
+            'kode_akun.required' => 'Kode Akun harus dipilih.',
+            'kode_akun.*.required' => 'Kode Akun setiap produk harus dipilih.',
+            'kode_akun.*.exists' => 'Kode Akun yang dipilih tidak ditemukan.',
         ]);
-        $customerId = $request->input('nama_customer');
-        $kodeTransaksi = $request->input('kode_transaksi');
-        $tglTransaksi = $request->input('tgl');
-        $alamat = $request->input('alamat');
-        $pajak = $request->input('pajak', 0);  // Pajak default 0 jika kosong
-        $diskon = $request->input('diskon', 0); // Diskon default 0 jika kosong
-
-        $kodeAkun = $request->input('kode_akun');
-        $produk = $request->input('produk');
-        $quantity = $request->input('quantity');
-        $harga = $request->input('harga');
-
-        // Menghitung total harga
-        $totalHarga = 0;
-        foreach ($quantity as $index => $qty) {
-            $subtotal = $qty * $harga[$index];
-            $totalHarga += $subtotal;
+        foreach ($request->produk as $key => $produkId) {
+            $product = Product::find($produkId);
+            $quantity = $request->quantity[$key];
+            if ($quantity > $product->stok) {
+                return back()->withErrors(['quantity' => "Quantity untuk produk {$product->nama_produk} tidak boleh melebihi stok {$product->stok}."]);
+            }
         }
-
-        // Menghitung pajak dan diskon
-        $totalPajak = ($totalHarga * $pajak) / 100;
-        $totalDiskon = ($totalHarga * $diskon) / 100;
-
-        // Menghitung total akhir setelah pajak dan diskon
-        $totalAkhir = $totalHarga + $totalPajak - $totalDiskon;
-
-        // Menyimpan data penjualan ke dalam database
         $penjualan = $this->penjualan->Store([
-            'customer_id' => $customerId,
-            'user_id' => Auth::user()->id,
-            'kode_transaksi' => $kodeTransaksi,
-            'status' => 'draft', // Anda bisa menyesuaikan status
-            'tgl_transaksi' => $tglTransaksi,
-            'pajak' => $totalPajak,
-            'diskon' => $totalDiskon,
-            'total_harga' => $totalAkhir,
+            'customer_id'=>$request->nama_customer,
+            'user_id'=>Auth::user()->id,
+            'kode_transaksi'=>$request->kode_transaksi,
+            'tgl_transaksi'=>$request->tgl,
+            'pajak'=>$request->pajak,
+            'diskon'=>$request->diskon,
+            'total_harga'=>$request->total
         ]);
-
-        // Menyimpan detail produk untuk penjualan
-        foreach ($produk as $index => $prod) {
+        foreach ($request->produk as $key => $produkId) {
+            $product = Product::find($produkId);
+            $quantity = $request->quantity[$key];
+            $totalHarga = $request->total_harga[$key]; // Total harga per produk, bisa dihitung sesuai dengan harga * quantity
+        
+            // Menyimpan detail produk penjualan
             DetailProdukPenjualan::create([
-                'penjualan_id' => $penjualan->id, // Mengaitkan dengan penjualan yang baru saja disimpan
-                'chart_of_account_id' => $kodeAkun[$index], // Pastikan ini sesuai dengan input chart_of_account
-                'product_id' => $prod, // ID produk
-                'qty' => $quantity[$index], // Kuantitas produk
-                'total_harga' => $quantity[$index] * $harga[$index], // Menghitung total harga produk (quantity * harga)
+                'penjualan_id' => $penjualan->id, // ID penjualan yang baru saja disimpan
+                'chart_of_account_id' => $request->kode_akun[$key], // ID kode akun
+                'product_id' => $produkId, // ID produk yang dijual
+                'qty' => $quantity, // Quantity yang dijual
+                'total_harga' => $totalHarga, // Total harga produk (harga * quantity)
             ]);
+        
+            // Update stok produk jika diperlukan
+            $product->stok -= $quantity;
+            $product->save();
         }
+        
         return redirect('penjualan')->with('success', 'Penjualan berhasil dibuat');
     }
 
