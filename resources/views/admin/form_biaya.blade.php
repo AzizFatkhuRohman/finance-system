@@ -29,11 +29,11 @@
                                         <label for="nama_customer">Nama Suplier</label>
                                         <select
                                             class="form-control custom-select-sm @error('nama_customer') is-invalid @enderror"
-                                            name="nama_customer" value="{{ old('nama_customer') }}">
-                                            <option selected>Suplier</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                            name="nama_supplier" id="nama_supplier" value="{{ old('nama_customer') }}">
+                                            <option value="">Pilih Supplier</option>
+                                            @foreach ($supplier as $item)
+                                                <option value="{{ $item->id }}">{{ $item->nama_perusahaan }}</option>
+                                            @endforeach
                                         </select>
                                         @error('nama_customer')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -52,7 +52,7 @@
                                 <div class="row">
                                     <div class="col-md-6 form-group">
                                         <label for="nomor_rekening">Alamat Pengiriman</label>
-                                        <textarea name="alamat" class="form-control @error('alamat') is-invalid @enderror">{{ old('alamat') }}</textarea>
+                                        <textarea name="alamat" id="alamat" class="form-control @error('alamat') is-invalid @enderror" readonly>{{ old('alamat') }}</textarea>
                                         @error('alamat')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -61,7 +61,7 @@
                                         <label for="kode_transaksi">Kode Transaksi</label>
                                         <input type="text" name="kode_transaksi"
                                             class="form-control form-control-sm @error('kode_transaksi') is-invalid @enderror"
-                                            value="{{ old('kode_transaksi') }}">
+                                            value="{{ $kodeTransaksi }}" readonly>
                                         @error('kode_transaksi')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -86,17 +86,19 @@
                                                     <select
                                                         class="form-control custom-select-sm @error('kode_akun.*') is-invalid @enderror"
                                                         name="kode_akun[]">
-                                                        <option selected>Kode Akun</option>
-                                                        <option value="1">One</option>
-                                                        <option value="2">Two</option>
-                                                        <option value="3">Three</option>
+                                                        <option value="">Pilih Kode Akun</option>
+                                                        @foreach ($kode_akun as $item)
+                                                            <option value="{{ $item->id }}">{{ $item->no_account }}
+                                                            </option>
+                                                        @endforeach
                                                     </select>
                                                     @error('kode_akun.*')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control custom-select-sm @error('produk.*') is-invalid @enderror"
+                                                    <input type="text"
+                                                        class="form-control custom-select-sm @error('produk.*') is-invalid @enderror"
                                                         name="produk[]">
                                                     @error('produk.*')
                                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -156,7 +158,8 @@
                                                 <th style="width: 20%;"></th>
                                                 <th style="width: 20%;"></th>
                                                 <th><strong>Total</strong></th>
-                                                <th><input type="text" class="form-control form-control-sm" readonly>
+                                                <th><input type="text" class="form-control form-control-sm"
+                                                        name="total" id="total" readonly>
                                                 </th>
                                             </tr>
                                         </thead>
@@ -167,7 +170,7 @@
                                     <section class="hk-sec-wrapper">
                                         <h5 class="hk-sec-title">File Upload</h5>
                                         <p class="mb-40">upload jika ada lampiran.</p>
-                                        <div  class="row">
+                                        <div class="row">
                                             <div class="col-sm">
                                                 <div class="dropzone" id="remove_link">
                                                     <div class="fallback">
@@ -187,6 +190,45 @@
         </div>
     </div>
     <script>
+        $(document).ready(function() {
+            // Ketika customer dipilih
+            $('#nama_supplier').on('change', function() {
+                var supplierId = $(this).val(); // Ambil ID customer yang dipilih
+
+                // Jika ID customer dipilih, kirim request AJAX
+                if (supplierId) {
+                    $.ajax({
+                        url: '/supplier/' + supplierId + '/alamat', // URL untuk mengambil alamat
+                        method: 'GET',
+                        success: function(response) {
+                            if (response.alamat) {
+                                // Isi textarea alamat dengan alamat yang diterima dari server
+                                $('#alamat').val(response.alamat);
+                            } else {
+                                // Jika tidak ada alamat, kosongkan textarea
+                                $('#alamat').val('');
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.log('Error:', error);
+                            $('#alamat').val(''); // Kosongkan jika terjadi error
+                        }
+                    });
+                } else {
+                    // Jika tidak ada customer yang dipilih, kosongkan alamat
+                    $('#alamat').val('');
+                }
+            });
+        });
+    </script>
+    <script>
+        const kodeAkunOptions = `
+            @foreach ($kode_akun as $item)
+                <option value="{{ $item->id }}">{{ $item->no_account }}</option>
+            @endforeach
+        `;
+    </script>
+    <script>
         // JavaScript untuk menambah input barang
         document.getElementById('add-row').addEventListener('click', function() {
             const tableBody = document.getElementById('dynamic-rows');
@@ -194,10 +236,8 @@
             newRow.innerHTML = `
                 <td>
                     <select class="form-control custom-select-sm" name="kode_akun[]">
-                        <option selected>Kode Akun</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                         <option value="">Pilih Kode Akun</option>
+            ${kodeAkunOptions}
                     </select>
                 </td>
                 <td><input type="text" class="form-control custom-select-sm name="produk[]" value=""> </td>
@@ -213,6 +253,55 @@
             if (e.target && e.target.classList.contains('remove-row')) {
                 e.target.closest('tr').remove();
             }
+        });
+    </script>
+    <script>
+        function hitungTotal() {
+            let totalKeseluruhan = 0;
+
+            // Loop semua baris dan hitung total per baris
+            document.querySelectorAll('#dynamic-rows tr').forEach(function(row) {
+                const qtyEl = row.querySelector('input[name="quantity[]"]');
+                const hargaEl = row.querySelector('input[name="harga[]"]');
+                const totalEl = row.querySelector('input[name="total_harga[]"]');
+
+                const qty = parseFloat(qtyEl?.value) || 0;
+                const harga = parseFloat(hargaEl?.value) || 0;
+                const total = qty * harga;
+
+                if (totalEl) {
+                    totalEl.value = total.toFixed(2);
+                }
+
+                totalKeseluruhan += total;
+            });
+
+            // Ambil nilai pajak dan diskon
+            const pajak = parseFloat(document.querySelector('input[name="pajak"]').value) || 0;
+            const diskon = parseFloat(document.querySelector('input[name="diskon"]').value) || 0;
+
+            const grandTotal = totalKeseluruhan + pajak - diskon;
+
+            // Tampilkan hasil akhir di input total
+            const totalInput = document.querySelector('input[name="total"]');
+            if (totalInput) {
+                totalInput.value = grandTotal.toFixed(2);
+            }
+        }
+
+        // Jalankan saat input berubah
+        document.addEventListener('input', function(e) {
+            const namesToWatch = ['quantity[]', 'harga[]', 'pajak', 'diskon'];
+            if (namesToWatch.includes(e.target.name)) {
+                hitungTotal();
+            }
+        });
+
+        // Jalankan juga saat tambah baris
+        document.getElementById('add-row').addEventListener('click', function() {
+            setTimeout(() => {
+                hitungTotal();
+            }, 100);
         });
     </script>
 @endsection

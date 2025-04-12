@@ -183,4 +183,16 @@ class SupplierController extends Controller
         $this->supplier->Trash($id);
         return redirect('suplier')->with('success', 'Supplier berhasil di hapus');
     }
+    public function alamatApi($id){
+         // Ambil customer berdasarkan id
+         $supplier = Supplier::find($id);
+
+         // Jika supplier ditemukan, return alamat
+         if ($supplier) {
+             return response()->json(['alamat' => $supplier->alamat]);
+         }
+ 
+         // Jika customer tidak ditemukan, return response error
+         return response()->json(['error' => 'Customer tidak ditemukan'], 404);
+    }
 }

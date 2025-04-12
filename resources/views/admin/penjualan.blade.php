@@ -58,39 +58,17 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            @foreach ($faktur as $item)
                                                             <tr>
                                                                 <td><a href="javascript:void(0)">Not Found</a></td>
-                                                                <td>PT. ABC</td>
-                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Oct 16, 2016</span></td>
-                                                                <td>Rp. 450.000</td>
-                                                                <td><div class="badge badge-warning">Unpaid</div></td>
+                                                                <td>{{$item->customer->nama_perusahaan}}</td>
+                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> {{$item->tgl_transaksi}}</span></td>
+                                                                <td>Rp. {{$item->total_harga}}</td>
+                                                                <td><div class="badge badge-warning">{{$item->status}}</div></td>
                                                                 <td><a href="#">Print</a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><a href="javascript:void(0)">Order #58746</a></td>
-                                                                <td>PT. ABC</td>
-                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Oct 12, 2016</span></td>
-                                                                <td>Rp. 245.300</td>
-                                                                <td><div class="badge badge-warning">Unpaid</div></td>
-                                                                <td><a href="#">Print</a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><a href="javascript:void(0)">Order #98458</a></td>
-                                                                <td>PT. ABC</td>
-                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> May 18, 2016</span></td>
-                                                                <td>Rp. 380.000</td>
-                                                                <td><div class="badge badge-success">Paid</div></td>
-                                                                <td><a href="#">Faktur</a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><a href="javascript:void(0)">Order #32658</a></td>
-                                                                <td>PT. ABC</td>
-                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Apr 28, 2016</span></td>
-                                                                <td>Rp. 770.990</td>
-                                                                <td><div class="badge badge-success">Paid</div></td>
-                                                                <td><a href="#">Faktur</a></td>
                                                             </tr>
                                                         </tbody>
+                                                            @endforeach
                                                     </table>
                                                 </div>
                                             </div>
@@ -174,38 +152,16 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            @foreach ($pengiriman as $item)
                                                             <tr>
                                                                 <td><a href="javascript:void(0)">Order #26589</a></td>
-                                                                <td>PT. ABC</td>
-                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Oct 16, 2016</span></td>
-                                                                <td>Rp. 450.000</td>
-                                                                <td><div class="badge badge-warning">Pending</div></td>
+                                                                <td>{{$item->customer->nama_perusahaan}}</td>
+                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> {{$item->tgl_transaksi}}</span></td>
+                                                                <td>Rp. {{$item->total_harga}}</td>
+                                                                <td><div class="badge badge-warning">{{$item->status}}</div></td>
                                                                 <td><a href="#">Print</a></td>
                                                             </tr>
-                                                            <tr>
-                                                                <td><a href="javascript:void(0)">Order #58746</a></td>
-                                                                <td>PT. ABC</td>
-                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Oct 12, 2016</span></td>
-                                                                <td>Rp. 245.300</td>
-                                                                <td><div class="badge badge-warning">Pending</div></td>
-                                                                <td><a href="#">Print</a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><a href="javascript:void(0)">Order #98458</a></td>
-                                                                <td>PT. ABC</td>
-                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> May 18, 2016</span></td>
-                                                                <td>Rp. 380.000</td>
-                                                                <td><div class="badge badge-warning">Pending</div></td>
-                                                                <td><a href="#">Print</a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><a href="javascript:void(0)">Order #32658</a></td>
-                                                                <td>PT. ABC</td>
-                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Apr 28, 2016</span></td>
-                                                                <td>Rp. 770.990</td>
-                                                                <td><div class="badge badge-success">Send</div></td>
-                                                                <td><a href="#">Print</a></td>
-                                                            </tr>
+                                                            @endforeach
                                                         </tbody>
                                                     </table>
                                                 </div>

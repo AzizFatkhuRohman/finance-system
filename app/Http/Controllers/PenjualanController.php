@@ -22,7 +22,9 @@ class PenjualanController extends Controller
     public function index()
     {
         return view('admin.penjualan', [
-            'data' => $this->penjualan->Index()
+            'data' => Penjualan::with('customer','user')->where('status','draft')->latest()->get(),
+            'pengiriman'=>Penjualan::with('customer','user')->where('status','send')->latest()->get(),
+            'faktur'=>Penjualan::with('customer','user')->whereIn('status', ['paid', 'unpaid'])->latest()->get()
         ]);
     }
 

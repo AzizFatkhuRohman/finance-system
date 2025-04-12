@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/districts', [RegionController::class, 'getDistricts']);
     Route::get('/villages', [RegionController::class, 'getVillages']);
     Route::get('/customer/{id}/alamat', [CustomerController::class, 'getAlamat'])->name('customer.alamat');
+    Route::get('supplier/{id}/alamat',[SupplierController::class,'alamatApi']);
     Route::get('/produk/{id}/harga', [ProductController::class, 'getProductDetails'])->name('produk.details');
 });
 
