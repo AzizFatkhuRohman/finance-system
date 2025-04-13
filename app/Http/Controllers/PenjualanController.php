@@ -22,9 +22,9 @@ class PenjualanController extends Controller
     public function index()
     {
         return view('admin.penjualan', [
-            'data' => Penjualan::with('customer','user')->where('status','draft')->latest()->get(),
-            'pengiriman'=>Penjualan::with('customer','user')->where('status','send')->latest()->get(),
-            'faktur'=>Penjualan::with('customer','user')->whereIn('status', ['paid', 'unpaid'])->latest()->get()
+            'data' => Penjualan::with('customer', 'user')->whereIn('status', ['draft','created'])->latest()->get(),
+            'pengiriman' => Penjualan::with('customer', 'user')->whereIn('status', ['created','send'])->latest()->get(),
+            'faktur' => Penjualan::with('customer', 'user')->whereIn('status', ['paid', 'send'])->latest()->get()
         ]);
     }
 
@@ -98,19 +98,19 @@ class PenjualanController extends Controller
             }
         }
         $penjualan = $this->penjualan->Store([
-            'customer_id'=>$request->nama_customer,
-            'user_id'=>Auth::user()->id,
-            'kode_transaksi'=>$request->kode_transaksi,
-            'tgl_transaksi'=>$request->tgl,
-            'pajak'=>$request->pajak,
-            'diskon'=>$request->diskon,
-            'total_harga'=>$request->total
+            'customer_id' => $request->nama_customer,
+            'user_id' => Auth::user()->id,
+            'kode_transaksi' => $request->kode_transaksi,
+            'tgl_transaksi' => $request->tgl,
+            'pajak' => $request->pajak,
+            'diskon' => $request->diskon,
+            'total_harga' => $request->total
         ]);
         foreach ($request->produk as $key => $produkId) {
             $product = Product::find($produkId);
             $quantity = $request->quantity[$key];
             $totalHarga = $request->total_harga[$key]; // Total harga per produk, bisa dihitung sesuai dengan harga * quantity
-        
+
             // Menyimpan detail produk penjualan
             DetailProdukPenjualan::create([
                 'penjualan_id' => $penjualan->id, // ID penjualan yang baru saja disimpan
@@ -119,12 +119,12 @@ class PenjualanController extends Controller
                 'qty' => $quantity, // Quantity yang dijual
                 'total_harga' => $totalHarga, // Total harga produk (harga * quantity)
             ]);
-        
+
             // Update stok produk jika diperlukan
             $product->stok -= $quantity;
             $product->save();
         }
-        
+
         return redirect('penjualan')->with('success', 'Penjualan berhasil dibuat');
     }
 
@@ -155,9 +155,34 @@ class PenjualanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Penjualan $penjualan)
+    public function destroy(Penjualan $penjualan) {}
+    public function spk($id)
     {
-        //
+        return view('admin.form_spk',[
+            'data'=>Penjualan::with('customer')->find($id),
+            'customer'=>Customer::all(),
+            'kode_akun' => ChartOfAccount::all(),
+            'produk' => Product::all(),
+            'DetailProdukPenjualan'=>DetailProdukPenjualan::with('chartOfAccount','product')->where('penjualan_id',$id)->get()
+        ]);
+    }
+    public function pengiriman($id){
+        return view('admin.form_pengiriman',[
+            'data'=>Penjualan::with('customer')->find($id),
+            'customer'=>Customer::all(),
+            'kode_akun' => ChartOfAccount::all(),
+            'produk' => Product::all(),
+            'DetailProdukPenjualan'=>DetailProdukPenjualan::with('chartOfAccount','product')->where('penjualan_id',$id)->get()
+        ]);
+    }
+    public function faktur($id){
+        return view('admin.form_faktur',[
+            'data'=>Penjualan::with('customer')->find($id),
+            'customer'=>Customer::all(),
+            'kode_akun' => ChartOfAccount::all(),
+            'produk' => Product::all(),
+            'DetailProdukPenjualan'=>DetailProdukPenjualan::with('chartOfAccount','product')->where('penjualan_id',$id)->get()
+        ]);
     }
     public function quotation()
     {

@@ -26,7 +26,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('biaya',BiayaController::class);
     Route::get('quotation', [PenjualanController::class, 'quotation']);
     Route::get('araging',[CustomerController::class, 'araging']);
-    Route::get('spk',[PenjualanController::class, 'spk']);
+    Route::get('penjualan/spk/{id}',[PenjualanController::class,'spk']);
+    Route::get('penjualan/pengiriman/{id}',[PenjualanController::class,'pengiriman']);
+    Route::get('penjualan/faktur/{id}',[PenjualanController::class,'faktur']);
     Route::get('pembayaran',[BiayaController::class, 'pembayaran']);
 
     //Region

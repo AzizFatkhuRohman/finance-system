@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignUuid('customer_id')->constrained();
             $table->foreignUuid('user_id')->constrained();
             $table->string('kode_transaksi')->unique();
-            $table->enum('status',['draft','created','send','unpaid','paid'])->default('draft');
+            $table->enum('status',['draft','created','send','paid'])->default('draft');
             $table->date('tgl_transaksi');
             $table->float('pajak');
             $table->float('diskon');

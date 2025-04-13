@@ -190,8 +190,8 @@
                                         </div>
                                     </section>
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-sm">Submit</button>
-                                {{-- <button type="button" id="editButton" class="btn btn-warning btn-sm">Edit</button> --}}
+                                <button type="submit" class="btn btn-primary btn-sm" id="submit">Submit</button>
+                                <button type="button" id="editButton" class="btn btn-warning btn-sm">Edit</button>
                                 <button type="button" class="btn btn-danger btn-sm"
                                     style="float: right;">Delete</button>
                             </form>
@@ -203,39 +203,42 @@
         </div>
     </div>
     <script>
-        document.getElementById('editButton').addEventListener('click', function() {
+        let editMode = false;
+    
+        document.getElementById('editButton').addEventListener('click', function () {
             const inputs = document.querySelectorAll('input, textarea, select');
             const tombol = document.getElementById('tombol');
             const addRow = document.getElementById('add-row');
-
-            // Cek apakah sekarang readonly atau tidak
-            const isReadonly = inputs[0].hasAttribute('readonly');
-
-            // Aktifkan/Nonaktifkan readonly di input
+            const submitBtn = document.getElementById('submit');
+            const editBtn = document.getElementById('editButton');
+    
+            editMode = !editMode;
+    
             inputs.forEach(input => {
                 if (input.name !== 'total_harga' && input.name !== 'total') {
-                    if (isReadonly) {
+                    if (editMode) {
                         input.removeAttribute('readonly');
                     } else {
                         input.setAttribute('readonly', true);
                     }
                 }
             });
-
-            // Tampilkan/Sembunyikan tombol
-            if (isReadonly) {
-                tombol.removeAttribute('hidden');
-                addRow.removeAttribute('hidden');
+    
+            if (editMode) {
+                tombol?.removeAttribute('hidden');
+                addRow?.removeAttribute('hidden');
+                submitBtn.textContent = 'Update';
+                submitBtn.removeAttribute('hidden');
+                editBtn.setAttribute('hidden', true); // Sembunyikan tombol edit
             } else {
-                tombol.setAttribute('hidden', true);
-                addRow.setAttribute('hidden', true);
+                tombol?.setAttribute('hidden', true);
+                addRow?.setAttribute('hidden', true);
+                submitBtn.textContent = 'Submit';
+                editBtn.removeAttribute('hidden'); // Munculkan kembali tombol edit jika dibutuhkan
             }
-
-            // Ubah label tombol edit
-            this.textContent = isReadonly ? 'Update' : 'Edit';
         });
     </script>
-
+    
     <script>
         $(document).ready(function() {
             // Ketika customer dipilih
