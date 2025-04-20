@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DetailProdukPenjualan;
+use App\Models\FilePenjualan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
-class DetailProdukPenjualanController extends Controller
+class FilePenjualanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +35,7 @@ class DetailProdukPenjualanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(DetailProdukPenjualan $detailProdukPenjualan)
+    public function show(FilePenjualan $filePenjualan)
     {
         //
     }
@@ -42,7 +43,7 @@ class DetailProdukPenjualanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(DetailProdukPenjualan $detailProdukPenjualan)
+    public function edit(FilePenjualan $filePenjualan)
     {
         //
     }
@@ -50,7 +51,7 @@ class DetailProdukPenjualanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, DetailProdukPenjualan $detailProdukPenjualan)
+    public function update(Request $request, FilePenjualan $filePenjualan)
     {
         //
     }
@@ -60,10 +61,8 @@ class DetailProdukPenjualanController extends Controller
      */
     public function destroy($id)
     {
-        $detail = DetailProdukPenjualan::findOrFail($id);
-        $product = $detail->product;
-        $product->stok += $detail->qty;
-        $product->save();
-        $detail->delete();
+        $file = FilePenjualan::find($id);
+        File::delete(public_path('upload_penjualan/'.$file->nama_file));
+        FilePenjualan::find($id)->delete();
     }
 }

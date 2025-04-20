@@ -13,7 +13,7 @@
                 <span class="pg-title-icon">
                     <span class="feather-icon"><i data-feather="align-left"></i></span>
                 </span>
-                Form Pengiriman
+                Form SPK
             </h4>
         </div>
 
@@ -22,14 +22,15 @@
                 <section class="hk-sec-wrapper">
                     <div class="row">
                         <div class="col-sm">
-                            <form action="{{ url('penjualan') }}" method="post">
+                            <form action="{{ url('penjualan/' . $data->id) }}" method="post" enctype="multipart/form-data">
                                 @csrf
+                                @method('put')
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <label for="nama_bank">Nama Customer</label>
                                         <select
                                             class="form-control custom-select-sm @error('nama_customer') is-invalid @enderror"
-                                            name="nama_customer" id="nama_customer" readonly>
+                                            name="nama_customer" id="nama_customer" disabled>
                                             <option value="{{ $data->customer_id }}">{{ $data->customer->nama_perusahaan }}
                                             </option>
                                             @foreach ($customer as $item)
@@ -88,7 +89,7 @@
                                                     <td>
                                                         <select
                                                             class="form-control custom-select-sm @error('kode_akun.*') is-invalid @enderror"
-                                                            name="kode_akun[]">
+                                                            name="kode_akun[]" disabled>
                                                             <option value="{{ $penjualan->chart_of_account_id }}">
                                                                 {{ $penjualan->chartOfAccount->no_account }}</option>
                                                             @foreach ($kode_akun as $item)
@@ -104,7 +105,7 @@
                                                     <td>
                                                         <select
                                                             class="form-control custom-select-sm @error('produk') is-invalid @enderror"
-                                                            name="produk[]">
+                                                            name="produk[]" disabled>
                                                             <option value="{{ $penjualan->product_id }}">
                                                                 {{ $penjualan->product->nama_produk }}</option>
                                                             @foreach ($produk as $item)
@@ -120,7 +121,7 @@
                                                     </td>
                                                     <td><input type="number" name="quantity[]"
                                                             class="form-control form-control-sm @error('quantity') is-invalid @enderror"
-                                                            value="{{ $penjualan->qty }}">
+                                                            value="{{ $penjualan->qty }}" readonly>
                                                         @error('quantity')
                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                         @enderror
@@ -131,8 +132,8 @@
                                                     <td><input type="text" name="total_harga[]"
                                                             class="form-control form-control-sm"
                                                             value="{{ $penjualan->total_harga }}" readonly></td>
-                                                    <td><button type="button" class="btn btn-danger btn-sm remove-row"
-                                                            id="tombol" hidden><i
+                                                    <td><button type="button" class="btn btn-danger btn-sm delete-detail"
+                                                            onclick="detailProduk('{{ $penjualan->id }}')" hidden><i
                                                                 class="icon-trash txt-danger"></i></button></td>
                                                 </tr>
                                             @endforeach
@@ -152,8 +153,11 @@
                                                 <th style="width: 20%;"></th>
                                                 <th style="width: 20%;"></th>
                                                 <th>Pajak</th>
-                                                <th><input type="text" class="form-control form-control-sm"
-                                                        value="{{ $data->pajak }}" readonly>
+                                                <th class="input-group"><input type="text"
+                                                        class="form-control form-control-sm" value="{{ $data->pajak }}"
+                                                        name="pajak" readonly>
+                                                    <span class="input-group-text form-control-sm"
+                                                        id="basic-addon1">%</span>
                                                 </th>
                                             </tr>
                                             <tr>
@@ -161,8 +165,11 @@
                                                 <th style="width: 20%;"></th>
                                                 <th style="width: 20%;"></th>
                                                 <th>Diskon</th>
-                                                <th><input type="text" class="form-control form-control-sm"
-                                                        value="{{ $data->diskon }}" readonly>
+                                                <th class="input-group"><input type="text"
+                                                        class="form-control form-control-sm" value="{{ $data->diskon }}"
+                                                        name="diskon" readonly>
+                                                    <span class="input-group-text form-control-sm"
+                                                        id="basic-addon1">%</span>
                                                 </th>
                                             </tr>
                                             <tr>
@@ -178,24 +185,44 @@
                                     </br>
                                 </div>
                                 <div class="col-xl-4">
+                                    @foreach ($FilePenjualan as $file)
+                                        <div class="card">
+                                            <div class="card-body d-flex justify-content-between">
+                                                <a href="{{ asset('upload_penjualan/' . $file->nama_file) }}"
+                                                    target="_blank">{{ $file->nama_file }}</a>
+                                                <button type="button" onclick="deleteFile('{{ $file->id }}')"
+                                                    class="btn btn-outline-danger btn-sm">x</button>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                     <section class="hk-sec-wrapper">
                                         <h5 class="hk-sec-title">File Upload</h5>
                                         <p class="mb-40">upload jika ada lampiran.</p>
                                         <div class="row">
                                             <div class="col-sm">
                                                 <div class="fallback">
-                                                    <input name="file" type="file" multiple name="file[]" />
+                                                    <input type="file" multiple name="file[]" />
                                                 </div>
                                             </div>
                                         </div>
                                     </section>
-                                </div>
-                                <button type="submit" class="btn btn-primary btn-sm" id="submit">Submit</button>
-                                <button type="button" id="editButton" class="btn btn-warning btn-sm">Edit</button>
-                                <button type="button" class="btn btn-danger btn-sm"
-                                    style="float: right;">Delete</button>
-                            </form>
+                                    @if ($errors->has('file'))
+                                        <div class="invalid-feedback d-block">{{ $errors->first('file') }}</div>
+                                    @endif
 
+                                    @foreach ($errors->get('file.*') as $messages)
+                                        @foreach ($messages as $message)
+                                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                                        @endforeach
+                                    @endforeach
+
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-sm" id="submit" name="action"
+                                    value="submit">Submit</button>
+                                <button type="button" id="editButton" class="btn btn-warning btn-sm">Edit</button>
+                                <button type="button" onclick="spkDelete('{{ $data->id }}')"
+                                    class="btn btn-danger btn-sm" style="float: right;">Delete</button>
+                            </form>
                         </div>
                     </div>
                 </section>
@@ -203,19 +230,86 @@
         </div>
     </div>
     <script>
+        function deleteFile(id) {
+            fetch('/file-penjualan/' + id, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    }
+                })
+                .catch(error => {
+                    console.error('Terjadi kesalahan:', error);
+                });
+        }
+
+        function detailProduk(id) {
+            fetch('/detail-produk-penjualan/' + id, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    }
+                })
+                .catch(error => {
+                    console.error('Terjadi kesalahan:', error);
+                });
+        }
+
+        function spkDelete(id) {
+            fetch('/penjualan/' + id, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Redirect ke halaman penjualan jika berhasil
+                        window.location.href = '/penjualan';
+                    } else {
+                        return response.text().then(text => {
+                            console.error('Gagal menghapus penjualan:', text);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Terjadi kesalahan:', error);
+                });
+        }
+    </script>
+    <script>
         let editMode = false;
-    
-        document.getElementById('editButton').addEventListener('click', function () {
-            const inputs = document.querySelectorAll('input, textarea, select');
-            const tombol = document.getElementById('tombol');
+
+        document.getElementById('editButton').addEventListener('click', function() {
+            const inputs = document.querySelectorAll('input, select');
+            const tombolSemua = document.querySelectorAll('.delete-detail');
             const addRow = document.getElementById('add-row');
             const submitBtn = document.getElementById('submit');
             const editBtn = document.getElementById('editButton');
-    
+
             editMode = !editMode;
-    
+
             inputs.forEach(input => {
-                if (input.name !== 'total_harga' && input.name !== 'total') {
+                if (input.tagName === 'SELECT') {
+                    if (editMode) {
+                        input.removeAttribute('disabled');
+                    } else {
+                        input.setAttribute('disabled', true);
+                    }
+                } else if (input.name !== 'total_harga[]' && input.name !== 'total' && input.name !==
+                    'tgl' && input.name !== 'kode_transaksi' && input.name !== 'harga[]') {
                     if (editMode) {
                         input.removeAttribute('readonly');
                     } else {
@@ -223,22 +317,27 @@
                     }
                 }
             });
-    
+            tombolSemua.forEach(tombol => {
+                if (editMode) {
+                    tombol.removeAttribute('hidden');
+                } else {
+                    tombol.setAttribute('hidden', true);
+                }
+            });
             if (editMode) {
-                tombol?.removeAttribute('hidden');
                 addRow?.removeAttribute('hidden');
                 submitBtn.textContent = 'Update';
+                submitBtn.value = 'update'
                 submitBtn.removeAttribute('hidden');
                 editBtn.setAttribute('hidden', true); // Sembunyikan tombol edit
             } else {
-                tombol?.setAttribute('hidden', true);
                 addRow?.setAttribute('hidden', true);
                 submitBtn.textContent = 'Submit';
                 editBtn.removeAttribute('hidden'); // Munculkan kembali tombol edit jika dibutuhkan
             }
         });
     </script>
-    
+
     <script>
         $(document).ready(function() {
             // Ketika customer dipilih

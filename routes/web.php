@@ -3,6 +3,8 @@
 use App\Http\Controllers\BiayaController;
 use App\Http\Controllers\ChartOfAccountController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DetailProdukPenjualanController;
+use App\Http\Controllers\FilePenjualanController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -23,6 +25,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('suplier', SupplierController::class);
     Route::resource('produk', ProductController::class);
     Route::resource('penjualan',PenjualanController::class);
+    Route::resource('file-penjualan',FilePenjualanController::class);
+    Route::resource('detail-produk-penjualan',DetailProdukPenjualanController::class);
+    Route::put('penjualan/pengiriman/{id}',[PenjualanController::class,'pengirimanSubmit']);
+    Route::put('penjualan/pengiriman/delete/{id}',[PenjualanController::class,'pengirimanDelete']);
     Route::resource('biaya',BiayaController::class);
     Route::get('quotation', [PenjualanController::class, 'quotation']);
     Route::get('araging',[CustomerController::class, 'araging']);
