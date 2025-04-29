@@ -200,7 +200,7 @@
                                                                         <div class="badge badge-success">Created</div>
                                                                     @endif
                                                                 </td>
-                                                                <td><a href="{{ url('penjualan/quotation') }}">Print</a></td>
+                                                                <td><a href="{{ url('penjualan/quotation/'. $item->id) }}">Print</a></td>
                                                             </tr>
                                                         @empty
                                                             <tr>

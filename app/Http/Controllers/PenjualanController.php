@@ -424,9 +424,10 @@ class PenjualanController extends Controller
             return redirect('penjualan')->with('success', 'Penjualan berhasil diperbarui.');
         }
     }
-    public function pengirimanDelete($id){
-        $this->penjualan->Edit($id,[
-            'status'=>'draft'
+    public function pengirimanDelete($id)
+    {
+        $this->penjualan->Edit($id, [
+            'status' => 'draft'
         ]);
     }
     public function faktur($id)
@@ -440,8 +441,11 @@ class PenjualanController extends Controller
             'FilePenjualan' => FilePenjualan::where('penjualan_id', $id)->get()
         ]);
     }
-    public function quotation()
+    public function quotation($id)
     {
-        return view('admin.quotation');
+        return view('admin.quotation',[
+            'penjualan'=>Penjualan::with('customer')->find($id),
+            'detailPenjualan'=>DetailProdukPenjualan::with('chartOfAccount', 'product')->where('penjualan_id', $id)->latest()->get()
+        ]);
     }
 }

@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::put('penjualan/pengiriman/{id}',[PenjualanController::class,'pengirimanSubmit']);
     Route::put('penjualan/pengiriman/delete/{id}',[PenjualanController::class,'pengirimanDelete']);
     Route::resource('biaya',BiayaController::class);
-    Route::get('quotation', [PenjualanController::class, 'quotation']);
+    Route::get('penjualan/quotation/{id}', [PenjualanController::class, 'quotation']);
     Route::get('araging',[CustomerController::class, 'araging']);
     Route::get('penjualan/spk/{id}',[PenjualanController::class,'spk']);
     Route::get('penjualan/pengiriman/{id}',[PenjualanController::class,'pengiriman']);
