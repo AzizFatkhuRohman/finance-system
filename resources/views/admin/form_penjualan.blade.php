@@ -141,9 +141,9 @@
                                                 <th style="width: 20%;"></th>
                                                 <th style="width: 20%;"></th>
                                                 <th>Pajak</th>
-                                                <th class="input-group"><input type="text"
+                                                <th class="input-group"><input type="number" min="0"
                                                         class="form-control form-control-sm" name="pajak"
-                                                        value="{{ old('pajak') }}">
+                                                        value="{{ 0 ?? old('pajak') }}">
                                                     <span class="input-group-text form-control-sm"
                                                         id="basic-addon1">%</span>
                                                 </th>
@@ -156,9 +156,9 @@
                                                 <th style="width: 20%;"></th>
                                                 <th style="width: 20%;"></th>
                                                 <th>Diskon</th>
-                                                <th class="input-group"><input type="text"
+                                                <th class="input-group"><input type="number" min="0"
                                                         class="form-control form-control-sm" name="diskon"
-                                                        value="{{ old('diskon') }}">
+                                                        value="{{ 0 ?? old('diskon') }}">
                                                     <span class="input-group-text form-control-sm"
                                                         id="basic-addon1">%</span>
                                                 </th>

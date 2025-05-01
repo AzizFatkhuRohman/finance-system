@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->char('kode_produk',10)->unique();
+            $table->char('kode_produk',4)->unique();
             $table->string('nama_produk',20);
             $table->string('satuan',10);
             $table->float('harga');

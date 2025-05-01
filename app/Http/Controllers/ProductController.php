@@ -36,7 +36,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'kd_produk' => 'required|digits:10|unique:products,kode_produk',
+            'kd_produk' => 'required|min:4|unique:products,kode_produk',
             'nm_produk' => 'required|max:50',
             'satuan' => 'required',
             'harga' => 'required',
