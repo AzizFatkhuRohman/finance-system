@@ -30,7 +30,8 @@
                                         <select
                                             class="form-control custom-select-sm @error('nama_supplier') is-invalid @enderror"
                                             name="nama_supplier" id="nama_supplier" value="{{ old('nama_supplier') }}">
-                                            <option value="">Pilih Supplier</option>
+                                            <option value="{{ $data->supplier_id }}">{{ $data->supplier->nama_perusahaan }}
+                                            </option>
                                             @foreach ($supplier as $item)
                                                 <option value="{{ $item->id }}">{{ $item->nama_perusahaan }}</option>
                                             @endforeach
@@ -42,7 +43,8 @@
                                     <div class="col-lg-6">
                                         <label for="tanggal">Tanggal</label>
                                         <input class="form-control form-control-sm @error('tgl') is-invalid @enderror"
-                                            id="tgl" name="tgl" type="date" value="{{ old('tgl') }}">
+                                            id="tgl" name="tgl" type="date"
+                                            value="{{ $data->tgl_transaksi ?? old('tgl') }}">
                                         @error('tgl')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -52,7 +54,7 @@
                                 <div class="row">
                                     <div class="col-md-6 form-group">
                                         <label for="nomor_rekening">Alamat Pengiriman</label>
-                                        <textarea name="alamat" id="alamat" class="form-control @error('alamat') is-invalid @enderror" readonly>{{ old('alamat') }}</textarea>
+                                        <textarea name="alamat" id="alamat" class="form-control @error('alamat') is-invalid @enderror" readonly>{{ $data->supplier->alamat ?? old('alamat') }}</textarea>
                                         @error('alamat')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -61,7 +63,7 @@
                                         <label for="kode_transaksi">Kode Transaksi</label>
                                         <input type="text" name="kode_transaksi"
                                             class="form-control form-control-sm @error('kode_transaksi') is-invalid @enderror"
-                                            value="{{ $kodeTransaksi }}" readonly>
+                                            value="{{ $data->kode_transaksi }}" readonly>
                                         @error('kode_transaksi')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -81,46 +83,50 @@
                                             </tr>
                                         </thead>
                                         <tbody id="dynamic-rows">
-                                            <tr>
-                                                <td>
-                                                    <select
-                                                        class="form-control custom-select-sm @error('kode_akun.*') is-invalid @enderror"
-                                                        name="kode_akun[]">
-                                                        <option value="">Pilih Kode Akun</option>
-                                                        @foreach ($kode_akun as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->no_account }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                    @error('kode_akun.*')
+                                            @foreach ($detailBiaya as $detail)
+                                                <tr>
+                                                    <td>
+                                                        <select
+                                                            class="form-control custom-select-sm @error('kode_akun.*') is-invalid @enderror"
+                                                            name="kode_akun[]">
+                                                            <option value="{{$detail->chart_of_account_id }}">{{$detail->chartOfAccount->no_account}}</option>
+                                                            @foreach ($kode_akun as $item)
+                                                                <option value="{{ $item->id }}">
+                                                                    {{ $item->no_account }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        @error('kode_akun.*')
+                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                        @enderror
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                            class="form-control custom-select-sm @error('produk.*') is-invalid @enderror"
+                                                            name="produk[]" value="{{$detail->item_biaya}}">
+                                                        @error('produk.*')
+                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                        @enderror
+                                                    </td>
+                                                    <td><input type="number" name="quantity[]"
+                                                            class="form-control form-control-sm @error('quantity.*') is-invalid @enderror"
+                                                            value="{{$detail->qty}}"></td>
+                                                    @error('quantity.*')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
-                                                </td>
-                                                <td>
-                                                    <input type="text"
-                                                        class="form-control custom-select-sm @error('produk.*') is-invalid @enderror"
-                                                        name="produk[]">
-                                                    @error('produk.*')
+                                                    <td><input type="text" name="harga[]"
+                                                            class="form-control form-control-sm @error('harga.*') is-invalid @enderror"
+                                                            value="{{$detail->harga}}"></td>
+                                                    @error('harga.*')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
-                                                </td>
-                                                <td><input type="number" name="quantity[]"
-                                                        class="form-control form-control-sm @error('quantity.*') is-invalid @enderror"
-                                                        value=""></td>
-                                                @error('quantity.*')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                                <td><input type="text" name="harga[]"
-                                                        class="form-control form-control-sm @error('harga.*') is-invalid @enderror"
-                                                        value=""></td>
-                                                @error('harga.*')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                                <td><input type="text" name="total_harga[]"
-                                                        class="form-control form-control-sm" value="" readonly></td>
-                                                <td><button type="button" class="btn btn-danger btn-sm remove-row"><i
-                                                            class="icon-trash txt-danger"></i></button></td>
-                                            </tr>
+                                                    <td><input type="text" name="total_harga[]"
+                                                            class="form-control form-control-sm" value="{{$detail->total_harga}}" readonly>
+                                                    </td>
+                                                    <td><button type="button" class="btn btn-danger btn-sm remove-row"><i
+                                                                class="icon-trash txt-danger"></i></button></td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                     </br>
@@ -162,7 +168,8 @@
                                                     <span class="input-group-text form-control-sm"
                                                         id="basic-addon1">Rp</span>
                                                     <input type="text" class="form-control form-control-sm"
-                                                        name="total" id="total" readonly>
+                                                        name="total" id="total" value="{{ $data->total_harga }}"
+                                                        readonly>
                                                 </th>
                                             </tr>
                                         </thead>
@@ -170,6 +177,16 @@
                                     </br>
                                 </div>
                                 <div class="col-md-4">
+                                    @foreach ($fileUpload as $file)
+                                        <div class="card">
+                                            <div class="card-body d-flex justify-content-between">
+                                                <a href="{{ asset('upload_biaya/' . $file->nama_file) }}"
+                                                    target="_blank">{{ $file->nama_file }}</a>
+                                                <button type="button" onclick="deleteBiayaFile('{{ $file->id }}')"
+                                                    class="btn btn-outline-danger btn-sm">x</button>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                     <section class="hk-sec-wrapper">
                                         <h5 class="hk-sec-title">File Upload</h5>
                                         <p class="mb-40">upload jika ada lampiran.</p>
@@ -191,7 +208,11 @@
                                         @endforeach
                                     @endforeach
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="button" onclick="biayaDelete('{{ $data->id }}')"
+                                        class="btn btn-danger btn-sm" style="float: right;">Delete</button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -199,6 +220,66 @@
             </div>
         </div>
     </div>
+    <script>
+        function deleteBiayaFile(id) {
+            fetch('/file-biaya/' + id, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    }
+                })
+                .catch(error => {
+                    console.error('Terjadi kesalahan:', error);
+                });
+        }
+
+        function detailProduk(id) {
+            fetch('/detail-produk-penjualan/' + id, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    }
+                })
+                .catch(error => {
+                    console.error('Terjadi kesalahan:', error);
+                });
+        }
+
+        function biayaDelete(id) {
+            fetch('/biaya/' + id, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Redirect ke halaman penjualan jika berhasil
+                        window.location.href = '/biaya';
+                    } else {
+                        return response.text().then(text => {
+                            console.error('Gagal menghapus biaya:', text);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Terjadi kesalahan:', error);
+                });
+        }
+    </script>
     <script>
         $(document).ready(function() {
             // Ketika customer dipilih
@@ -250,7 +331,7 @@
             ${kodeAkunOptions}
                     </select>
                 </td>
-                <td><input type="text" class="form-control custom-select-sm" name="produk[]" value=""> </td>
+                <td><input type="text" class="form-control custom-select-sm name="produk[]" value=""> </td>
                 <td><input type="number" name="quantity[]" class="form-control form-control-sm" value=""></td>
                 <td><input type="text" name="harga[]" class="form-control form-control-sm" value=""></td>
                 <td><input type="text" name="total_harga[]" class="form-control form-control-sm" value="" readonly></td>

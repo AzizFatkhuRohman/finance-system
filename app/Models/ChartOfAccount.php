@@ -13,6 +13,10 @@ class ChartOfAccount extends Model
     {
         return $this->hasMany(DetailProdukPenjualan::class);
     }
+    public function detailBiaya()
+    {
+        return $this->hasMany(DetailBiaya::class);
+    }
     public function Index()
     {
         return $this->latest()->get();

@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('biaya', function (Blueprint $table) {
+        Schema::create('detail_biaya', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('supplier_id')->constrained();
-            $table->foreignUuid('user_id')->constrained();
-            $table->date('tgl_transaksi');
-            $table->string('kode_transaksi')->unique();
-            $table->enum('status',['pending','paid'])->default('pending');
-            // $table->decimal('pajak');
-            // $table->decimal('diskon');
+            $table->foreignUuid('biaya_id')->references('id')->on('biaya');
+            $table->foreignUuid('chart_of_account_id')->constrained();
+            $table->string('item_biaya');
+            $table->integer('qty');
+            $table->decimal('harga');
             $table->decimal('total_harga');
             $table->timestamps();
         });
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('biaya');
+        Schema::dropIfExists('detail_biaya');
     }
 };

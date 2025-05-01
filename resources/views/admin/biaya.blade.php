@@ -51,11 +51,12 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            @foreach ($paid as $item)
                                                             <tr>
-                                                                <td><a href="{{ url('pembayaran') }}">Order #26589</a></td>
-                                                                <td>PT. XYZ</td>
-                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Oct 16, 2016</span> </td>
-                                                                <td>Rp. 450.000</td>
+                                                                <td><a href="{{ url('biaya/'.$item->id) }}">{{$item->kode_transaksi}}</a></td>
+                                                                <td>{{$item->supplier->nama_perusahaan}}</td>
+                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> {{$item->tgl_transaksi}}</span> </td>
+                                                                <td>{{$item->total_harga}}</td>
                                                                 <td>
                                                                 <div class="badge badge-success">Paid</div>
                                                                 </td>
@@ -63,8 +64,7 @@
                                                                 <a href="#">Print</a>
                                                                 </td>
                                                             </tr>
-
-
+                                                            @endforeach
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -91,15 +91,17 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            @foreach ($pending as $item)
                                                             <tr>
-                                                                <td><a href="javascript:void(0)">Order #26589</a></td>
-                                                                <td>PT. XYZ</td>
-                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> Oct 16, 2016</span> </td>
-                                                                <td>Rp. 450.000</td>
+                                                                <td><a href="{{ url('biaya/'.$item->id) }}">{{$item->kode_transaksi}}</a></td>
+                                                                <td>{{$item->supplier->nama_perusahaan}}</td>
+                                                                <td><span class="text-muted"><i class="icon-clock font-13"></i> {{$item->tgl_transaksi}}</span> </td>
+                                                                <td>{{$item->total_harga}}</td>
                                                                 <td>
-                                                                <div class="badge badge-success">Created</div>
+                                                                <div class="badge badge-warning">Pending</div>
                                                                 </td>
                                                             </tr>
+                                                            @endforeach
                                                         </tbody>
                                                     </table>
                                                 </div>

@@ -31,7 +31,10 @@ class Supplier extends Model
     {
         return $this->belongsTo(Village::class, 'village_id', 'id');
     }
-
+    public function biaya()
+    {
+        return $this->hasMany(Biaya::class);
+    }
     public function Index()
     {
         return $this->with('regency')->latest()->get();
