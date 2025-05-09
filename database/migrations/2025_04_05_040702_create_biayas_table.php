@@ -20,7 +20,7 @@ return new class extends Migration
             $table->enum('status',['pending','paid'])->default('pending');
             // $table->decimal('pajak');
             // $table->decimal('diskon');
-            $table->decimal('total_harga');
+            $table->decimal('total_harga',15,2);
             $table->timestamps();
         });
     }

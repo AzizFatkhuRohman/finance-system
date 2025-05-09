@@ -127,15 +127,15 @@
                                                             class="form-control form-control-sm"
                                                             value="{{ $detail->total_harga }}" readonly>
                                                     </td>
-                                                    <td><button type="button" class="btn btn-danger btn-sm remove-row"
-                                                            hidden><i class="icon-trash txt-danger"></i></button></td>
+                                                    {{-- <td><button type="button" class="btn btn-danger btn-sm remove-row"
+                                                            hidden><i class="icon-trash txt-danger"></i></button></td> --}}
                                                 </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
                                     </br>
-                                    <button type="button" id="add-row" class="btn btn-success btn-sm" hidden><i
-                                            class="icon-plus"> Tambah Produk</i></button>
+                                    {{-- <button type="button" id="add-row" class="btn btn-success btn-sm" hidden><i
+                                            class="icon-plus"> Tambah Produk</i></button> --}}
                                 </div>
 
                                 <div class="table-wrap">
@@ -191,7 +191,7 @@
                                             </div>
                                         </div>
                                     @endforeach
-                                    <section class="hk-sec-wrapper">
+                                    {{-- <section class="hk-sec-wrapper">
                                         <h5 class="hk-sec-title">File Upload</h5>
                                         <p class="mb-40">upload jika ada lampiran.</p>
                                         <div class="row">
@@ -204,21 +204,21 @@
                                     </section>
                                     @if ($errors->has('file'))
                                         <div class="invalid-feedback d-block">{{ $errors->first('file') }}</div>
-                                    @endif
+                                    @endif --}}
 
-                                    @foreach ($errors->get('file.*') as $messages)
+                                    {{-- @foreach ($errors->get('file.*') as $messages)
                                         @foreach ($messages as $message)
                                             <div class="invalid-feedback d-block">{{ $message }}</div>
                                         @endforeach
-                                    @endforeach
+                                    @endforeach --}}
                                 </div>
                                 <div>
-                                    <div class="d-flex">
+                                    {{-- <div class="d-flex">
                                         <button type="submit" class="btn btn-primary" id="submit"
                                             name="action" value="submit">Submit</button>
                                         <button type="button" class="btn btn-success" style="margin-left: 2px"
                                             id="editButton">Edit</button>
-                                    </div>
+                                    </div> --}}
                                     <button type="button" onclick="biayaDelete('{{ $data->id }}')"
                                         class="btn btn-danger btn-sm" id="delete"
                                         style="float: right;">Delete</button>
@@ -284,45 +284,45 @@
         });
     </script>
     <script>
-        function deleteBiayaFile(id) {
-            fetch('/file-biaya/' + id, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                })
-                .then(response => {
-                    if (response.ok) {
-                        location.reload();
-                    }
-                })
-                .catch(error => {
-                    console.error('Terjadi kesalahan:', error);
-                });
-        }
+        // function deleteBiayaFile(id) {
+        //     fetch('/file-biaya/' + id, {
+        //             method: 'DELETE',
+        //             headers: {
+        //                 'Content-Type': 'application/json',
+        //                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        //             },
+        //         })
+        //         .then(response => {
+        //             if (response.ok) {
+        //                 location.reload();
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error('Terjadi kesalahan:', error);
+        //         });
+        // }
 
-        function detailProduk(id) {
-            fetch('/detail-produk-penjualan/' + id, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                })
-                .then(response => {
-                    if (response.ok) {
-                        location.reload();
-                    }
-                })
-                .catch(error => {
-                    console.error('Terjadi kesalahan:', error);
-                });
-        }
+        // function detailProduk(id) {
+        //     fetch('/detail-produk-penjualan/' + id, {
+        //             method: 'DELETE',
+        //             headers: {
+        //                 'Content-Type': 'application/json',
+        //                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        //             },
+        //         })
+        //         .then(response => {
+        //             if (response.ok) {
+        //                 location.reload();
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error('Terjadi kesalahan:', error);
+        //         });
+        // }
 
         function biayaDelete(id) {
-            fetch('/biaya/' + id, {
-                    method: 'DELETE',
+            fetch('/biaya-receipt/' + id, {
+                    method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -341,121 +341,6 @@
                 .catch(error => {
                     console.error('Terjadi kesalahan:', error);
                 });
-        }
-    </script>
-    <script>
-        $(document).ready(function() {
-            // Ketika customer dipilih
-            $('#nama_supplier').on('change', function() {
-                var supplierId = $(this).val(); // Ambil ID customer yang dipilih
-
-                // Jika ID customer dipilih, kirim request AJAX
-                if (supplierId) {
-                    $.ajax({
-                        url: '/supplier/' + supplierId + '/alamat', // URL untuk mengambil alamat
-                        method: 'GET',
-                        success: function(response) {
-                            if (response.alamat) {
-                                // Isi textarea alamat dengan alamat yang diterima dari server
-                                $('#alamat').val(response.alamat);
-                            } else {
-                                // Jika tidak ada alamat, kosongkan textarea
-                                $('#alamat').val('');
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            console.log('Error:', error);
-                            $('#alamat').val(''); // Kosongkan jika terjadi error
-                        }
-                    });
-                } else {
-                    // Jika tidak ada customer yang dipilih, kosongkan alamat
-                    $('#alamat').val('');
-                }
-            });
-        });
-    </script>
-    <script>
-        const kodeAkunOptions = `
-            @foreach ($kode_akun as $item)
-                <option value="{{ $item->id }}">{{ $item->no_account }}</option>
-            @endforeach
-        `;
-    </script>
-    <script>
-        // JavaScript untuk menambah input barang
-        document.getElementById('add-row').addEventListener('click', function() {
-            const tableBody = document.getElementById('dynamic-rows');
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                <td>
-                    <select class="form-control custom-select-sm" name="kode_akun[]">
-                         <option value="">Pilih Kode Akun</option>
-            ${kodeAkunOptions}
-                    </select>
-                </td>
-                <td><input type="text" class="form-control custom-select-sm name="produk[]" value=""> </td>
-                <td><input type="number" name="quantity[]" class="form-control form-control-sm" value=""></td>
-                <td><input type="text" name="harga[]" class="form-control form-control-sm" value=""></td>
-                <td><input type="text" name="total_harga[]" class="form-control form-control-sm" value="" readonly></td>
-                <td><button type="button" class="btn btn-danger btn-sm remove-row"><i class="icon-trash txt-danger"></i></button></td>
-            `;
-            tableBody.appendChild(newRow);
-        });
-        $('#dynamic-rows').on('click', '.remove-row', function() {
-            $(this).closest('tr').remove();
-        });
-    </script>
-    <script>
-        function hitungTotal() {
-            let totalKeseluruhan = 0;
-
-            // Loop semua baris dan hitung total per baris
-            document.querySelectorAll('#dynamic-rows tr').forEach(function(row) {
-                const qtyEl = row.querySelector('input[name="quantity[]"]');
-                const hargaEl = row.querySelector('input[name="harga[]"]');
-                const totalEl = row.querySelector('input[name="total_harga[]"]');
-
-                const qty = parseFloat(qtyEl?.value) || 0;
-                const harga = parseFloat(hargaEl?.value) || 0;
-                const total = qty * harga;
-
-                if (totalEl) {
-                    totalEl.value = total.toFixed(2); // atau gunakan total.toFixed(0) jika tidak ingin desimal
-                }
-
-                totalKeseluruhan += total;
-            });
-
-            // Ambil nilai pajak dan diskon
-            const pajak = parseFloat(document.querySelector('input[name="pajak"]')?.value) || 0;
-            const diskon = parseFloat(document.querySelector('input[name="diskon"]')?.value) || 0;
-
-            const grandTotal = totalKeseluruhan + pajak - diskon;
-
-            // Tampilkan hasil akhir di input total
-            const totalInput = document.querySelector('input[name="total"]');
-            if (totalInput) {
-                totalInput.value = grandTotal.toFixed(2); // bisa ubah ke toFixed(0) jika ingin tanpa koma
-            }
-        }
-
-        // Jalankan saat input berubah
-        document.addEventListener('input', function(e) {
-            const namesToWatch = ['quantity[]', 'harga[]', 'pajak', 'diskon'];
-            if (namesToWatch.includes(e.target.name)) {
-                hitungTotal();
-            }
-        });
-
-        // Jalankan juga saat tambah baris
-        const addRowBtn = document.getElementById('add-row');
-        if (addRowBtn) {
-            addRowBtn.addEventListener('click', function() {
-                setTimeout(() => {
-                    hitungTotal();
-                }, 100);
-            });
         }
     </script>
 @endsection

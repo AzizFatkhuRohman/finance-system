@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\FileBiaya;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
 class FileBiayaController extends Controller
@@ -58,8 +59,10 @@ class FileBiayaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FileBiaya $fileBiaya)
+    public function destroy($id)
     {
-        //
+        $file = FileBiaya::find($id);
+        File::delete(public_path('upload_biaya'.$file->nama_file));
+        FileBiaya::find($id)->delete();
     }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\BiayaController;
 use App\Http\Controllers\ChartOfAccountController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DetailProdukPenjualanController;
+use App\Http\Controllers\FileBiayaController;
 use App\Http\Controllers\FilePenjualanController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProductController;
@@ -26,6 +27,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('produk', ProductController::class);
     Route::resource('penjualan',PenjualanController::class);
     Route::resource('file-penjualan',FilePenjualanController::class);
+    Route::resource('file-biaya', FileBiayaController::class);
+    Route::put('biaya-receipt/{id}', [BiayaController::class,'biaya_receipt']);
     Route::resource('detail-produk-penjualan',DetailProdukPenjualanController::class);
     Route::put('penjualan/pengiriman/{id}',[PenjualanController::class,'pengirimanSubmit']);
     Route::put('penjualan/pengiriman/delete/{id}',[PenjualanController::class,'pengirimanDelete']);

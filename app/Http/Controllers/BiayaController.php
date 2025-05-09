@@ -23,9 +23,9 @@ class BiayaController extends Controller
      */
     public function index()
     {
-        return view('admin.biaya',[
-            'pending'=>Biaya::with('supplier')->where('status','pending')->latest()->get(),
-            'paid'=>Biaya::with('supplier')->where('status','paid')->latest()->get(),
+        return view('admin.biaya', [
+            'pending' => Biaya::with('supplier')->where('status', 'pending')->latest()->get(),
+            'paid' => Biaya::with('supplier')->where('status', 'paid')->latest()->get(),
         ]);
     }
 
@@ -115,7 +115,7 @@ class BiayaController extends Controller
                 'harga' => $request->harga[$index],
                 'total_harga' => $request->total_harga[$index],
             ]);
-        }        
+        }
         if ($request->hasFile('file')) {
             foreach ($request->file('file') as $uploadedFile) {
                 $originalName = str_replace(' ', '_', $uploadedFile->getClientOriginalName());
@@ -134,39 +134,143 @@ class BiayaController extends Controller
      */
     public function show($id)
     {
-        return view('admin.edit-biaya',[
+        return view('admin.edit-biaya', [
             'supplier' => Supplier::all(),
             'kode_akun' => ChartOfAccount::all(),
-            'data'=>Biaya::with('supplier')->find($id),
-            'fileUpload'=>FileBiaya::where('biaya_id',$id)->get(),
-            'detailBiaya'=>DetailBiaya::with('chartOfAccount')->where('biaya_id',$id)->get()
+            'data' => Biaya::with('supplier')->find($id),
+            'fileUpload' => FileBiaya::where('biaya_id', $id)->get(),
+            'detailBiaya' => DetailBiaya::with('chartOfAccount')->where('biaya_id', $id)->get()
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Biaya $biaya)
+    public function edit($id)
     {
-        //
+        return view('admin.edit-biaya-receipt', [
+            'supplier' => Supplier::all(),
+            'kode_akun' => ChartOfAccount::all(),
+            'data' => Biaya::with('supplier')->find($id),
+            'fileUpload' => FileBiaya::where('biaya_id', $id)->get(),
+            'detailBiaya' => DetailBiaya::with('chartOfAccount')->where('biaya_id', $id)->get()
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Biaya $biaya)
+    public function update(Request $request, $id)
     {
-        //
+        if ($request->action === 'submit') {
+            $request->validate([
+                'file' => 'nullable|array',
+                'file.*' => 'nullable|file|max:3072'
+            ], [
+                'file.*.file' => 'Setiap lampiran harus berupa file.',
+                'file.*.max' => 'Ukuran maksimal tiap file adalah 3 MB.'
+            ]);
+
+            if ($request->hasFile('file')) {
+                foreach ($request->file('file') as $uploadedFile) {
+                    $originalName = str_replace(' ', '_', $uploadedFile->getClientOriginalName());
+                    $uploadedFile->move(public_path('upload_biaya'), $originalName);
+                    FileBiaya::create([
+                        'penjualan_id' => $id,
+                        'nama_file' => $originalName,
+                    ]);
+                }
+            }
+            $this->biaya->Edit($id, [
+                'status' => 'paid'
+            ]);
+            return redirect('biaya')->with('success', 'Biaya berhasil disubmit');
+        } else {
+            $request->validate([
+                'nama_supplier' => 'required|exists:suppliers,id',
+                'tgl' => 'required|date',
+                'produk' => 'required|array',
+                'produk.*' => 'required',
+                'quantity' => 'required|array',
+                'quantity.*' => 'required|numeric',
+                'harga' => 'required|array',
+                'harga.*' => 'required|numeric',
+                'kode_akun' => 'required|array',
+                'kode_akun.*' => 'required|exists:chart_of_accounts,id',
+                'file' => 'nullable|array',
+                'file.*' => 'nullable|file|max:3072'
+            ], [
+                'nama_supplier.required' => 'Nama supplier harus dipilih.',
+                'tgl.required' => 'Tanggal Transaksi harus diisi.',
+                'produk.required' => 'Produk harus dipilih.',
+                'produk.*.required' => 'Setiap item harus dipilih.',
+                'quantity.required' => 'Quantity item harus diisi.',
+                'quantity.*.required' => 'Quantity setiap item harus diisi.',
+                'quantity.*.numeric' => 'Quantity harus berupa angka.',
+                'harga.*.required' => 'Harga setiap item harus diisi.',
+                'harga.*.numeric' => 'Harga harus berupa angka.',
+                'kode_akun.required' => 'Kode Akun harus dipilih.',
+                'kode_akun.*.required' => 'Kode Akun setiap produk harus dipilih.',
+                'kode_akun.*.exists' => 'Kode Akun yang dipilih tidak ditemukan.',
+                'file.*.file' => 'Setiap lampiran harus berupa file.',
+                'file.*.max' => 'Ukuran maksimal tiap file adalah 3 MB.'
+            ]);
+
+            $biaya = Biaya::findOrFail($id);
+
+            // Update Biaya
+            $biaya->update([
+                'supplier_id' => $request->nama_supplier,
+                'user_id' => Auth::user()->id,
+                'kode_transaksi' => $request->kode_transaksi,
+                'tgl_transaksi' => $request->tgl,
+                'total_harga' => $request->total
+            ]);
+
+            // Hapus DetailBiaya Lama
+            DetailBiaya::where('biaya_id', $biaya->id)->delete();
+
+            // Insert DetailBiaya Baru
+            foreach ($request->produk as $index => $value) {
+                DetailBiaya::create([
+                    'biaya_id' => $biaya->id,
+                    'chart_of_account_id' => $request->kode_akun[$index],
+                    'item_biaya' => $value,
+                    'qty' => $request->quantity[$index],
+                    'harga' => $request->harga[$index],
+                    'total_harga' => $request->quantity[$index] * $request->harga[$index],
+                ]);
+            }
+
+            // Handle File Uploads
+            if ($request->hasFile('file')) {
+                foreach ($request->file('file') as $uploadedFile) {
+                    $originalName = str_replace(' ', '_', $uploadedFile->getClientOriginalName());
+                    $uploadedFile->move(public_path('upload_biaya'), $originalName);
+
+                    FileBiaya::create([
+                        'biaya_id' => $biaya->id,
+                        'nama_file' => $originalName,
+                    ]);
+                }
+            }
+
+            return redirect('biaya')->with('success', 'Biaya berhasil diperbarui');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Biaya $biaya)
+    public function destroy($id)
     {
-        //
+        $this->biaya->Trash($id);
     }
-
+    public function biaya_receipt($id){
+        $this->biaya->Edit($id,[
+            'status'=>'pending'
+        ]);
+    }
     public function pembayaran()
     {
         return view('admin.form_pembayaran_biaya');
