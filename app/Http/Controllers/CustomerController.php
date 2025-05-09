@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use Illuminate\Support\Facades\DB;
 use App\Models\Province;
 use Illuminate\Http\Request;
 
@@ -194,7 +195,24 @@ class CustomerController extends Controller
 
     public function araging()
     {
-        return view('admin.araging');
+        $data = DB::table('penjualan')
+        ->select(
+            'customers.id as customer_id',
+            'customers.code_customer',
+            'customers.nama_perusahaan as nama',
+            DB::raw('SUM(total_harga) as total_utang'),
+            DB::raw('SUM(CASE WHEN DATEDIFF(NOW(), tgl_transaksi) BETWEEN 1 AND 30 THEN total_harga ELSE 0 END) as aging_1_30'),
+            DB::raw('SUM(CASE WHEN DATEDIFF(NOW(), tgl_transaksi) BETWEEN 31 AND 60 THEN total_harga ELSE 0 END) as aging_31_60'),
+            DB::raw('SUM(CASE WHEN DATEDIFF(NOW(), tgl_transaksi) BETWEEN 61 AND 90 THEN total_harga ELSE 0 END) as aging_61_90')
+        )
+        ->join('customers', 'penjualan.customer_id', '=', 'customers.id')
+        ->where('penjualan.status', '!=', 'paid') // Hanya transaksi yang belum lunas
+        ->groupBy('customers.id', 'customers.code_customer', 'customers.nama_perusahaan')
+        ->get();
+
+        return view('admin.araging', [
+            'data' => $data
+        ]);
     }
     public function getAlamat($id)
     {

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignUuid('chart_of_account_id')->constrained();
             $table->foreignUuid('product_id')->constrained();
             $table->integer('qty');
-            $table->decimal('total_harga');
+            $table->decimal('total_harga',15,2);
             $table->timestamps();
         });
     }
