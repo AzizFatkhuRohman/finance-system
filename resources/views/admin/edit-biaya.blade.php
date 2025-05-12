@@ -191,7 +191,7 @@
                                             </div>
                                         </div>
                                     @endforeach
-                                    <section class="hk-sec-wrapper">
+                                    <section class="hk-sec-wrapper" id="fileUpload" style="display: none">
                                         <h5 class="hk-sec-title">File Upload</h5>
                                         <p class="mb-40">upload jika ada lampiran.</p>
                                         <div class="row">
@@ -214,8 +214,8 @@
                                 </div>
                                 <div>
                                     <div class="d-flex">
-                                        <button type="submit" class="btn btn-primary" id="submit"
-                                            name="action" value="submit">Submit</button>
+                                        <button type="submit" class="btn btn-primary" id="submit" name="action"
+                                            value="submit">Submit</button>
                                         <button type="button" class="btn btn-success" style="margin-left: 2px"
                                             id="editButton">Edit</button>
                                     </div>
@@ -239,47 +239,38 @@
             const addRow = document.getElementById('add-row');
             const submitBtn = document.getElementById('submit');
             const editBtn = document.getElementById('editButton');
+            const fileSection = document.getElementById('fileUpload')
 
             editMode = !editMode;
 
             inputs.forEach(input => {
                 if (input.tagName === 'SELECT') {
-                    if (editMode) {
-                        input.removeAttribute('disabled');
-                    } else {
-                        input.setAttribute('disabled', true);
-                    }
+                    input.disabled = !editMode;
                 }
                 // Untuk input selain total_harga[], tgl, kode_transaksi, dan harga
                 else if (input.name !== 'tgl' && input.name !== 'kode_transaksi' && input.name !==
                     'total_harga[]') {
-                    if (editMode) {
-                        input.removeAttribute('readonly');
-                    } else {
-                        input.setAttribute('readonly', true);
-                    }
+                    input.readOnly = !editMode;
                 }
             });
 
             tombolSemua.forEach(tombol => {
-                if (editMode) {
-                    tombol.removeAttribute('hidden');
-                } else {
-                    tombol.setAttribute('hidden', true);
-                }
+                tombol.style.display = editMode ? 'inline-block' : 'none';
             });
 
             if (editMode) {
                 addRow?.removeAttribute('hidden');
                 submitBtn.textContent = 'Update';
                 submitBtn.value = 'update';
-                submitBtn.removeAttribute('hidden');
-                editBtn.setAttribute('hidden', true); // Sembunyikan tombol edit
+                submitBtn.style.display = 'inline-block';
+                editBtn.style.display = 'none';
+                fileSection.style.display = 'block'; // Tampilkan section file upload
             } else {
                 addRow?.setAttribute('hidden', true);
                 submitBtn.textContent = 'Submit';
-                submitBtn.setAttribute('hidden', true); // Sembunyikan tombol submit
-                editBtn.removeAttribute('hidden'); // Munculkan kembali tombol edit
+                submitBtn.style.display = 'none';
+                editBtn.style.display = 'inline-block';
+                fileSection.style.display = 'none'; // Sembunyikan section file upload
             }
         });
     </script>
@@ -321,26 +312,54 @@
         }
 
         function biayaDelete(id) {
-            fetch('/biaya/' + id, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                })
-                .then(response => {
-                    if (response.ok) {
-                        // Redirect ke halaman penjualan jika berhasil
-                        window.location.href = '/biaya';
-                    } else {
-                        return response.text().then(text => {
-                            console.error('Gagal menghapus biaya:', text);
+            Swal.fire({
+                title: 'Yakin ingin menghapus data ini?',
+                text: "Data yang dihapus tidak dapat dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch('/biaya/' + id, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Berhasil!',
+                                    text: data.message,
+                                    timer: 1500,
+                                    showConfirmButton: false
+                                }).then(() => {
+                                    window.location.href = '/biaya';
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Gagal!',
+                                    text: data.message
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Terjadi Kesalahan',
+                                text: 'Tidak dapat menghapus data.'
+                            });
                         });
-                    }
-                })
-                .catch(error => {
-                    console.error('Terjadi kesalahan:', error);
-                });
+                }
+            });
         }
     </script>
     <script>

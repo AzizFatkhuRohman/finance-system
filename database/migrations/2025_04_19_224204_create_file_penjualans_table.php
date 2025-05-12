@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('file_penjualan', function (Blueprint $table) {
             $table->uuid('id');
-            $table->foreignUuid('penjualan_id')->references('id')->on('penjualan');
+            $table->foreignUuid('penjualan_id')->references('id')->on('penjualan')->onDelete('cascade');
             $table->string('nama_file',50);
             $table->timestamps();
         });

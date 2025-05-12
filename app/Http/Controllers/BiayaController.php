@@ -10,6 +10,7 @@ use App\Models\Supplier;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Str;
 
 class BiayaController extends Controller
 {
@@ -36,23 +37,23 @@ class BiayaController extends Controller
     {
         $monthYear = Carbon::now()->format('Y/m');
 
-        // Cari transaksi terakhir yang dibuat pada bulan dan tahun yang sama
-        $lastTransaction = Biaya::whereDate('tgl_transaksi', 'like', Carbon::now()->format('Y-m') . '%')
-            ->orderBy('tgl_transaksi', 'desc')
+        // Cari transaksi terakhir berdasarkan pola kode transaksi
+        $lastTransaction = Biaya::where('kode_transaksi', 'like', 'EX-' . $monthYear . '/%')
+            ->orderBy('kode_transaksi', 'desc')
             ->first();
 
         // Tentukan nomor urut berdasarkan transaksi terakhir
         $lastNumber = 1; // Default jika tidak ada transaksi bulan ini
 
         if ($lastTransaction) {
-            // Ambil nomor urut dari kode_transaksi terakhir dan extract nomor urutnya
+            // Ambil nomor urut dari kode_transaksi terakhir
             preg_match('/(\d{4})$/', $lastTransaction->kode_transaksi, $matches);
             if (isset($matches[1])) {
-                $lastNumber = (int) $matches[1] + 1; // Increment nomor urut
+                $lastNumber = (int) $matches[1] + 1;
             }
         }
 
-        // Buat kode transaksi dengan format TR-Y/m/nomor_urut
+        // Buat kode transaksi dengan format EX-Y/m/nomor_urut
         $kodeTransaksi = 'EX-' . $monthYear . '/' . str_pad($lastNumber, 4, '0', STR_PAD_LEFT);
         return view('admin.form_biaya', [
             'supplier' => Supplier::all(),
@@ -116,13 +117,18 @@ class BiayaController extends Controller
                 'total_harga' => $request->total_harga[$index],
             ]);
         }
+
         if ($request->hasFile('file')) {
             foreach ($request->file('file') as $uploadedFile) {
                 $originalName = str_replace(' ', '_', $uploadedFile->getClientOriginalName());
-                $uploadedFile->move(public_path('upload_biaya'), $originalName);
+                $randomPrefix = Str::random(10);
+                $fileName = $randomPrefix . '_' . $originalName;
+
+                $uploadedFile->move(public_path('upload_biaya'), $fileName);
+
                 FileBiaya::create([
-                    'biaya_id' =>  $biaya->id,
-                    'nama_file' => $originalName,
+                    'biaya_id' => $biaya->id,
+                    'nama_file' => $fileName,
                 ]);
             }
         }
@@ -174,10 +180,14 @@ class BiayaController extends Controller
             if ($request->hasFile('file')) {
                 foreach ($request->file('file') as $uploadedFile) {
                     $originalName = str_replace(' ', '_', $uploadedFile->getClientOriginalName());
-                    $uploadedFile->move(public_path('upload_biaya'), $originalName);
+                    $randomPrefix = Str::random(10);
+                    $fileName = $randomPrefix . '_' . $originalName;
+
+                    $uploadedFile->move(public_path('upload_biaya'), $fileName);
+
                     FileBiaya::create([
-                        'penjualan_id' => $id,
-                        'nama_file' => $originalName,
+                        'biaya_id' => $id,
+                        'nama_file' => $fileName,
                     ]);
                 }
             }
@@ -264,11 +274,18 @@ class BiayaController extends Controller
      */
     public function destroy($id)
     {
-        $this->biaya->Trash($id);
+        try {
+            $this->biaya->Trash($id);
+            return response()->json(['success' => true, 'message' => 'Data berhasil dihapus']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Gagal menghapus data: ' . $e->getMessage()], 500);
+        }
     }
-    public function biaya_receipt($id){
-        $this->biaya->Edit($id,[
-            'status'=>'pending'
+
+    public function biaya_receipt($id)
+    {
+        $this->biaya->Edit($id, [
+            'status' => 'pending'
         ]);
     }
     public function pembayaran()

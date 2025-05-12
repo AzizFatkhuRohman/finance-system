@@ -164,10 +164,13 @@ class PenjualanController extends Controller
             if ($request->hasFile('file')) {
                 foreach ($request->file('file') as $uploadedFile) {
                     $originalName = str_replace(' ', '_', $uploadedFile->getClientOriginalName());
-                    $uploadedFile->move(public_path('upload_penjualan'), $originalName);
+                    $randomPrefix = Str::random(10); // Menambahkan prefix random
+                    $fileName = $randomPrefix . '_' . $originalName;
+                    $uploadedFile->move(public_path('upload_penjualan'), $fileName);
+
                     FilePenjualan::create([
                         'penjualan_id' => $id,
-                        'nama_file' => $originalName,
+                        'nama_file' => $fileName,
                     ]);
                 }
             }
@@ -270,23 +273,41 @@ class PenjualanController extends Controller
      */
     public function destroy($id)
     {
-        $penjualan = $this->findOrFail($id);
-        foreach ($penjualan->detailProdukPenjualan as $detail) {
-            $product = $detail->product;
-            $product->stok += $detail->qty;
-            $product->save();
-            $detail->delete();
-        }
+        try {
+            $penjualan = Penjualan::findOrFail($id);
 
-        // Menghapus file penjualan
-        foreach ($penjualan->filePenjualan as $file) {
-            $filePath = public_path('upload_penjualan/' . $file->nama_file);
-            if (File::exists($filePath)) {
-                File::delete($filePath);
+            // Update stok produk
+            foreach ($penjualan->detailProdukPenjualan as $detail) {
+                $product = $detail->product;
+                if ($product) {
+                    $product->stok += $detail->qty;
+                    $product->save();
+                }
+                $detail->delete();
             }
-            $file->delete();
+
+            // Hapus file penjualan
+            foreach ($penjualan->filePenjualan as $file) {
+                $filePath = public_path('upload_penjualan/' . $file->nama_file);
+                if (File::exists($filePath)) {
+                    File::delete($filePath);
+                }
+                $file->delete();
+            }
+
+            // Hapus data penjualan
+            $penjualan->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Data penjualan berhasil dihapus.'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan saat menghapus data: ' . $e->getMessage()
+            ], 500);
         }
-        $this->penjualan->Trash($id);
     }
     public function spk($id)
     {
@@ -443,9 +464,9 @@ class PenjualanController extends Controller
     }
     public function quotation($id)
     {
-        return view('admin.quotation',[
-            'penjualan'=>Penjualan::with('customer')->find($id),
-            'detailPenjualan'=>DetailProdukPenjualan::with('chartOfAccount', 'product')->where('penjualan_id', $id)->latest()->get()
+        return view('admin.quotation', [
+            'penjualan' => Penjualan::with('customer')->find($id),
+            'detailPenjualan' => DetailProdukPenjualan::with('chartOfAccount', 'product')->where('penjualan_id', $id)->latest()->get()
         ]);
     }
 }

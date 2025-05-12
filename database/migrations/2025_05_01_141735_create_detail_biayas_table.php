@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('detail_biaya', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('biaya_id')->references('id')->on('biaya');
+            $table->foreignUuid('biaya_id')->references('id')->on('biaya')->onDelete('cascade');
             $table->foreignUuid('chart_of_account_id')->constrained();
             $table->string('item_biaya');
             $table->integer('qty');

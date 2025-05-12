@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('detail_produk_penjualan', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('penjualan_id')->references('id')->on('penjualan');
+            $table->foreignUuid('penjualan_id')->references('id')->on('penjualan')->onDelete('cascade');
             $table->foreignUuid('chart_of_account_id')->constrained();
             $table->foreignUuid('product_id')->constrained();
             $table->integer('qty');

@@ -267,26 +267,54 @@
         }
 
         function spkDelete(id) {
-            fetch('/penjualan/' + id, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                })
-                .then(response => {
-                    if (response.ok) {
-                        // Redirect ke halaman penjualan jika berhasil
-                        window.location.href = '/penjualan';
-                    } else {
-                        return response.text().then(text => {
-                            console.error('Gagal menghapus penjualan:', text);
+            Swal.fire({
+                title: 'Yakin ingin menghapus data ini?',
+                text: "Data yang dihapus tidak dapat dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch('/penjualan/' + id, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Berhasil!',
+                                    text: data.message,
+                                    timer: 1500,
+                                    showConfirmButton: false
+                                }).then(() => {
+                                    window.location.href = '/penjualan';
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Gagal!',
+                                    text: data.message
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Terjadi Kesalahan',
+                                text: 'Tidak dapat menghapus data.'
+                            });
                         });
-                    }
-                })
-                .catch(error => {
-                    console.error('Terjadi kesalahan:', error);
-                });
+                }
+            });
         }
     </script>
     <script>
