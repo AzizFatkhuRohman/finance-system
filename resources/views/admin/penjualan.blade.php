@@ -141,7 +141,7 @@
                                                                         <div class="badge badge-success">Send</div>
                                                                     @endif
                                                                 </td>
-                                                                <td><a href="#">Print</a></td>
+                                                                <td><a href="{{url('penjualan/surat_jalan/'. $item->id)}}">Print</a></td>
                                                             </tr>
                                                         @empty
                                                             <tr>

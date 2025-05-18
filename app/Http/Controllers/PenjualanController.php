@@ -469,4 +469,12 @@ class PenjualanController extends Controller
             'detailPenjualan' => DetailProdukPenjualan::with('chartOfAccount', 'product')->where('penjualan_id', $id)->latest()->get()
         ]);
     }
+
+    public function surat_jalan($id)
+    {
+        return view('admin.surat_jalan', [
+            'penjualan' => Penjualan::with('customer')->find($id),
+            'detailPenjualan' => DetailProdukPenjualan::with('chartOfAccount', 'product')->where('penjualan_id', $id)->latest()->get()
+        ]);
+    }
 }

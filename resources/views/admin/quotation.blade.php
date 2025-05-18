@@ -21,7 +21,7 @@
                             <div class="col-md-7 mb-20">
                                 <img class="img-fluid invoice-brand-img d-block mb-20"
                                     src="{{ asset('dist/img/logo_dwi.png') }}" alt="brand" />
-                                <h6 class="mb-5">PT. Dwi Lestari Utama</h6>
+                                <h5 class="mb-5">PT. Dwi Lestari Utama Sinergi</h5>
                                 <address>
 
                                     <span class="d-block">Pasir Jengkol, Tj. Pura</span>
@@ -30,7 +30,7 @@
                                 </address>
                             </div>
                             <div class="col-md-5 mb-20">
-                                <h4 class="mb-35 font-weight-600">Quotation</h4>
+                                <h3 class="mb-35 font-weight-600">Quotation</h3>
                                 <span class="d-block">Date:<span
                                         class="pl-10 text-dark">{{ $penjualan->tgl_transaksi }}</span></span>
                                 <span class="d-block">Quotation No #<span
