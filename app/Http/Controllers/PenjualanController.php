@@ -464,10 +464,18 @@ class PenjualanController extends Controller
     }
     public function quotation($id)
     {
-        return view('admin.quotation', [
-            'penjualan' => Penjualan::with('customer')->find($id),
-            'detailPenjualan' => DetailProdukPenjualan::with('chartOfAccount', 'product')->where('penjualan_id', $id)->latest()->get()
-        ]);
+        $penjualan = Penjualan::with('customer')->find($id);
+        $detailPenjualan = DetailProdukPenjualan::with('chartOfAccount', 'product')->where('penjualan_id', $id)->latest()->get();
+        $pdf = Pdf::loadView('admin.quotation_pdf', [
+            'penjualan' => $penjualan,
+            'detailPenjualan' => $detailPenjualan
+        ])->setPaper('A4', 'portrait');
+        return $pdf->stream('quotation.pdf');
+
+        // return view('admin.quotation', [
+        //     'penjualan' => Penjualan::with('customer')->find($id),
+        //     'detailPenjualan' => DetailProdukPenjualan::with('chartOfAccount', 'product')->where('penjualan_id', $id)->latest()->get()
+        // ]);
     }
 
     public function surat_jalan($id)
@@ -481,5 +489,18 @@ class PenjualanController extends Controller
         ])->setPaper('A4', 'portrait');
 
         return $pdf->stream('surat_jalan.pdf');
+    }
+
+    public function invoice($id)
+    {
+        $penjualan = Penjualan::with('customer')->find($id);
+        $detailPenjualan = DetailProdukPenjualan::with('chartOfAccount', 'product')->where('penjualan_id', $id)->latest()->get();
+
+        $pdf = Pdf::loadView('admin.invoice_pdf', [
+            'penjualan' => $penjualan,
+            'detailPenjualan' => $detailPenjualan
+        ])->setPaper('A4', 'portrait');
+
+        return $pdf->stream('invoice.pdf');
     }
 }

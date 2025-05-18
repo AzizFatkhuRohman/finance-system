@@ -82,7 +82,7 @@
                                                                         <div class="badge badge-success">Paid</div>
                                                                     @endif
                                                                 </td>
-                                                                <td><a href="#">Print</a></td>
+                                                                <td><a href="{{url('penjualan/invoice/'. $item->id)}}">Print</a></td>
                                                             </tr>
                                                         @empty
                                                             <tr>

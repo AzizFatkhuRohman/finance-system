@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('penjualan/faktur/{id}',[PenjualanController::class,'faktur']);
     Route::get('pembayaran',[BiayaController::class, 'pembayaran']);
     Route::get('penjualan/surat_jalan/{id}',[PenjualanController::class,'surat_jalan']);
+    Route::get('penjualan/invoice/{id}',[PenjualanController::class,'invoice']);
 
     //Region
     Route::get('/cities', [RegionController::class, 'getCities']);
