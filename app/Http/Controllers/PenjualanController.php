@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PenjualanController extends Controller
 {
@@ -87,8 +88,7 @@ class PenjualanController extends Controller
             'produk.*.required' => 'Setiap produk harus dipilih.',
             'produk.*.exists' => 'Produk yang dipilih tidak ditemukan.',
             'quantity.required' => 'Quantity produk harus diisi.',
-            'quantity.*.required' => 'Quantity setiap produk harus diisi.',
-            'quantity.*.numeric' => 'Quantity harus berupa angka.',
+            'quantity.*' => 'required|numeric',
             'kode_akun.required' => 'Kode Akun harus dipilih.',
             'kode_akun.*.required' => 'Kode Akun setiap produk harus dipilih.',
             'kode_akun.*.exists' => 'Kode Akun yang dipilih tidak ditemukan.',
@@ -472,9 +472,14 @@ class PenjualanController extends Controller
 
     public function surat_jalan($id)
     {
-        return view('admin.surat_jalan', [
-            'penjualan' => Penjualan::with('customer')->find($id),
-            'detailPenjualan' => DetailProdukPenjualan::with('chartOfAccount', 'product')->where('penjualan_id', $id)->latest()->get()
-        ]);
+        $penjualan = Penjualan::with('customer')->find($id);
+        $detailPenjualan = DetailProdukPenjualan::with('chartOfAccount', 'product')->where('penjualan_id', $id)->latest()->get();
+
+        $pdf = Pdf::loadView('admin.surat_jalan', [
+            'penjualan' => $penjualan,
+            'detailPenjualan' => $detailPenjualan
+        ])->setPaper('A4', 'portrait');
+
+        return $pdf->stream('surat_jalan.pdf');
     }
 }
