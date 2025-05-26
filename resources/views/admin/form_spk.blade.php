@@ -45,7 +45,7 @@
                                         <label for="tanggal">Tanggal</label>
                                         <input class="form-control form-control-sm @error('tgl') is-invalid @enderror"
                                             id="cabang" name="tgl" type="date"
-                                            value="{{ $data->tgl_transaksi ?? old('tgl') }}" readonly>
+                                            value="{{ $data->tgl_transaksi ?? old('tgl') }}">
                                         @error('tgl')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror

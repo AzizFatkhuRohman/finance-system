@@ -175,7 +175,8 @@ class PenjualanController extends Controller
                 }
             }
             $this->penjualan->Edit($id, [
-                'status' => 'created'
+                'status' => 'created',
+                'tgl_transaksi'=>$request->tgl
             ]);
             return redirect('penjualan')->with('success', 'Penjualan berhasil disubmit');
         } else {
