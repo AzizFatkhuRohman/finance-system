@@ -18,6 +18,9 @@ return new class extends Migration
             $table->string('kode_transaksi')->unique();
             $table->enum('status',['draft','created','send','paid'])->default('draft');
             $table->date('tgl_transaksi');
+            $table->date('tgl_pengiriman')->nullable();
+            $table->date('tgl_terima')->nullable();
+            $table->date('tgl_bayar')->nullable();
             $table->float('pajak');
             $table->float('diskon');
             $table->float('total_harga');

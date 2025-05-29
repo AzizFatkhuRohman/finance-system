@@ -6,6 +6,7 @@ use App\Models\ChartOfAccount;
 use App\Models\Customer;
 use App\Models\DetailProdukPenjualan;
 use App\Models\FilePenjualan;
+use App\Models\JurnalUmum;
 use App\Models\Penjualan;
 use App\Models\Product;
 use Carbon\Carbon;
@@ -18,9 +19,11 @@ use Barryvdh\DomPDF\Facade\Pdf;
 class PenjualanController extends Controller
 {
     protected $penjualan;
-    public function __construct(Penjualan $penjualan)
+    protected $jurnalUmum;
+    public function __construct(Penjualan $penjualan, JurnalUmum $jurnalUmum)
     {
         $this->penjualan = $penjualan;
+        $this->jurnalUmum = $jurnalUmum;
     }
 
     public function index()
@@ -154,9 +157,12 @@ class PenjualanController extends Controller
     {
         if ($request->action === 'submit') {
             $request->validate([
+                'tgl_pengiriman' => 'required|date',
                 'file' => 'nullable|array',
                 'file.*' => 'nullable|file|max:3072'
             ], [
+                'tgl_pengiriman.required' => 'Tanggal wajib di isi',
+                'tgl_pengiriman.date' => 'Tanggal wajib date',
                 'file.*.file' => 'Setiap lampiran harus berupa file.',
                 'file.*.max' => 'Ukuran maksimal tiap file adalah 3 MB.'
             ]);
@@ -176,7 +182,7 @@ class PenjualanController extends Controller
             }
             $this->penjualan->Edit($id, [
                 'status' => 'created',
-                'tgl_transaksi'=>$request->tgl
+                'tgl_pengiriman' => $request->tgl_pengiriman
             ]);
             return redirect('penjualan')->with('success', 'Penjualan berhasil disubmit');
         } else {
@@ -336,9 +342,12 @@ class PenjualanController extends Controller
     {
         if ($request->action === 'submit') {
             $request->validate([
+                'tgl_terima' => 'required|date',
                 'file' => 'nullable|array',
                 'file.*' => 'nullable|file|max:3072'
             ], [
+                'tgl_terima.required' => 'Tanggal wajib di isi',
+                'tgl_terima.date' => 'Tanggal wajib date',
                 'file.*.file' => 'Setiap lampiran harus berupa file.',
                 'file.*.max' => 'Ukuran maksimal tiap file adalah 3 MB.'
             ]);
@@ -354,7 +363,19 @@ class PenjualanController extends Controller
                 }
             }
             $this->penjualan->Edit($id, [
-                'status' => 'send'
+                'status' => 'send',
+                'tgl_terima' => $request->tgl_terima
+            ]);
+            $penjualan = Penjualan::find($id);
+            $customer = Customer::findOrFail($penjualan->customer_id);
+            $this->jurnalUmum->Store([
+                'kategori' => 'penjualan',
+                'relational_id' => $penjualan->id,
+                'code_perusahaan'=>$customer->code_customer,
+                'nama' => $customer->nama_perusahaan,
+                'tgl'=>$request->tgl_terima,
+                'kredit' => $penjualan->total_harga,
+                'debit' => $penjualan->total_harga
             ]);
             return redirect('penjualan')->with('success', 'Penjualan berhasil disubmit');
         } else {
@@ -406,7 +427,7 @@ class PenjualanController extends Controller
                     ]);
                 }
             }
-            $penjualan->update([
+            $penjualan = $penjualan->update([
                 'customer_id' => $request->nama_customer,
                 'user_id' => Auth::user()->id,
                 'kode_transaksi' => $request->kode_transaksi,
@@ -414,6 +435,13 @@ class PenjualanController extends Controller
                 'pajak' => $request->pajak,
                 'diskon' => $request->diskon,
                 'total_harga' => $request->total
+            ]);
+            $customer = Customer::findOrFail($penjualan->customer_id);
+            $this->jurnalUmum->Edit($penjualan->id, [
+                'nama' => $customer->nama_perusahaan,
+                'code_perusahaan'=>$customer->code_customer,
+                'kredit' => $penjualan->total_harga,
+                'debit' => $penjualan->total_harga
             ]);
             DetailProdukPenjualan::where('penjualan_id', $penjualan->id)->delete();
             foreach ($request->produk as $key => $produkId) {
@@ -503,5 +531,47 @@ class PenjualanController extends Controller
         ])->setPaper('A4', 'portrait');
 
         return $pdf->stream('invoice.pdf');
+    }
+    public function fakturSubmit(Request $request, $id)
+    {
+        $request->validate([
+            'tgl_bayar' => 'required|date',
+            'file' => 'nullable|array',
+            'file.*' => 'nullable|file|max:3072'
+        ], [
+            'tgl_bayar.required' => 'Tanggal wajib di isi',
+            'tgl_bayar.date' => 'Tanggal wajib date',
+            'file.*.file' => 'Setiap lampiran harus berupa file.',
+            'file.*.max' => 'Ukuran maksimal tiap file adalah 3 MB.'
+        ]);
+
+        if ($request->hasFile('file')) {
+            foreach ($request->file('file') as $uploadedFile) {
+                $originalName = str_replace(' ', '_', $uploadedFile->getClientOriginalName());
+                $uploadedFile->move(public_path('upload_penjualan'), $originalName);
+                FilePenjualan::create([
+                    'penjualan_id' => $id,
+                    'nama_file' => $originalName,
+                ]);
+            }
+        }
+        $penjualan = $this->penjualan->Edit($id, [
+            'status' => 'paid',
+            'tgl_bayar' => $request->tgl_bayar
+        ]);
+        $customer = Customer::findOrFail($penjualan->customer_id);
+        $this->jurnalUmum->Edit($penjualan->id,[
+            'nama' => $customer->nama_perusahaan,
+            'tgl_bayar'=>$penjualan->tgl_bayar,
+            'kredit' => 0,
+            'debit' => $penjualan->total_harga
+        ]);
+        return redirect('penjualan')->with('success', 'Penjualan berhasil disubmit');
+    }
+    public function fakturDelete($id)
+    {
+        $this->penjualan->Edit($id, [
+            'status' => 'send'
+        ]);
     }
 }

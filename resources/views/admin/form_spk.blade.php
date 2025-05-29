@@ -41,8 +41,17 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="col-lg-6">
-                                        <label for="tanggal">Tanggal</label>
+                                    <div class="col-lg-6" id="tgl_pengiriman">
+                                        <label for="tanggal">Tanggal Pengiriman</label>
+                                        <input class="form-control form-control-sm @error('tgl_pengiriman') is-invalid @enderror"
+                                            id="cabang" name="tgl_pengiriman" type="date"
+                                            value="{{$data->tgl_pengiriman ?? old('tgl_pengiriman') }}" autofocus>
+                                        @error('tgl_pengiriman')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-lg-6" id="tgl" hidden>
+                                        <label for="tanggal">Tanggal Quatation</label>
                                         <input class="form-control form-control-sm @error('tgl') is-invalid @enderror"
                                             id="cabang" name="tgl" type="date"
                                             value="{{ $data->tgl_transaksi ?? old('tgl') }}">
@@ -326,6 +335,8 @@
             const addRow = document.getElementById('add-row');
             const submitBtn = document.getElementById('submit');
             const editBtn = document.getElementById('editButton');
+            const tglPengiriman = document.getElementById('tgl_pengiriman')
+            const tgl = document.getElementById('tgl')
 
             editMode = !editMode;
 
@@ -353,12 +364,16 @@
                 }
             });
             if (editMode) {
+                tglPengiriman.setAttribute('hidden',true)
+                tgl.removeAttribute('hidden')
                 addRow?.removeAttribute('hidden');
                 submitBtn.textContent = 'Update';
                 submitBtn.value = 'update'
                 submitBtn.removeAttribute('hidden');
                 editBtn.setAttribute('hidden', true); // Sembunyikan tombol edit
             } else {
+                tglPengiriman.removeAttribute('hidden')
+                tgl.setAttribute('hidden',true)
                 addRow?.setAttribute('hidden', true);
                 submitBtn.textContent = 'Submit';
                 editBtn.removeAttribute('hidden'); // Munculkan kembali tombol edit jika dibutuhkan

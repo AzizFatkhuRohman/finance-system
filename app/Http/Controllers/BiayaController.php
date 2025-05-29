@@ -6,6 +6,7 @@ use App\Models\Biaya;
 use App\Models\ChartOfAccount;
 use App\Models\DetailBiaya;
 use App\Models\FileBiaya;
+use App\Models\JurnalUmum;
 use App\Models\Supplier;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -15,9 +16,11 @@ use Str;
 class BiayaController extends Controller
 {
     protected $biaya;
-    public function __construct(Biaya $biaya)
+    protected $jurnalumum;
+    public function __construct(Biaya $biaya, JurnalUmum $jurnalUmum)
     {
         $this->biaya = $biaya;
+        $this->jurnalumum = $jurnalUmum;
     }
     /**
      * Display a listing of the resource.
@@ -107,6 +110,15 @@ class BiayaController extends Controller
             // 'diskon' => $request->diskon,
             'total_harga' => $request->total
         ]);
+        $supplier = Supplier::findOrFail($biaya->supplier_id);
+        $this->jurnalumum->Store([
+            'kategori' => 'biaya',
+            'relational_id' => $biaya->id,
+            'code_perusahaan'=>$supplier->code_supplier,
+            'nama' => $supplier->nama_perusahaan,
+            'tgl'=>$biaya->tgl_transaksi,
+            'debit' => $biaya->total_harga
+        ]);
         foreach ($request->produk as $index => $value) {
             DetailBiaya::create([
                 'biaya_id' => $biaya->id,
@@ -191,8 +203,14 @@ class BiayaController extends Controller
                     ]);
                 }
             }
-            $this->biaya->Edit($id, [
+            $biaya = $this->biaya->Edit($id, [
                 'status' => 'paid'
+            ]);
+            $supplier = Supplier::findOrFail($biaya->supplier_id);
+            $this->jurnalumum->Edit($biaya->id,[
+                'nama' => $supplier->nama_perusahaan,
+                'code_perusahaan'=>$supplier->code_supplier,
+                'debit' => $biaya->total_harga
             ]);
             return redirect('biaya')->with('success', 'Biaya berhasil disubmit');
         } else {

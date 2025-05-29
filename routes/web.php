@@ -32,6 +32,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('detail-produk-penjualan',DetailProdukPenjualanController::class);
     Route::put('penjualan/pengiriman/{id}',[PenjualanController::class,'pengirimanSubmit']);
     Route::put('penjualan/pengiriman/delete/{id}',[PenjualanController::class,'pengirimanDelete']);
+    Route::put('penjualan/faktur/{id}',[PenjualanController::class,'fakturSubmit']);
+    Route::put('penjualan/faktur/delete/{id}',[PenjualanController::class,'fakturDelete']);
     Route::resource('biaya',BiayaController::class);
     Route::get('penjualan/quotation/{id}', [PenjualanController::class, 'quotation']);
     Route::get('araging',[CustomerController::class, 'araging']);

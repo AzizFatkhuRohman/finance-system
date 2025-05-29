@@ -42,11 +42,20 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="col-lg-6">
-                                        <label for="tanggal">Tanggal</label>
+                                    <div class="col-lg-6" id="tgl_terima">
+                                        <label for="tanggal">Tanggal terima</label>
+                                        <input class="form-control form-control-sm @error('tgl_terima') is-invalid @enderror"
+                                            id="cabang" name="tgl_terima" type="date"
+                                            value="{{$data->tgl_terima ?? old('tgl_terima') }}">
+                                        @error('tgl_terima')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-lg-6" id="tgl" hidden>
+                                        <label for="tanggal">Tanggal Quatation</label>
                                         <input class="form-control form-control-sm @error('tgl') is-invalid @enderror"
                                             id="cabang" name="tgl" type="date"
-                                            value="{{ $data->tgl_transaksi ?? old('tgl') }}" readonly>
+                                            value="{{ $data->tgl_transaksi ?? old('tgl') }}">
                                         @error('tgl')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -299,7 +308,8 @@
             const addRow = document.getElementById('add-row');
             const submitBtn = document.getElementById('submit');
             const editBtn = document.getElementById('editButton');
-
+const tglTerima = document.getElementById('tgl_terima');
+const tgl = document.getElementById('tgl')
             editMode = !editMode;
 
             inputs.forEach(input => {
@@ -326,12 +336,16 @@
                 }
             });
             if (editMode) {
+                tglTerima.setAttribute('hidden',true)
+                tgl.removeAttribute('hidden')
                 addRow?.removeAttribute('hidden');
                 submitBtn.textContent = 'Update';
                 submitBtn.value = 'update'
                 submitBtn.removeAttribute('hidden');
                 editBtn.setAttribute('hidden', true); // Sembunyikan tombol edit
             } else {
+                tgl.setAttribute('hidden',true)
+                tglTerima.removeAttribute('hidden')
                 addRow?.setAttribute('hidden', true);
                 submitBtn.textContent = 'Submit';
                 editBtn.removeAttribute('hidden'); // Munculkan kembali tombol edit jika dibutuhkan
