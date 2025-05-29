@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->enum('kategori',['penjualan','biaya']);
             $table->char('relational_id',36)->unique();
+            $table->string('code_perusahaan');
             $table->string('nama');
             $table->date('tgl');
             $table->decimal('debit',15,2);
