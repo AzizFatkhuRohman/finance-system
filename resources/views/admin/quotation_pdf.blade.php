@@ -53,6 +53,7 @@
             border: 1px solid #333;
             padding: 6px;
             text-align: left;
+            border: none;
         }
 
         .invoice-header {
@@ -74,46 +75,55 @@
 <body>
     <div class="container">
         <div class="invoice-header row">
-            <div class="col-6">
-                <img src="{{ public_path('dist/img/logo_dwi.png') }}" width="150" alt="Logo">
-                <h5>PT. Dwi Lestari Utama Sinergi</h5>
-                <p>
-                    Pasir Jengkol, Tj. Pura<br>
-                    admin@dwilestari.com<br>
-                    001, Karawang
-                </p>
-            </div>
-            <div class="col-6 text-right">
-                <h3>Quotation</h3>
-                <p>Date: {{ $penjualan->tgl_transaksi }}</p>
-                <p>Quotation No: {{ $penjualan->kode_transaksi }}</p>
-                <p>Customer #: {{ $penjualan->customer->code_customer }}</p>
-            </div>
+            <table class="table">
+                <th width="50%"><img src="{{ public_path('dist/img/logo_dwi.png') }}" width="150" alt="Logo"></br>
+                    <h5>PT. Dwi Lestari Utama Sinergi</h5>
+                </th>
+                <th width="50%" style="text-align: right;">
+                    <h1>Quotation</h1>
+                </th>
+            </table>
+            <table class="table">
+                <th width="50%">
+                    <p>
+                        Jl. Raya Galuh Mas No. 1, Blok A1 No. 1, Desa Galuh Mas Indah, RT.001/RW.001<br>
+                        Kec. Telukjambe Timur, Kabupaten Karawang, Jawa Barat 41361<br>
+                        001, Karawang
+                    </p>
+                </th>
+                <th width="50%" style="text-align: right;">
+                    <p>Date: {{ $penjualan->tgl_transaksi }}</br>
+                        Quotation No: {{ $penjualan->kode_transaksi }}</br>
+                        Customer #: {{ $penjualan->customer->code_customer }}</p>
+                </th>
+            </table>
         </div>
 
-        <div class="row">
-            <div class="col-6">
-                <h5>Billing To</h5>
-                <p>{{ $penjualan->customer->nama_perusahaan }}</p>
-                <p>{{ $penjualan->customer->alamat }}</p>
-            </div>
-            <div class="col-6 text-right">
-                <h5>Payment Info</h5>
-                <p>PT Dwi Lestari Utama</p>
-                <p>Bank Rek: 123456789</p>
-                <p>Bank ABC</p>
-                <p><strong>Total: Rp. {{ $penjualan->total_harga }}</strong></p>
-            </div>
+        <div class="invoice-header row">
+            <table class="table">
+                <th width="50%">
+                    <h5>Billing To</h5>
+                    <p>{{ $penjualan->customer->nama_perusahaan }}</br>
+                    {{ $penjualan->customer->alamat }}</p>
+                </th>
+                <th width="50%" style="text-align: right;">
+                    <h5>Payment Info</h5>
+                    <p>PT Dwi Lestari Utama</br>
+                        Bank Rek: 123456789</br>
+                        Bank ABC</br>
+                        Total: Rp. {{ $penjualan->total_harga }}</p>
+                </th>
+            </table>
         </div>
 
         <table class="table">
             <thead>
-                <tr>
+                <tr style="border-top: 1px solid #333; border-bottom: 1px solid #333; background-color: #98c8e7;">
                     <th>No</th>
                     <th>Item</th>
-                    <th class="text-right">Qty</th>
-                    <th class="text-right">Unit Cost</th>
-                    <th class="text-right">Amount</th>
+                    <th style="text-align: right;">Qty</th>
+                    <th style="text-align: right;">Unit Cost</th>
+                    <th style="text-align: right;">Amount</th>
                 </tr>
             </thead>
             <tbody>
@@ -122,29 +132,30 @@
                     <tr>
                         <td>{{ $no++ }}</td>
                         <td>{{ $item->product->nama_produk }}</td>
-                        <td class="text-right">{{ $item->qty }} {{ $item->product->satuan }}</td>
-                        <td class="text-right">Rp. {{ $item->product->harga }}</td>
-                        <td class="text-right">Rp. {{ $item->total_harga }}</td>
+                        <td style="text-align: right;">{{ $item->qty }} {{ $item->product->satuan }}</td>
+                        <td style="text-align: right;">Rp. {{ $item->product->harga }}</td>
+                        <td style="text-align: right;">Rp. {{ $item->total_harga }}</td>
                     </tr>
                 @endforeach
                 <tr>
-                    <td colspan="4" class="text-right">Pajak</td>
-                    <td class="text-right">{{ $penjualan->pajak }}%</td>
+                    <td colspan="4" style="text-align: right;">Pajak</td>
+                    <td style="text-align: right;">{{ $penjualan->pajak }}%</td>
                 </tr>
                 <tr>
-                    <td colspan="4" class="text-right">Diskon</td>
-                    <td class="text-right">{{ $penjualan->diskon }}%</td>
+                    <td colspan="4" style="text-align: right;">Diskon</td>
+                    <td style="text-align: right;">{{ $penjualan->diskon }}%</td>
                 </tr>
-                <tr>
-                    <th colspan="4" class="text-right">Total</th>
-                    <th class="text-right">Rp. {{ $penjualan->total_harga }}</th>
+                <tr style="border-bottom: 1px solid #333; border-top: 1px solid #333;">
+                    <th colspan="4" style="text-align: right;">Total</th>
+                    <th style="text-align: right;">Rp. {{ $penjualan->total_harga }}</th>
                 </tr>
             </tbody>
         </table>
 
         <div class="signature">
+            <p>Best Regards</p>
             <img src="{{ public_path('dist/img/signature.png') }}" width="100" alt="signature">
-            <p>{{ $penjualan->customer->nama_perusahaan }}</p>
+            <p>PT. Dwi Lestari Utama Sinergi</p>
         </div>
 
         <div class="terms">

@@ -4,9 +4,25 @@
 <head>
     <title>Surat Jalan</title>
     <style>
+        @page {
+            size: A5 landscape;
+            margin: 10mm;
+        }
+
         body {
             font-family: Arial, sans-serif;
             font-size: 12px;
+            margin: 0;
+            background: #fff;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 200mm;
+            min-height: 140mm;
+            margin: 0 auto;
+            background: #fff;
+            box-sizing: border-box;
         }
 
         .title {
@@ -16,7 +32,7 @@
         }
 
         .info {
-            margin-bottom: 20px;
+            margin-bottom: 12px;
         }
 
         table {
@@ -37,59 +53,64 @@
         }
 
         .footer {
-            margin-top: 30px;
+            margin-top: 24px;
         }
     </style>
 </head>
 
 <body>
-    <div class="title"><strong>SURAT JALAN</strong></div>
-
-    <div class="info">
-        <strong>No Surat:</strong> {{ $penjualan->kode_transaksi }}<br>
-        <strong>Tanggal:</strong> {{ $penjualan->tgl_transaksi }}<br>
-        <strong>Penerima:</strong> {{ $penjualan->customer->code_customer }}
-    </div>
-
-    <table>
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Nama Barang</th>
-                <th>Qty</th>
-                <th>Satuan</th>
-                <th>Keterangan</th>
-            </tr>
-        </thead>
-        <tbody>
-            @php
-                $no = 1;
-            @endphp
-            @foreach ($detailPenjualan as $item)
+    <div class="container">
+        <div class="title"><strong>SURAT JALAN</strong></div>
+        <img src="{{ public_path('dist/img/logo_dwi.png') }}" width="120" alt="Logo"><br>
+        <h5>PT. Dwi Lestari Utama Sinergi</h5>
+        <div class="info">
+            <strong>No Surat:</strong> {{ $penjualan->kode_transaksi }}<br>
+            <strong>Tanggal:</strong> {{ $penjualan->tgl_transaksi }}<br>
+            <strong>Penerima:</strong> {{ $penjualan->customer->code_customer }}
+        </div>
+        <div class="info">
+            <p>
+                {{ $penjualan->customer->nama_perusahaan }}<br>
+                {{ $penjualan->customer->alamat }}
+            </p>
+        </div>
+        <table>
+            <thead>
                 <tr>
-                    <td>{{ $no++ }}</td>
-                    <td>{{ $item->product->nama_produk }}</td>
-                    <td>{{ $item->qty }} </td>
-                    <td>{{ $item->product->satuan }}</td>
-                    <td>{{ $item->total_harga }}</td>
+                    <th style="width:5%;">No</th>
+                    <th style="width:40%;">Nama Barang</th>
+                    <th style="width:15%;">Qty</th>
+                    <th style="width:15%;">Satuan</th>
+                    <th style="width:25%;">Keterangan</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
-
-    <div class="footer">
-        <table width="100%">
-            <tr>
-                <td align="center">
-                    Pengirim<br><br><br><br>
-                    (............................)
-                </td>
-                <td align="center">
-                    Penerima<br><br><br><br>
-                    (............................)
-                </td>
-            </tr>
+            </thead>
+            <tbody>
+                @php $no = 1; @endphp
+                @foreach ($detailPenjualan as $item)
+                    <tr>
+                        <td>{{ $no++ }}</td>
+                        <td>{{ $item->product->nama_produk }}</td>
+                        <td>{{ $item->qty }}</td>
+                        <td>{{ $item->product->satuan }}</td>
+                        <td>{{ $item->total_harga }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
         </table>
+        <div class="footer">
+            <table width="100%" style="border:0;">
+                <tr>
+                    <td align="center" style="border:0;">
+                        Pengirim<br><br><br><br>
+                        (............................)
+                    </td>
+                    <td align="center" style="border:0;">
+                        Penerima<br><br><br><br>
+                        (............................)
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 </body>
 
