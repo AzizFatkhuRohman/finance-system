@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Surat Jalan</title>
     <style>
@@ -7,30 +8,40 @@
             font-family: Arial, sans-serif;
             font-size: 12px;
         }
+
         .title {
             text-align: center;
             font-size: 18px;
             margin-bottom: 10px;
         }
+
         .info {
             margin-bottom: 20px;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
         }
-        table, th, td {
+
+        table,
+        th,
+        td {
             border: 1px solid #444;
         }
-        th, td {
+
+        th,
+        td {
             padding: 6px;
             text-align: left;
         }
+
         .footer {
             margin-top: 30px;
         }
     </style>
 </head>
+
 <body>
     <div class="title"><strong>SURAT JALAN</strong></div>
 
@@ -52,7 +63,7 @@
         </thead>
         <tbody>
             @php
-            $no = 1;
+                $no = 1;
             @endphp
             @foreach ($detailPenjualan as $item)
                 <tr>
@@ -81,4 +92,5 @@
         </table>
     </div>
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>Quotation</title>
@@ -9,51 +10,67 @@
             font-size: 12px;
             margin: 20px;
         }
-        h3, h5, h6 {
+
+        h3,
+        h5,
+        h6 {
             margin: 5px 0;
         }
+
         .container {
             width: 100%;
         }
+
         .row {
             display: flex;
             flex-wrap: wrap;
         }
+
         .col-6 {
             width: 50%;
         }
+
         .text-right {
             text-align: right;
         }
+
         .text-left {
             text-align: left;
         }
+
         .text-center {
             text-align: center;
         }
+
         .table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 15px;
         }
-        .table th, .table td {
+
+        .table th,
+        .table td {
             border: 1px solid #333;
             padding: 6px;
             text-align: left;
         }
+
         .invoice-header {
             margin-bottom: 20px;
         }
+
         .signature {
             margin-top: 40px;
             text-align: right;
         }
+
         .terms {
             margin-top: 20px;
             font-size: 11px;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="invoice-header row">
@@ -102,13 +119,13 @@
             <tbody>
                 @php $no = 1; @endphp
                 @foreach($detailPenjualan as $item)
-                <tr>
-                    <td>{{ $no++ }}</td>
-                    <td>{{ $item->product->nama_produk }}</td>
-                    <td class="text-right">{{ $item->qty }} {{ $item->product->satuan }}</td>
-                    <td class="text-right">Rp. {{ $item->product->harga }}</td>
-                    <td class="text-right">Rp. {{ $item->total_harga }}</td>
-                </tr>
+                    <tr>
+                        <td>{{ $no++ }}</td>
+                        <td>{{ $item->product->nama_produk }}</td>
+                        <td class="text-right">{{ $item->qty }} {{ $item->product->satuan }}</td>
+                        <td class="text-right">Rp. {{ $item->product->harga }}</td>
+                        <td class="text-right">Rp. {{ $item->total_harga }}</td>
+                    </tr>
                 @endforeach
                 <tr>
                     <td colspan="4" class="text-right">Pajak</td>
@@ -132,10 +149,12 @@
 
         <div class="terms">
             <ul>
-                <li>Pembeli harus melunasi rekeningnya dalam waktu 30 hari sejak tanggal yang tercantum pada Quotation.</li>
+                <li>Pembeli harus melunasi rekeningnya dalam waktu 30 hari sejak tanggal yang tercantum pada Quotation.
+                </li>
                 <li>Persyaratan menentukan jangka waktu pelunasan yang diperbolehkan bagi pembeli.</li>
             </ul>
         </div>
     </div>
 </body>
+
 </html>
