@@ -6,6 +6,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DetailProdukPenjualanController;
 use App\Http\Controllers\FileBiayaController;
 use App\Http\Controllers\FilePenjualanController;
+use App\Http\Controllers\JurnalUmumController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -43,6 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::get('pembayaran',[BiayaController::class, 'pembayaran']);
     Route::get('penjualan/surat_jalan/{id}',[PenjualanController::class,'surat_jalan']);
     Route::get('penjualan/invoice/{id}',[PenjualanController::class,'invoice']);
+    Route::resource('jurnal',JurnalUmumController::class);
 
     //Region
     Route::get('/cities', [RegionController::class, 'getCities']);
@@ -59,11 +61,6 @@ require __DIR__ . '/auth.php';
 // Route::get('biaya', function () {
 //     return view('admin.biaya');
 // });
-
-//Jurnal
-Route::get('jurnal', function () {
-    return view('admin.jurnal');
-});
 
 //Neraca
 Route::get('neraca', function () {

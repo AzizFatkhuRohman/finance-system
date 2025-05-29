@@ -69,37 +69,27 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>Oct 16, 2016</td>
-                                                        <td>11223344</td>
-                                                        <td>Bayar Sewa Truck</td>
-                                                        <td>- </td>
-                                                        <td>Rp. 450.000</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Oct 17, 2016</td>
-                                                        <td>11223344</td>
-                                                        <td>Penjualan Besi</td>
-                                                        <td>Rp. 245.300 </td>
-                                                        <td>-</td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Oct 19, 2016</td>
-                                                        <td>11223344</td>
-                                                        <td>Biaya Listrik</td>
-                                                        <td>- </td>
-                                                        <td>Rp. 380.000</td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Oct 20, 2016</td>
-                                                        <td>11223344</td>
-                                                        <td>Bayar Pajak</td>
-                                                        <td>- </td>
-                                                        <td>Rp. 770.990</td>
-
-                                                    </tr>
+                                                    @foreach ($data as $item)
+                                                        <tr>
+                                                            <td>{{ $item->tgl }}</td>
+                                                            <td>{{ $item->code_perusahaan }}</td>
+                                                            <td>{{ $item->nama }}</td>
+                                                            <td>
+                                                                @if ($item->debit == null || $item->debit == 0)
+                                                                    -
+                                                                @else
+                                                                    Rp. {{ $item->debit }}
+                                                                @endif
+                                                            </td>
+                                                            <td>
+                                                                @if ($item->kredit == null || $item->kredit == 0)
+                                                                    -
+                                                                @else
+                                                                    Rp. {{ $item->kredit }}
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
