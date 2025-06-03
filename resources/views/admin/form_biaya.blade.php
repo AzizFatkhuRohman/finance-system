@@ -48,11 +48,13 @@
                                         @enderror
                                     </div>
                                 </div>
-
+                                </br>
                                 <div class="row">
                                     <div class="col-md-6 form-group">
                                         <label for="nomor_rekening">Alamat Pengiriman</label>
-                                        <textarea name="alamat" id="alamat" class="form-control @error('alamat') is-invalid @enderror" readonly>{{ old('alamat') }}</textarea>
+                                        <textarea name="alamat" id="alamat"
+                                            class="form-control @error('alamat') is-invalid @enderror"
+                                            readonly>{{ old('alamat') }}</textarea>
                                         @error('alamat')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -63,6 +65,20 @@
                                             class="form-control form-control-sm @error('kode_transaksi') is-invalid @enderror"
                                             value="{{ $kodeTransaksi }}" readonly>
                                         @error('kode_transaksi')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="nama_customer">Sumber Dana</label>
+                                        <select
+                                            class="form-control custom-select-sm @error('no_account') is-invalid @enderror"
+                                            name="sumber_dana" id="sumber_dana" value="{{ old('no_account') }}">
+                                            <option value="">Pilih Bank</option>
+                                            @foreach ($kode_akun as $item)
+                                                <option value="{{ $item->id }}">{{ $item->no_account }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('nama_supplier')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -124,8 +140,8 @@
                                         </tbody>
                                     </table>
                                     </br>
-                                    <button type="button" id="add-row" class="btn btn-success btn-sm"><i
-                                            class="icon-plus"> Tambah Produk</i></button>
+                                    <button type="button" id="add-row" class="btn btn-success btn-sm"><i class="icon-plus">
+                                            Tambah Produk</i></button>
                                 </div>
 
                                 <div class="table-wrap">
@@ -136,10 +152,10 @@
                                                 <th style="width: 20%;"></th>
                                                 <th style="width: 20%;"></th>
                                                 <th>Pajak</th>
-                                                <th><input type="text" class="form-control form-control-sm"
-                                                        name="pajak" value="{{ old('pajak') }}"></th>
+                                                <th><input type="text" class="form-control form-control-sm" name="pajak"
+                                                        value="{{ old('pajak') }}"></th>
                                                 @error('pajak')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </tr> --}}
                                             {{-- <tr>
@@ -147,10 +163,10 @@
                                                 <th style="width: 20%;"></th>
                                                 <th style="width: 20%;"></th>
                                                 <th>Diskon</th>
-                                                <th><input type="text" class="form-control form-control-sm"
-                                                        name="diskon" value="{{ old('diskon') }}"></th>
+                                                <th><input type="text" class="form-control form-control-sm" name="diskon"
+                                                        value="{{ old('diskon') }}"></th>
                                                 @error('diskon')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </tr> --}}
                                             <tr>
@@ -161,8 +177,8 @@
                                                 <th class="input-group">
                                                     <span class="input-group-text form-control-sm"
                                                         id="basic-addon1">Rp</span>
-                                                    <input type="text" class="form-control form-control-sm"
-                                                        name="total" id="total" readonly>
+                                                    <input type="text" class="form-control form-control-sm" name="total"
+                                                        id="total" readonly>
                                                 </th>
                                             </tr>
                                         </thead>
@@ -200,9 +216,9 @@
         </div>
     </div>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Ketika customer dipilih
-            $('#nama_supplier').on('change', function() {
+            $('#nama_supplier').on('change', function () {
                 var supplierId = $(this).val(); // Ambil ID customer yang dipilih
 
                 // Jika ID customer dipilih, kirim request AJAX
@@ -210,7 +226,7 @@
                     $.ajax({
                         url: '/supplier/' + supplierId + '/alamat', // URL untuk mengambil alamat
                         method: 'GET',
-                        success: function(response) {
+                        success: function (response) {
                             if (response.alamat) {
                                 // Isi textarea alamat dengan alamat yang diterima dari server
                                 $('#alamat').val(response.alamat);
@@ -219,7 +235,7 @@
                                 $('#alamat').val('');
                             }
                         },
-                        error: function(xhr, status, error) {
+                        error: function (xhr, status, error) {
                             console.log('Error:', error);
                             $('#alamat').val(''); // Kosongkan jika terjadi error
                         }
@@ -233,32 +249,32 @@
     </script>
     <script>
         const kodeAkunOptions = `
-            @foreach ($kode_akun as $item)
-                <option value="{{ $item->id }}">{{ $item->no_account }}</option>
-            @endforeach
-        `;
+                                @foreach ($kode_akun as $item)
+                                    <option value="{{ $item->id }}">{{ $item->no_account }}</option>
+                                @endforeach
+                            `;
     </script>
     <script>
         // JavaScript untuk menambah input barang
-        document.getElementById('add-row').addEventListener('click', function() {
+        document.getElementById('add-row').addEventListener('click', function () {
             const tableBody = document.getElementById('dynamic-rows');
             const newRow = document.createElement('tr');
             newRow.innerHTML = `
-                <td>
-                    <select class="form-control custom-select-sm" name="kode_akun[]">
-                         <option value="">Pilih Kode Akun</option>
-            ${kodeAkunOptions}
-                    </select>
-                </td>
-                <td><input type="text" class="form-control custom-select-sm" name="produk[]" value=""> </td>
-                <td><input type="number" name="quantity[]" class="form-control form-control-sm" value=""></td>
-                <td><input type="text" name="harga[]" class="form-control form-control-sm" value=""></td>
-                <td><input type="text" name="total_harga[]" class="form-control form-control-sm" value="" readonly></td>
-                <td><button type="button" class="btn btn-danger btn-sm remove-row"><i class="icon-trash txt-danger"></i></button></td>
-            `;
+                                    <td>
+                                        <select class="form-control custom-select-sm" name="kode_akun[]">
+                                             <option value="">Pilih Kode Akun</option>
+                                ${kodeAkunOptions}
+                                        </select>
+                                    </td>
+                                    <td><input type="text" class="form-control custom-select-sm" name="produk[]" value=""> </td>
+                                    <td><input type="number" name="quantity[]" class="form-control form-control-sm" value=""></td>
+                                    <td><input type="text" name="harga[]" class="form-control form-control-sm" value=""></td>
+                                    <td><input type="text" name="total_harga[]" class="form-control form-control-sm" value="" readonly></td>
+                                    <td><button type="button" class="btn btn-danger btn-sm remove-row"><i class="icon-trash txt-danger"></i></button></td>
+                                `;
             tableBody.appendChild(newRow);
         });
-        $('#dynamic-rows').on('click', '.remove-row', function() {
+        $('#dynamic-rows').on('click', '.remove-row', function () {
             $(this).closest('tr').remove();
         });
     </script>
@@ -267,7 +283,7 @@
             let totalKeseluruhan = 0;
 
             // Loop semua baris dan hitung total per baris
-            document.querySelectorAll('#dynamic-rows tr').forEach(function(row) {
+            document.querySelectorAll('#dynamic-rows tr').forEach(function (row) {
                 const qtyEl = row.querySelector('input[name="quantity[]"]');
                 const hargaEl = row.querySelector('input[name="harga[]"]');
                 const totalEl = row.querySelector('input[name="total_harga[]"]');
@@ -297,7 +313,7 @@
         }
 
         // Jalankan saat input berubah
-        document.addEventListener('input', function(e) {
+        document.addEventListener('input', function (e) {
             const namesToWatch = ['quantity[]', 'harga[]', 'pajak', 'diskon'];
             if (namesToWatch.includes(e.target.name)) {
                 hitungTotal();
@@ -307,7 +323,7 @@
         // Jalankan juga saat tambah baris
         const addRowBtn = document.getElementById('add-row');
         if (addRowBtn) {
-            addRowBtn.addEventListener('click', function() {
+            addRowBtn.addEventListener('click', function () {
                 setTimeout(() => {
                     hitungTotal();
                 }, 100);
