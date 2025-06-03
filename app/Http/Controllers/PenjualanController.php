@@ -368,14 +368,17 @@ class PenjualanController extends Controller
             ]);
             $penjualan = Penjualan::find($id);
             $customer = Customer::findOrFail($penjualan->customer_id);
+            $detailProduk= DetailProdukPenjualan::where('penjualan_id',$penjualan->id)->first();
+            $coa = ChartOfAccount::find($detailProduk->chart_of_account_id);
             $this->jurnalUmum->Store([
                 'kategori' => 'penjualan',
                 'relational_id' => $penjualan->id,
                 'code_perusahaan'=>$customer->code_customer,
+                'no_account'=>$coa->no_account,
                 'nama' => $customer->nama_perusahaan,
                 'tgl'=>$request->tgl_terima,
                 'kredit' => $penjualan->total_harga,
-                'debit' => $penjualan->total_harga
+                'debit' => 0
             ]);
             return redirect('penjualan')->with('success', 'Penjualan berhasil disubmit');
         } else {
@@ -437,11 +440,14 @@ class PenjualanController extends Controller
                 'total_harga' => $request->total
             ]);
             $customer = Customer::findOrFail($penjualan->customer_id);
+            $detailProduk= DetailProdukPenjualan::where('penjualan_id',$penjualan->id)->first();
+            $coa = ChartOfAccount::find($detailProduk->chart_of_account_id);
             $this->jurnalUmum->Edit($penjualan->id, [
                 'nama' => $customer->nama_perusahaan,
                 'code_perusahaan'=>$customer->code_customer,
+                'no_account'=>$coa->no_account,
                 'kredit' => $penjualan->total_harga,
-                'debit' => $penjualan->total_harga
+                'debit' => 0
             ]);
             DetailProdukPenjualan::where('penjualan_id', $penjualan->id)->delete();
             foreach ($request->produk as $key => $produkId) {
@@ -555,10 +561,11 @@ class PenjualanController extends Controller
                 ]);
             }
         }
-        $penjualan = $this->penjualan->Edit($id, [
+        $this->penjualan->Edit($id, [
             'status' => 'paid',
             'tgl_bayar' => $request->tgl_bayar
         ]);
+        $penjualan = Penjualan::find($id);
         $customer = Customer::findOrFail($penjualan->customer_id);
         $this->jurnalUmum->Edit($penjualan->id,[
             'nama' => $customer->nama_perusahaan,

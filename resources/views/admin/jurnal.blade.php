@@ -37,10 +37,10 @@
                         </div>
                         <div class="col-md-3 mb-10">
                             <label style="color: transparent">-</label>
-                            <select id="input_tags" class="form-control" multiple="multiple">
-                                <option selected="selected">orange</option>
-                                <option>white</option>
-                                <option selected="selected">purple</option>
+                            <select class="form-control" name="no_account">
+                                @foreach ($coa as $item)
+                                    <option value="{{ $item->no_account }}">{{$item->no_account}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col-md-3 mb-10">
@@ -62,35 +62,83 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Tanggal</th>
-                                                        <th>No. Akun</th>
+                                                        <th>No. Referensi</th>
                                                         <th>Deskripsi</th>
                                                         <th>Debit</th>
                                                         <th>kredit</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($data as $item)
-                                                        <tr>
-                                                            <td>{{ $item->tgl }}</td>
-                                                            <td>{{ $item->code_perusahaan }}</td>
-                                                            <td>{{ $item->nama }}</td>
-                                                            <td>
-                                                                @if ($item->debit == null || $item->debit == 0)
-                                                                    -
-                                                                @else
-                                                                    Rp. {{ $item->debit }}
-                                                                @endif
-                                                            </td>
-                                                            <td>
-                                                                @if ($item->kredit == null || $item->kredit == 0)
-                                                                    -
-                                                                @else
-                                                                    Rp. {{ $item->kredit }}
-                                                                @endif
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
+    @foreach ($data as $item)
+        {{-- Baris 1: menampilkan kode perusahaan --}}
+        <tr>
+            <td>{{ $item->tgl }}</td>
+            <td>{{ $item->code_perusahaan }}</td>
+            <td>{{ $item->nama ?? '-' }}</td>
+            <td>
+               @if ($item->kategori === 'penjualan')
+                    @if (empty($item->kredit) || $item->kredit == 0)
+                    -
+                @else
+                    Rp. {{ number_format($item->kredit, 0, ',', '.') }}
+                @endif
+                @else
+                @if (empty($item->debit) || $item->debit == 0)
+                    -
+                @else
+                    Rp. {{ number_format($item->debit, 0, ',', '.') }}
+                @endif
+               @endif
+            </td>
+            <td>
+               @if ($item->kategori === 'penjualan')
+                    @if (empty($item->debit) || $item->debit == 0)
+                    -
+                @else
+                    Rp. {{ number_format($item->debit, 0, ',', '.') }}
+                @endif
+               @else
+                    @if (empty($item->kredit) || $item->kredit == 0)
+                    -
+                @else
+                    Rp. {{ number_format($item->kredit, 0, ',', '.') }}
+                @endif
+               @endif
+            </td>
+        </tr>
+        {{-- Baris 2: menampilkan no_account --}}
+        <tr>
+            <td>{{ $item->tgl }}</td>
+            <td>{{ $item->no_account }}</td>
+            <td>{{ $item->deskripsi ?? '-' }}</td>
+            <td>
+                @if ($item->kategori === 'penjualan')
+                    @if (empty($item->debit) || $item->debit == 0)
+                    -
+                @else
+                    Rp. {{ number_format($item->debit, 0, ',', '.') }}
+                @endif
+                @endif
+            </td>
+            <td>
+                @if ($item->kategori === 'biaya')
+                    @if (empty($item->debit) || $item->debit == 0)
+                    -
+                @else
+                    Rp. {{ number_format($item->debit, 0, ',', '.') }}
+                @endif
+                @else
+                @if (empty($item->kredit) || $item->kredit == 0)
+                    -
+                @else
+                    Rp. {{ number_format($item->kredit, 0, ',', '.') }}
+                @endif
+                @endif
+            </td>
+        </tr>
+    @endforeach
+</tbody>
+
                                             </table>
                                         </div>
                                     </div>

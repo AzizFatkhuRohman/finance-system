@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ChartOfAccount;
 use App\Models\JurnalUmum;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,8 @@ class JurnalUmumController extends Controller
     public function index()
     {
         return view('admin.jurnal',[
-            'data'=>$this->jurnalUmum->Index()
+            'data'=>$this->jurnalUmum->Index(),
+            'coa'=>ChartOfAccount::all()
         ]);
     }
 
