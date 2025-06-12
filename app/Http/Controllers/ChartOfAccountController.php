@@ -37,11 +37,13 @@ class ChartOfAccountController extends Controller
     {
         $request->validate([
             'no_account' => 'required|digits:8',
+            'kategori'=>'required',
             'description' => 'required|max:500',
             'nature' => 'required|max:500'
         ], [
             'no_account.required' => 'No akun wajib di isi',
             'no_account.digits' => 'No akun wajib 8 digit',
+            'kategori.required'=>'Kategori wajib di isi',
             'description.required' => 'Deskripsi wajib isi',
             'description.max' => 'Deskripsi maksimum 500 karakter',
             'nature.required' => 'Nature wajib di isi',
@@ -49,6 +51,7 @@ class ChartOfAccountController extends Controller
         ]);
         $this->chartOfAccount->Store([
             'no_account' => $request->no_account,
+            'category_account'=>$request->kategori,
             'description' => $request->description,
             'nature' => $request->nature
         ]);
@@ -80,11 +83,13 @@ class ChartOfAccountController extends Controller
     {
         $request->validate([
             'no_account' => 'required|digits:8',
+            'kategori'=>'required',
             'description' => 'required|max:500',
             'nature' => 'required|max:500'
         ], [
             'no_account.required' => 'No akun wajib di isi',
             'no_account.digits' => 'No akun wajib 8 digit',
+             'kategori.required'=>'Kategori wajib di isi',
             'description.required' => 'Deskripsi wajib isi',
             'description.max' => 'Deskripsi maksimum 500 karakter',
             'nature.required' => 'Nature wajib di isi',
@@ -92,6 +97,7 @@ class ChartOfAccountController extends Controller
         ]);
         $this->chartOfAccount->Edit($id, [
             'no_account' => $request->no_account,
+            'category_account'=>$request->kategori,
             'description' => $request->description,
             'nature' => $request->nature
         ]);

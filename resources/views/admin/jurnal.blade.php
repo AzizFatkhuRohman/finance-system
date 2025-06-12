@@ -26,14 +26,16 @@
                     <h5 class="hk-sec-title">Jurnal Umum</h5>
                     <p class="mb-40">Berikut data <code>Jurnal umum</code> yang sudah di proses dari data transaksi yang
                         berjalan..</p>
+                    <form action="{{ url('jurnal/filter') }}" method="post">
+                    @csrf
                     <div class="row">
                         <div class="col-md-3 mb-10">
                             <label for="zip">Tanggal Awal</label>
-                            <input class="form-control" placeholder="" type="date">
+                            <input class="form-control" name="start" type="date">
                         </div>
                         <div class="col-md-3 mb-10">
                             <label for="zip">Tanggal Akhir</label>
-                            <input class="form-control" placeholder="" type="date">
+                            <input class="form-control" name="finish" type="date">
                         </div>
                         <div class="col-md-3 mb-10">
                             <label style="color: transparent">-</label>
@@ -48,8 +50,8 @@
                             <input style="background-color: #1E90FF;" class="form-control" placeholder="" value="Filter"
                                 type="submit">
                         </div>
-
                     </div>
+                    </form>
                     <div class="tab-content">
                         <div class="tab-pane fade show active" role="tabpanel">
                             <div class="row">

@@ -62,7 +62,7 @@ class PenjualanController extends Controller
         $kodeTransaksi = 'TR-' . $monthYear . '/' . str_pad($lastNumber, 4, '0', STR_PAD_LEFT);
         return view('admin.form_penjualan', [
             'customer' => Customer::all(),
-            'kode_akun' => ChartOfAccount::all(),
+            'kode_akun' => ChartOfAccount::whereIn('category_account',[1,2,3,4,5])->get(),
             'produk' => Product::all(),
             'kodeTransaksi' => $kodeTransaksi
         ]);

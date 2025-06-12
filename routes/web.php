@@ -45,6 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::get('penjualan/surat_jalan/{id}',[PenjualanController::class,'surat_jalan']);
     Route::get('penjualan/invoice/{id}',[PenjualanController::class,'invoice']);
     Route::resource('jurnal',JurnalUmumController::class);
+    Route::post('jurnal/filter',[JurnalUmumController::class,'index']);
 
     //Region
     Route::get('/cities', [RegionController::class, 'getCities']);

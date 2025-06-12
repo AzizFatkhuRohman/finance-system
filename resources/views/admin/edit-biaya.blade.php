@@ -70,7 +70,22 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
+
                                 </div>
+                                <div class="col-md-6 form-group">
+                                        <label for="nama_customer">Sumber Dana</label>
+                                        <select
+                                            class="form-control custom-select-sm @error('sumber_dana') is-invalid @enderror"
+                                            name="sumber_dana" id="sumber_dana" value="{{ old('sumber_dana') }}" disabled>
+                                            <option value="{{ $data->chart_of_account_id }}">{{$data->chartOfAccount->no_account}}</option>
+                                            @foreach ($sumber_dana as $item)
+                                                <option value="{{ $item->id }}">{{ $item->no_account }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('sumber_dana')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
 
                                 <br>
                                 <div class="table-wrap">
@@ -240,6 +255,7 @@
             const submitBtn = document.getElementById('submit');
             const editBtn = document.getElementById('editButton');
             const fileSection = document.getElementById('fileUpload')
+            const sumber_dana = document.getElementById('sumber_dana');
 
             editMode = !editMode;
 
@@ -260,6 +276,7 @@
 
             if (editMode) {
                 addRow?.removeAttribute('hidden');
+                sumber_dana.removeAttribute('disabled')
                 submitBtn.textContent = 'Update';
                 submitBtn.value = 'update';
                 submitBtn.style.display = 'inline-block';

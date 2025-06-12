@@ -60,8 +60,9 @@ class BiayaController extends Controller
         $kodeTransaksi = 'EX-' . $monthYear . '/' . str_pad($lastNumber, 4, '0', STR_PAD_LEFT);
         return view('admin.form_biaya', [
             'supplier' => Supplier::all(),
-            'kode_akun' => ChartOfAccount::all(),
-            'kodeTransaksi' => $kodeTransaksi
+            'kode_akun' => ChartOfAccount::whereIn('category_account',[6,7,8,9])->get(),
+            'kodeTransaksi' => $kodeTransaksi,
+            'sumber_dana'=>ChartOfAccount::where('category_account',1)->get(),
         ]);
     }
 
@@ -75,6 +76,7 @@ class BiayaController extends Controller
             'tgl' => 'required|date',
             // 'pajak' => 'nullable|numeric',
             // 'diskon' => 'nullable|numeric',
+            'sumber_dana'=>'required',
             'produk' => 'required|array',
             'produk.*' => 'required',
             'quantity' => 'required|array',
@@ -88,6 +90,7 @@ class BiayaController extends Controller
         ], [
             'nama_supplier.required' => 'Nama supplier harus dipilih.',
             'tgl.required' => 'Tanggal Transaksi harus diisi.',
+            'sumber_dana.required'=>'Sumber dana wajib di pilih',
             'produk.required' => 'Produk harus dipilih.',
             'produk.*.required' => 'Setiap item harus dipilih.',
             'quantity.required' => 'Quantity item harus diisi.',
@@ -106,6 +109,7 @@ class BiayaController extends Controller
             'user_id' => Auth::user()->id,
             'kode_transaksi' => $request->kode_transaksi,
             'tgl_transaksi' => $request->tgl,
+            'chart_of_account_id'=>$request->sumber_dana,
             // 'pajak' => $request->pajak,
             // 'diskon' => $request->diskon,
             'total_harga' => $request->total
@@ -158,8 +162,9 @@ class BiayaController extends Controller
     {
         return view('admin.edit-biaya', [
             'supplier' => Supplier::all(),
-            'kode_akun' => ChartOfAccount::all(),
-            'data' => Biaya::with('supplier')->find($id),
+            'kode_akun' => ChartOfAccount::whereIn('category_account',[6,7,8,9])->get(),
+            'sumber_dana'=>ChartOfAccount::where('category_account',1)->get(),
+            'data' => Biaya::with('supplier','chartOfAccount')->find($id),
             'fileUpload' => FileBiaya::where('biaya_id', $id)->get(),
             'detailBiaya' => DetailBiaya::with('chartOfAccount')->where('biaya_id', $id)->get()
         ]);
@@ -172,7 +177,7 @@ class BiayaController extends Controller
     {
         return view('admin.edit-biaya-receipt', [
             'supplier' => Supplier::all(),
-            'kode_akun' => ChartOfAccount::all(),
+             'kode_akun' => ChartOfAccount::whereIn('category_account',[6,7,8,9])->get(),
             'data' => Biaya::with('supplier')->find($id),
             'fileUpload' => FileBiaya::where('biaya_id', $id)->get(),
             'detailBiaya' => DetailBiaya::with('chartOfAccount')->where('biaya_id', $id)->get()
@@ -225,6 +230,7 @@ class BiayaController extends Controller
             $request->validate([
                 'nama_supplier' => 'required|exists:suppliers,id',
                 'tgl' => 'required|date',
+                'sumber_dana'=>'required',
                 'produk' => 'required|array',
                 'produk.*' => 'required',
                 'quantity' => 'required|array',
@@ -238,6 +244,7 @@ class BiayaController extends Controller
             ], [
                 'nama_supplier.required' => 'Nama supplier harus dipilih.',
                 'tgl.required' => 'Tanggal Transaksi harus diisi.',
+                'sumber_dana.required'=>'Sumber dana wajib di pilih',
                 'produk.required' => 'Produk harus dipilih.',
                 'produk.*.required' => 'Setiap item harus dipilih.',
                 'quantity.required' => 'Quantity item harus diisi.',
@@ -260,6 +267,7 @@ class BiayaController extends Controller
                 'user_id' => Auth::user()->id,
                 'kode_transaksi' => $request->kode_transaksi,
                 'tgl_transaksi' => $request->tgl,
+                'chart_of_account_id'=>$request->sumber_dana,
                 'total_harga' => $request->total
             ]);
 

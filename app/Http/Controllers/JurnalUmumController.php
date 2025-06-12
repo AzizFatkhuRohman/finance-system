@@ -9,17 +9,33 @@ use Illuminate\Http\Request;
 class JurnalUmumController extends Controller
 {
     protected $jurnalUmum;
-    public function __construct(JurnalUmum $jurnalUmum){
-        $this->jurnalUmum=$jurnalUmum;
+    public function __construct(JurnalUmum $jurnalUmum)
+    {
+        $this->jurnalUmum = $jurnalUmum;
     }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.jurnal',[
-            'data'=>$this->jurnalUmum->Index(),
-            'coa'=>ChartOfAccount::all()
+        if ($request) {
+            $data = JurnalUmum::when($request->start, function ($query, $start) {
+                return $query->whereDate('tgl', '>=', $start);
+            })
+                ->when($request->finish, function ($query, $finish) {
+                    return $query->whereDate('tgl', '<=', $finish);
+                })
+                ->when($request->no_account, function ($query, $no_account) {
+                    return $query->where('no_account', $no_account);
+                })
+                ->get();
+        } else {
+            $data = $this->jurnalUmum->Index();
+        }
+
+        return view('admin.jurnal', [
+            'data' => $data,
+            'coa' => ChartOfAccount::all()
         ]);
     }
 

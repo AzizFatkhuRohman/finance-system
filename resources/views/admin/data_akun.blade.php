@@ -34,6 +34,7 @@
                                     <thead>
                                         <tr>
                                             <th>Kode Akun</th>
+                                            <th>Kategori</th>
                                             <th>Deskripsi</th>
                                             <th>Nature</th>
                                             <th>Action</th>
@@ -43,6 +44,7 @@
                                         @foreach ($data as $item)
                                             <tr>
                                                 <td>{{ $item->no_account }}</td>
+                                                <td>{{$item->category_account}}</td>
                                             <td>{{ $item->description }}</td>
                                             <td>
                                                 {{ $item->nature }}
@@ -59,7 +61,7 @@
                                                             <i class="icon-trash txt-danger" data-toggle="tooltip" data-original-title="Hapus"></i>
                                                         </button>
                                                     </form>
-                                                </div>                                                
+                                                </div>
                                             </td>
                                             </tr>
                                         @endforeach
@@ -67,6 +69,7 @@
                                     <tfoot>
                                         <tr>
                                             <th>Kode Akun</th>
+                                            <th>Kategori</th>
                                             <th>Deskripsi</th>
                                             <th>Nature</th>
                                             <th>Action</th>

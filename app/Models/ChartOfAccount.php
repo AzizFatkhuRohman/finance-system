@@ -17,6 +17,9 @@ class ChartOfAccount extends Model
     {
         return $this->hasMany(DetailBiaya::class);
     }
+    public function biaya(){
+        return $this->hasMany(Biaya::class);
+    }
     public function Index()
     {
         return $this->latest()->get();

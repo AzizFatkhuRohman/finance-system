@@ -26,6 +26,9 @@ class Biaya extends Model
     {
         return $this->belongsTo(Supplier::class);
     }
+    public function chartOfAccount(){
+        return $this->belongsTo(ChartOfAccount::class);
+    }
     public function Index()
     {
         return $this->with('supplier', 'user')->latest()->get();

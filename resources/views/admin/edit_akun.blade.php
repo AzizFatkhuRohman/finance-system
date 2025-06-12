@@ -1,79 +1,102 @@
 @extends('partials.app')
 @section('content')
-            <!-- Breadcrumb -->
-            <nav class="hk-breadcrumb" aria-label="breadcrumb">
-                <ol class="breadcrumb breadcrumb-light bg-transparent">
-                    <li class="breadcrumb-item"><a href="#">Forms</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Edit Data Akun</li>
-                </ol>
-            </nav>
-            <!-- /Breadcrumb -->
+    <!-- Breadcrumb -->
+    <nav class="hk-breadcrumb" aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-light bg-transparent">
+            <li class="breadcrumb-item"><a href="#">Forms</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Edit Data Akun</li>
+        </ol>
+    </nav>
+    <!-- /Breadcrumb -->
 
-            <!-- Container -->
-            <div class="container-fluid">
-                <!-- Title -->
-                <div class="hk-pg-header">
-                    <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="align-left"></i></span></span>Edit Akun</h4>
-                </div>
-                <!-- /Title -->
+    <!-- Container -->
+    <div class="container-fluid">
+        <!-- Title -->
+        <div class="hk-pg-header">
+            <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i
+                            data-feather="align-left"></i></span></span>Edit Akun</h4>
+        </div>
+        <!-- /Title -->
 
-                <!-- Row -->
-                <div class="row">
-                    <div class="col-xl-12">
-                        <section class="hk-sec-wrapper">
-                            <h5 class="hk-sec-title">Edit Data Akun</h5>
-                            <p class="mb-25">Untuk mengedit <code>Produk</code> isi form berikut dengan lengkap.</p>
-                            <div class="row">
-                                <div class="col-sm">
-                                    <form method="POST" action="{{ url('akun/'.$data->id) }}">
-                                        @csrf
-                                        @method('put')
-                                        <div class="row">
-                                            <div class="col-md-6 form-group">
-                                                <label for="firstName">Nomor Akun</label>
-                                                <input class="form-control" id="firstName" name="no_account" placeholder="" value="{{ $data->no_account }}" type="text">
-                                            </div>
-                                            
-                                        </div>
-                                       
-                                        <div class="row">
-                                            <div class="col-md-6 form-group">
-                                                <label for="firstName">Deskripsi</label>
-                                                <textarea name="description" class="form-control" id="">{{$data->description}}</textarea>
-                                            </div>              
-                                        </div>
+        <!-- Row -->
+        <div class="row">
+            <div class="col-xl-12">
+                <section class="hk-sec-wrapper">
+                    <h5 class="hk-sec-title">Edit Data Akun</h5>
+                    <p class="mb-25">Untuk mengedit <code>Produk</code> isi form berikut dengan lengkap.</p>
+                    <div class="row">
+                        <div class="col-sm">
+                            <form method="POST" action="{{ url('akun/' . $data->id) }}">
+                                @csrf
+                                @method('put')
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label for="firstName">Nomor Akun</label>
+                                        <input class="form-control" id="firstName" name="no_account" placeholder=""
+                                            value="{{ $data->no_account }}" type="text">
+                                    </div>
 
-                                        <div class="row">
-                                            <div class="col-md-6 mb-10">
-                                                <label for="zip">Nature</label>
-                                                <textarea name="nature" class="form-control" id="">{{$data->nature}}</textarea>
-                                            </div>
-                                            <!-- <div class="col-md-3 mb-10">
-                                                <label for="zip">Kecamatan</label>
-                                                <input class="form-control" id="zip" placeholder="" type="text">
-                                            </div>
-                                            <div class="col-md-3 mb-10">
-                                                <label for="zip">Kelurahan</label>
-                                                <input class="form-control" id="zip" placeholder="" type="text">
-                                            </div>
-                                            <div class="col-md-3 mb-10">
-                                                <label for="zip">Kode Pos <span class="text-muted">(Optional)</span></label>
-                                                <input class="form-control" id="zip" placeholder="" type="text">
-                                            </div> -->
-                                        </div>
-                                        
-                                        <hr>
-                                        <button class="btn btn-primary" type="submit">Update</button>
-                                    </form>
                                 </div>
-                            </div>
-                        </section>
-                        
-                        
-                        
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label for="firstName">Kategori Akun</label>
+                                        <select class="form-control" name="kategori" id="">
+                                            <option value="{{ $data->category_account }}">{{ $data->category_account }}
+                                            </option>
+                                            <option value="1">Aktiva</option>
+                                            <option value="2">Pasiva</option>
+                                            <option value="3">Modal</option>
+                                            <option value="4">Pendapatan</option>
+                                            <option value="5">Harga Pokok Penjualan</option>
+                                            <option value="6">Beban Usaha</option>
+                                            <option value="7">Beban Operasional</option>
+                                            <option value="8">Beban Lain-lain</option>
+                                            <option value="9">Beban Pajak</option>
+                                        </select>
+                                    </div>
+                                    @error('kategori')
+                                        <spa class="">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label for="firstName">Deskripsi</label>
+                                        <textarea name="description" class="form-control"
+                                            id="">{{$data->description}}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-10">
+                                        <label for="zip">Nature</label>
+                                        <textarea name="nature" class="form-control" id="">{{$data->nature}}</textarea>
+                                    </div>
+                                    <!-- <div class="col-md-3 mb-10">
+                                                    <label for="zip">Kecamatan</label>
+                                                    <input class="form-control" id="zip" placeholder="" type="text">
+                                                </div>
+                                                <div class="col-md-3 mb-10">
+                                                    <label for="zip">Kelurahan</label>
+                                                    <input class="form-control" id="zip" placeholder="" type="text">
+                                                </div>
+                                                <div class="col-md-3 mb-10">
+                                                    <label for="zip">Kode Pos <span class="text-muted">(Optional)</span></label>
+                                                    <input class="form-control" id="zip" placeholder="" type="text">
+                                                </div> -->
+                                </div>
+
+                                <hr>
+                                <button class="btn btn-primary" type="submit">Update</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
-                <!-- /Row -->
+                </section>
+
+
+
             </div>
-            <!-- /Container -->
+        </div>
+        <!-- /Row -->
+    </div>
+    <!-- /Container -->
 @endsection

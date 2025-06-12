@@ -71,14 +71,14 @@
                                     <div class="col-md-6 form-group">
                                         <label for="nama_customer">Sumber Dana</label>
                                         <select
-                                            class="form-control custom-select-sm @error('no_account') is-invalid @enderror"
-                                            name="sumber_dana" id="sumber_dana" value="{{ old('no_account') }}">
+                                            class="form-control custom-select-sm @error('sumber_dana') is-invalid @enderror"
+                                            name="sumber_dana" id="sumber_dana" value="{{ old('sumber_dana') }}">
                                             <option value="">Pilih Bank</option>
-                                            @foreach ($kode_akun as $item)
+                                            @foreach ($sumber_dana as $item)
                                                 <option value="{{ $item->id }}">{{ $item->no_account }}</option>
                                             @endforeach
                                         </select>
-                                        @error('nama_supplier')
+                                        @error('sumber_dana')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignUuid('supplier_id')->constrained();
             $table->foreignUuid('user_id')->constrained();
             $table->date('tgl_transaksi');
+            $table->foreignUuid('chart_of_account_id')->constrained();
             $table->string('kode_transaksi')->unique();
             $table->enum('status',['pending','paid'])->default('pending');
             // $table->decimal('pajak');
