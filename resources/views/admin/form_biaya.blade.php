@@ -73,9 +73,10 @@
                                         <select
                                             class="form-control custom-select-sm @error('sumber_dana') is-invalid @enderror"
                                             name="sumber_dana" id="sumber_dana" value="{{ old('sumber_dana') }}">
-                                            <option value="">Pilih Bank</option>
+                                            <option value="">Pilih Akun</option>
                                             @foreach ($sumber_dana as $item)
-                                                <option value="{{ $item->id }}">{{ $item->no_account }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->no_account }} {{$item->description}}
+                                                </option>
                                             @endforeach
                                         </select>
                                         @error('sumber_dana')
@@ -249,10 +250,10 @@
     </script>
     <script>
         const kodeAkunOptions = `
-                                @foreach ($kode_akun as $item)
-                                    <option value="{{ $item->id }}">{{ $item->no_account }}</option>
-                                @endforeach
-                            `;
+                                            @foreach ($kode_akun as $item)
+                                                <option value="{{ $item->id }}">{{ $item->no_account }}</option>
+                                            @endforeach
+                                        `;
     </script>
     <script>
         // JavaScript untuk menambah input barang
@@ -260,18 +261,18 @@
             const tableBody = document.getElementById('dynamic-rows');
             const newRow = document.createElement('tr');
             newRow.innerHTML = `
-                                    <td>
-                                        <select class="form-control custom-select-sm" name="kode_akun[]">
-                                             <option value="">Pilih Kode Akun</option>
-                                ${kodeAkunOptions}
-                                        </select>
-                                    </td>
-                                    <td><input type="text" class="form-control custom-select-sm" name="produk[]" value=""> </td>
-                                    <td><input type="number" name="quantity[]" class="form-control form-control-sm" value=""></td>
-                                    <td><input type="text" name="harga[]" class="form-control form-control-sm" value=""></td>
-                                    <td><input type="text" name="total_harga[]" class="form-control form-control-sm" value="" readonly></td>
-                                    <td><button type="button" class="btn btn-danger btn-sm remove-row"><i class="icon-trash txt-danger"></i></button></td>
-                                `;
+                                                <td>
+                                                    <select class="form-control custom-select-sm" name="kode_akun[]">
+                                                         <option value="">Pilih Kode Akun</option>
+                                            ${kodeAkunOptions}
+                                                    </select>
+                                                </td>
+                                                <td><input type="text" class="form-control custom-select-sm" name="produk[]" value=""> </td>
+                                                <td><input type="number" name="quantity[]" class="form-control form-control-sm" value=""></td>
+                                                <td><input type="text" name="harga[]" class="form-control form-control-sm" value=""></td>
+                                                <td><input type="text" name="total_harga[]" class="form-control form-control-sm" value="" readonly></td>
+                                                <td><button type="button" class="btn btn-danger btn-sm remove-row"><i class="icon-trash txt-danger"></i></button></td>
+                                            `;
             tableBody.appendChild(newRow);
         });
         $('#dynamic-rows').on('click', '.remove-row', function () {

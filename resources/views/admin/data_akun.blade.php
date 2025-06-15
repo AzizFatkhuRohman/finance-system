@@ -44,25 +44,46 @@
                                         @foreach ($data as $item)
                                             <tr>
                                                 <td>{{ $item->no_account }}</td>
-                                                <td>{{$item->category_account}}</td>
-                                            <td>{{ $item->description }}</td>
-                                            <td>
-                                                {{ $item->nature }}
-                                            </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <a href="{{url('akun/'.$item->id)}}" class="mr-2" data-toggle="tooltip" data-original-title="Edit">
-                                                        <i class="icon-pencil"></i>
-                                                    </a>
-                                                    <form action="{{ url('akun/' . $item->id) }}" method="post">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <button type="submit" class="btn btn-sm">
-                                                            <i class="icon-trash txt-danger" data-toggle="tooltip" data-original-title="Hapus"></i>
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </td>
+                                                <td>@if($item->category_account == 1)
+                                                    <p>Asset</p>
+                                                @elseif($item->category_account == 2)
+                                                        <p>Liability</p>
+                                                    @elseif($item->category_account == 3)
+                                                        <p>Equity</p>
+                                                    @elseif($item->category_account == 4)
+                                                        <p>Revenue</p>
+                                                    @elseif($item->category_account == 5)
+                                                        <p>Expense</p>
+                                                    @elseif($item->category_account == 6)
+                                                        <p>Cost of Goods Sold</p>
+                                                    @elseif($item->category_account == 7)
+                                                        <p>Other Income</p>
+                                                    @elseif($item->category_account == 8)
+                                                        <p>Other Expense</p>
+                                                    @else
+                                                        <p>Other Expense Proses</p>
+                                                    @endif
+                                                </td>
+                                                <td>{{ $item->description }}</td>
+                                                <td>
+                                                    {{ $item->nature }}
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <a href="{{url('akun/' . $item->id)}}" class="mr-2" data-toggle="tooltip"
+                                                            data-original-title="Edit">
+                                                            <i class="icon-pencil"></i>
+                                                        </a>
+                                                        <form action="{{ url('akun/' . $item->id) }}" method="post">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit" class="btn btn-sm">
+                                                                <i class="icon-trash txt-danger" data-toggle="tooltip"
+                                                                    data-original-title="Hapus"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
