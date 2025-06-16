@@ -50,7 +50,7 @@
                                                 <td>{{ $no++ }}</td>
                                                 <td>{{ $item->nama_produk }}</td>
                                                 <td>{{ $item->satuan }}</td>
-                                                <td>{{ $item->harga }}</td>
+                                                <td>Rp. {{ number_format($item->harga, 0, ',', '.') }}</td>
                                                 <td>{{ $item->stok }}</td>
                                                 <td>
                                                     <div class="d-flex align-items-center">
@@ -58,25 +58,25 @@
                                                             data-toggle="tooltip" data-original-title="Edit">
                                                             <i class="icon-pencil"></i>
                                                         </a>
-                                                        <form action="{{ url('produk/' . $item->id) }}" method="post" id="delete-form-{{$item->id}}">
+                                                        <form action="{{ url('produk/' . $item->id) }}" method="post"
+                                                            id="delete-form-{{$item->id}}">
                                                             @csrf
                                                             @method('delete')
-                                                            <button type="button" class="btn btn-sm"
-                                                                onclick="
-                                                            Swal.fire({
-                                                                title: 'Apakah Anda yakin?',
-                                                                text: 'Data ini akan dihapus permanen!',
-                                                                icon: 'warning',
-                                                                showCancelButton: true,
-                                                                confirmButtonText: 'Hapus',
-                                                                cancelButtonText: 'Batal',
-                                                                reverseButtons: true
-                                                            }).then((result) => {
-                                                                if (result.isConfirmed) {
-                                                                    // Jika user memilih 'Hapus', submit form untuk menghapus data
-                                                                    document.getElementById('delete-form-{{ $item->id }}').submit();
-                                                                }
-                                                            });">
+                                                            <button type="button" class="btn btn-sm" onclick="
+                                                                            Swal.fire({
+                                                                                title: 'Apakah Anda yakin?',
+                                                                                text: 'Data ini akan dihapus permanen!',
+                                                                                icon: 'warning',
+                                                                                showCancelButton: true,
+                                                                                confirmButtonText: 'Hapus',
+                                                                                cancelButtonText: 'Batal',
+                                                                                reverseButtons: true
+                                                                            }).then((result) => {
+                                                                                if (result.isConfirmed) {
+                                                                                    // Jika user memilih 'Hapus', submit form untuk menghapus data
+                                                                                    document.getElementById('delete-form-{{ $item->id }}').submit();
+                                                                                }
+                                                                            });">
                                                                 <i class="icon-trash txt-danger" data-toggle="tooltip"
                                                                     data-original-title="Hapus"></i>
                                                             </button>

@@ -50,7 +50,7 @@
 
         .table th,
         .table td {
-            border: 1px solid #333;
+            border: 0.2px solid #7a7979;
             padding: 6px;
             text-align: left;
             border: none;
@@ -111,7 +111,7 @@
                     <p>PT Dwi Lestari Utama</br>
                         Bank Rek: 123456789</br>
                         Bank ABC</br>
-                        Total: Rp. {{ $penjualan->total_harga }}</p>
+                        </p>
                 </th>
             </table>
         </div>
@@ -133,8 +133,8 @@
                         <td>{{ $no++ }}</td>
                         <td>{{ $item->product->nama_produk }}</td>
                         <td style="text-align: right;">{{ $item->qty }} {{ $item->product->satuan }}</td>
-                        <td style="text-align: right;">Rp. {{ $item->product->harga }}</td>
-                        <td style="text-align: right;">Rp. {{ $item->total_harga }}</td>
+                        <td style="text-align: right;">Rp. {{ number_format( $item->product->harga, 0, ',', '.' )}}</td>
+                        <td style="text-align: right;">Rp. {{number_format( $item->total_harga, 0, ',','.' )}}</td>
                     </tr>
                 @endforeach
                 <tr>
@@ -147,7 +147,7 @@
                 </tr>
                 <tr style="border-bottom: 1px solid #333; border-top: 1px solid #333;">
                     <th colspan="4" style="text-align: right;">Total</th>
-                    <th style="text-align: right;">Rp. {{ $penjualan->total_harga }}</th>
+                    <th style="text-align: right;">Rp. {{number_format($penjualan->total_harga, 0, ',', '.');}}</th>
                 </tr>
             </tbody>
         </table>

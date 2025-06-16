@@ -80,13 +80,13 @@
                                                             <td>
                                                                 @if ($item->kategori === 'penjualan')
                                                                     @if (empty($item->kredit) || $item->kredit == 0)
-                                                                        -
+                                                                        a
                                                                     @else
                                                                         Rp. {{ number_format($item->kredit, 0, ',', '.') }}
                                                                     @endif
                                                                 @else
                                                                     @if (empty($item->debit) || $item->debit == 0)
-                                                                        -
+                                                                        a
                                                                     @else
                                                                         Rp. {{ number_format($item->debit, 0, ',', '.') }}
                                                                     @endif
@@ -111,8 +111,9 @@
                                                         {{-- Baris 2: menampilkan no_account --}}
                                                         <tr>
                                                             <td>{{ $item->tgl }}</td>
-                                                            <td>{{ $item->no_account }}</td>wha
-                                                            <td>{{ $item->deskripsi ?? '-' }}</td>
+                                                            <td>{{ $item->no_account }}</td>
+                                                            <td>{{ collect($coa)->firstWhere('no_account', $item->no_account)->description ?? '-' }}
+                                                            </td>
                                                             <td>
                                                                 @if ($item->kategori === 'penjualan')
                                                                     @if (empty($item->debit) || $item->debit == 0)

@@ -96,7 +96,7 @@
                                                                 <td><a href="{{ url('biaya/'.$item->id) }}">{{$item->kode_transaksi}}</a></td>
                                                                 <td>{{$item->supplier->nama_perusahaan}}</td>
                                                                 <td><span class="text-muted"><i class="icon-clock font-13"></i> {{$item->tgl_transaksi}}</span> </td>
-                                                                <td>{{number_format($item->total_harga, 0, ',', '.');}}</td>
+                                                                <td>Rp. {{number_format($item->total_harga, 0, ',', '.');}}</td>
                                                                 <td>
                                                                 <div class="badge badge-warning">Pending</div>
                                                                 </td>
