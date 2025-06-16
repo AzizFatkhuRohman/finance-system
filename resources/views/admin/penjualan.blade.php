@@ -180,8 +180,12 @@
                                                     <tbody>
                                                         @forelse ($data as $item)
                                                             <tr>
-                                                                <td><a
-                                                                        href="{{ url('penjualan/spk/' . $item->id) }}">{{ $item->kode_transaksi }}</a>
+                                                                <td>
+                                                                    @if ($item->status === 'created')
+                                                                        {{ $item->kode_transaksi }}
+                                                                    @else
+                                                                    <a href="{{ url('penjualan/spk/' . $item->id) }}">{{ $item->kode_transaksi }}</a>
+                                                                    @endif
                                                                 </td>
                                                                 <td>{{ $item->customer->nama_perusahaan ?? '-' }}</td>
                                                                 <td>

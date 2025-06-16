@@ -42,7 +42,7 @@
                                     <div class="col-lg-6">
                                         <label for="tanggal">Tanggal</label>
                                         <input class="form-control form-control-sm @error('tgl') is-invalid @enderror"
-                                            id="tgl" name="tgl" type="date" value="{{ old('tgl') }}">
+                                            id="tgl" name="tgl" type="date" value="{{ old('tgl') ?? date('Y-m-d')}}">
                                         @error('tgl')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror

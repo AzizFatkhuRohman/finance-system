@@ -42,7 +42,7 @@
                                     <div class="col-lg-6">
                                         <label for="tanggal">Tanggal</label>
                                         <input class="form-control form-control-sm @error('tgl') is-invalid @enderror"
-                                            id="tgl" name="tgl" type="date" value="{{ old('tgl') }}">
+                                            id="tgl" name="tgl" type="date" value="{{ old('tgl') ?? date('Y-m-d') }}">
                                         @error('tgl')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -193,7 +193,7 @@
                                         <div class="row">
                                             <div class="col-sm">
                                                 <div class="fallback">
-                                                    <input type="file" multiple name="file[]" />
+                                                    <input type="file" multiple name="file[]" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -250,10 +250,10 @@
     </script>
     <script>
         const kodeAkunOptions = `
-                                            @foreach ($kode_akun as $item)
-                                                <option value="{{ $item->id }}">{{ $item->no_account }}</option>
-                                            @endforeach
-                                        `;
+                                                                            @foreach ($kode_akun as $item)
+                                                                                <option value="{{ $item->id }}">{{ $item->no_account }}</option>
+                                                                            @endforeach
+                                                                        `;
     </script>
     <script>
         // JavaScript untuk menambah input barang
@@ -261,18 +261,18 @@
             const tableBody = document.getElementById('dynamic-rows');
             const newRow = document.createElement('tr');
             newRow.innerHTML = `
-                                                <td>
-                                                    <select class="form-control custom-select-sm" name="kode_akun[]">
-                                                         <option value="">Pilih Kode Akun</option>
-                                            ${kodeAkunOptions}
-                                                    </select>
-                                                </td>
-                                                <td><input type="text" class="form-control custom-select-sm" name="produk[]" value=""> </td>
-                                                <td><input type="number" name="quantity[]" class="form-control form-control-sm" value=""></td>
-                                                <td><input type="text" name="harga[]" class="form-control form-control-sm" value=""></td>
-                                                <td><input type="text" name="total_harga[]" class="form-control form-control-sm" value="" readonly></td>
-                                                <td><button type="button" class="btn btn-danger btn-sm remove-row"><i class="icon-trash txt-danger"></i></button></td>
-                                            `;
+                                                                                <td>
+                                                                                    <select class="form-control custom-select-sm" name="kode_akun[]">
+                                                                                         <option value="">Pilih Kode Akun</option>
+                                                                            ${kodeAkunOptions}
+                                                                                    </select>
+                                                                                </td>
+                                                                                <td><input type="text" class="form-control custom-select-sm" name="produk[]" value=""> </td>
+                                                                                <td><input type="number" name="quantity[]" class="form-control form-control-sm" value=""></td>
+                                                                                <td><input type="text" name="harga[]" class="form-control form-control-sm" value=""></td>
+                                                                                <td><input type="text" name="total_harga[]" class="form-control form-control-sm" value="" readonly></td>
+                                                                                <td><button type="button" class="btn btn-danger btn-sm remove-row"><i class="icon-trash txt-danger"></i></button></td>
+                                                                            `;
             tableBody.appendChild(newRow);
         });
         $('#dynamic-rows').on('click', '.remove-row', function () {
@@ -329,6 +329,22 @@
                     hitungTotal();
                 }, 100);
             });
+        }
+    </script>
+    <script>
+        function formatRupiah(element) {
+            let angka = element.value.replace(/[^,\d]/g, '');
+            angka = angka.toString();
+            let sisa = angka.length % 3;
+            let rupiah = angka.substr(0, sisa);
+            let ribuan = angka.substr(sisa).match(/\d{3}/gi);
+
+            if (ribuan) {
+                let separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            element.value = 'Rp. ' + rupiah;
         }
     </script>
 @endsection

@@ -45,23 +45,23 @@
                                             <tr>
                                                 <td>{{ $item->no_account }}</td>
                                                 <td>@if($item->category_account == 1)
-                                                    <p>Asset</p>
+                                                    <p>Aktiva</p>
                                                 @elseif($item->category_account == 2)
-                                                        <p>Liability</p>
+                                                        <p>Pasiva</p>
                                                     @elseif($item->category_account == 3)
-                                                        <p>Equity</p>
+                                                        <p>Modal</p>
                                                     @elseif($item->category_account == 4)
-                                                        <p>Revenue</p>
+                                                        <p>Pendapatan</p>
                                                     @elseif($item->category_account == 5)
-                                                        <p>Expense</p>
+                                                        <p>Harga Pokok Penjualan</p>
                                                     @elseif($item->category_account == 6)
-                                                        <p>Cost of Goods Sold</p>
+                                                        <p>Beban Usaha</p>
                                                     @elseif($item->category_account == 7)
-                                                        <p>Other Income</p>
+                                                        <p>Beban Operasional</p>
                                                     @elseif($item->category_account == 8)
-                                                        <p>Other Expense</p>
+                                                        <p>Beban Lain-lain</p>
                                                     @else
-                                                        <p>Other Expense Proses</p>
+                                                        <p>Beban Pajak</p>
                                                     @endif
                                                 </td>
                                                 <td>{{ $item->description }}</td>
@@ -70,8 +70,8 @@
                                                 </td>
                                                 <td>
                                                     <div class="d-flex align-items-center">
-                                                        <a href="{{url('akun/' . $item->id)}}" class="mr-2" data-toggle="tooltip"
-                                                            data-original-title="Edit">
+                                                        <a href="{{url('akun/' . $item->id)}}" class="mr-2"
+                                                            data-toggle="tooltip" data-original-title="Edit">
                                                             <i class="icon-pencil"></i>
                                                         </a>
                                                         <form action="{{ url('akun/' . $item->id) }}" method="post">

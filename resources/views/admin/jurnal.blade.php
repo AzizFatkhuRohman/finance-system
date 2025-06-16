@@ -111,7 +111,7 @@
                                                         {{-- Baris 2: menampilkan no_account --}}
                                                         <tr>
                                                             <td>{{ $item->tgl }}</td>
-                                                            <td>{{ $item->no_account }}</td>
+                                                            <td>{{ $item->no_account }}</td>wha
                                                             <td>{{ $item->deskripsi ?? '-' }}</td>
                                                             <td>
                                                                 @if ($item->kategori === 'penjualan')
