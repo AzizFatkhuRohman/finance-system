@@ -22,7 +22,8 @@
                 <section class="hk-sec-wrapper">
                     <div class="row">
                         <div class="col-sm">
-                            <form action="{{ url('penjualan/faktur/' . $data->id) }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ url('penjualan/faktur/' . $data->id) }}" method="post"
+                                enctype="multipart/form-data">
                                 @csrf
                                 @method('put')
                                 <div class="row">
@@ -52,7 +53,9 @@
                                 <div class="row">
                                     <div class="col-md-6 form-group">
                                         <label for="nomor_rekening">Alamat Pengiriman</label>
-                                        <textarea name="alamat" id="alamat" class="form-control @error('alamat') is-invalid @enderror" readonly>{{ $data->customer->alamat ?? old('alamat') }}</textarea>
+                                        <textarea name="alamat" id="alamat"
+                                            class="form-control @error('alamat') is-invalid @enderror"
+                                            readonly>{{ $data->customer->alamat ?? old('alamat') }}</textarea>
                                         @error('alamat')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -88,7 +91,8 @@
                                                             class="form-control custom-select-sm @error('kode_akun.*') is-invalid @enderror"
                                                             name="kode_akun[]" disabled>
                                                             <option value="{{ $penjualan->chart_of_account_id }}">
-                                                                {{ $penjualan->chartOfAccount->no_account }}</option>
+                                                                {{ $penjualan->chartOfAccount->no_account }}
+                                                            </option>
                                                         </select>
                                                         @error('kode_akun.*')
                                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -99,7 +103,8 @@
                                                             class="form-control custom-select-sm @error('produk') is-invalid @enderror"
                                                             name="produk[]" disabled>
                                                             <option value="{{ $penjualan->product_id }}">
-                                                                {{ $penjualan->product->nama_produk }}</option>
+                                                                {{ $penjualan->product->nama_produk }}
+                                                            </option>
                                                         </select>
                                                         @error('produk')
                                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -112,15 +117,14 @@
                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                         @enderror
                                                     </td>
-                                                    <td><input type="text" name="harga[]"
-                                                            class="form-control form-control-sm"
+                                                    <td><input type="text" name="harga[]" class="form-control form-control-sm"
                                                             value="{{ $penjualan->product->harga }}" readonly></td>
                                                     <td><input type="text" name="total_harga[]"
                                                             class="form-control form-control-sm"
                                                             value="{{ $penjualan->total_harga }}" readonly></td>
                                                     <td><button type="button" class="btn btn-danger btn-sm remove-row"
-                                                            id="tombol" hidden><i
-                                                                class="icon-trash txt-danger"></i></button></td>
+                                                            id="tombol" hidden><i class="icon-trash txt-danger"></i></button>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -153,8 +157,8 @@
                                                 <th style="width: 20%;"></th>
                                                 <th style="width: 20%;"></th>
                                                 <th><strong>Total</strong></th>
-                                                <th><input type="text" name="total"
-                                                        class="form-control form-control-sm" value="{{ $data->total_harga }}" readonly></th>
+                                                <th><input type="text" name="total" class="form-control form-control-sm"
+                                                        value="{{ $data->total_harga }}" readonly></th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -183,19 +187,23 @@
                                         </div>
                                     </section>
                                     @if ($errors->has('file'))
-                                    <div class="invalid-feedback d-block">{{ $errors->first('file') }}</div>
-                                @endif
+                                        <div class="invalid-feedback d-block">{{ $errors->first('file') }}</div>
+                                    @endif
 
-                                @foreach ($errors->get('file.*') as $messages)
-                                    @foreach ($messages as $message)
-                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @foreach ($errors->get('file.*') as $messages)
+                                        @foreach ($messages as $message)
+                                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                                        @endforeach
                                     @endforeach
-                                @endforeach
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                                @if($data->status === 'paid')
+                                    &nbsp;&nbsp;<h4 class="hk-pg-title" style="color: green">Finish</h4>
+                                @else
+                                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                                @endif
                                 {{-- <button type="button" id="editButton" class="btn btn-warning btn-sm">Edit</button> --}}
-                                <button type="button" class="btn btn-danger btn-sm" onclick="fakturDelete('{{ $data->id }}')"
-                                    style="float: right;">Delete</button>
+                                <button type="button" class="btn btn-danger btn-sm"
+                                    onclick="fakturDelete('{{ $data->id }}')" style="float: right;">Delete</button>
                             </form>
 
                         </div>
@@ -207,12 +215,12 @@
     <script>
         function deleteFile(id) {
             fetch('/file-penjualan/' + id, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                })
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+            })
                 .then(response => {
                     if (response.ok) {
                         location.reload();
@@ -224,12 +232,12 @@
         }
         function fakturDelete(id) {
             fetch('/penjualan/faktur/delete/' + id, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                })
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+            })
                 .then(response => {
                     if (response.ok) {
                         // Redirect ke halaman penjualan jika berhasil

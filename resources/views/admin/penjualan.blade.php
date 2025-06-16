@@ -63,8 +63,8 @@
                                                     <tbody>
                                                         @forelse ($faktur as $item)
                                                             <tr>
-                                                                <td><a
-                                                                        href="{{url('penjualan/faktur/'.$item->id)}}">{{ $item->kode_transaksi }}</a>
+                                                                <td>
+                                                                    <a href="{{url('penjualan/faktur/'.$item->id)}}">{{ $item->kode_transaksi }}</a>
                                                                 </td>
                                                                 <td>{{ $item->customer->nama_perusahaan ?? '-' }}</td>
                                                                 <td>
@@ -122,8 +122,11 @@
                                                     <tbody>
                                                         @forelse ($pengiriman as $item)
                                                             <tr>
-                                                                <td><a
-                                                                        href="{{url('penjualan/pengiriman/'.$item->id)}}">{{ $item->kode_transaksi }}</a>
+                                                                <td>@if($item->status === 'send')
+                                                                    {{ $item->kode_transaksi }}
+                                                                    @else
+                                                                    <a href="{{url('penjualan/pengiriman/'.$item->id)}}">{{ $item->kode_transaksi }}</a>
+                                                                    @endif
                                                                 </td>
                                                                 <td>{{ $item->customer->nama_perusahaan ?? '-' }}</td>
                                                                 <td>
