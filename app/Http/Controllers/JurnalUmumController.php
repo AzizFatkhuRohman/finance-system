@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ChartOfAccount;
 use App\Models\JurnalUmum;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class JurnalUmumController extends Controller
 {
@@ -32,10 +33,14 @@ class JurnalUmumController extends Controller
         } else {
             $data = $this->jurnalUmum->Index();
         }
-
+        $penjualan_paid = DB::table('penjualan')
+        ->where('status', 'paid')
+        ->get()
+        ->keyBy('id');
         return view('admin.jurnal', [
             'data' => $data,
-            'coa' => ChartOfAccount::all()
+            'coa' => ChartOfAccount::all(),
+            'penjualan_paid' => $penjualan_paid,
         ]);
     }
 

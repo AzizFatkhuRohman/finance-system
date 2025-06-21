@@ -303,8 +303,8 @@ class PenjualanController extends Controller
             }
 
             // Hapus data penjualan
+            JurnalUmum::where('relational_id', $id)->where('kategori', 'penjualan')->delete();
             $penjualan->delete();
-
             return response()->json([
                 'success' => true,
                 'message' => 'Data penjualan berhasil dihapus.'
@@ -485,6 +485,7 @@ class PenjualanController extends Controller
         $this->penjualan->Edit($id, [
             'status' => 'draft'
         ]);
+        JurnalUmum::where('relational_id', $id)->where('kategori', 'penjualan')->delete();
     }
     public function faktur($id)
     {
@@ -578,7 +579,7 @@ class PenjualanController extends Controller
     public function fakturDelete($id)
     {
         $this->penjualan->Edit($id, [
-            'status' => 'send'
+            'status' => 'created'
         ]);
     }
 }

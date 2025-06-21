@@ -11,7 +11,7 @@ use App\Models\Supplier;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Str;
+use Illuminate\Support\Str;
 
 class BiayaController extends Controller
 {
@@ -310,6 +310,7 @@ class BiayaController extends Controller
     {
         try {
             $this->biaya->Trash($id);
+            JurnalUmum::where('relational_id', $id)->where('kategori', 'biaya')->delete();
             return response()->json(['success' => true, 'message' => 'Data berhasil dihapus']);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => 'Gagal menghapus data: ' . $e->getMessage()], 500);
