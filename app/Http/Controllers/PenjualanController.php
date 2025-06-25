@@ -570,7 +570,7 @@ class PenjualanController extends Controller
         $customer = Customer::findOrFail($penjualan->customer_id);
         $this->jurnalUmum->Edit($penjualan->id,[
             'nama' => $customer->nama_perusahaan,
-            'tgl_bayar'=>$penjualan->tgl_bayar,
+            'tgl'=>$penjualan->tgl_bayar,
             'kredit' => 0,
             'debit' => $penjualan->total_harga
         ]);

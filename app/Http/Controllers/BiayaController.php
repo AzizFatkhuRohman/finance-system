@@ -129,7 +129,7 @@ class BiayaController extends Controller
         if ($request->hasFile('file')) {
             foreach ($request->file('file') as $uploadedFile) {
                 $originalName = str_replace(' ', '_', $uploadedFile->getClientOriginalName());
-                $randomPrefix = Str::random(10);
+                $randomPrefix = Str::random(5);
                 $fileName = $randomPrefix . '_' . $originalName;
 
                 $uploadedFile->move(public_path('upload_biaya'), $fileName);
@@ -201,7 +201,7 @@ class BiayaController extends Controller
             if ($request->hasFile('file')) {
                 foreach ($request->file('file') as $uploadedFile) {
                     $originalName = str_replace(' ', '_', $uploadedFile->getClientOriginalName());
-                    $randomPrefix = Str::random(10);
+                    $randomPrefix = Str::random(5);
                     $fileName = $randomPrefix . '_' . $originalName;
 
                     $uploadedFile->move(public_path('upload_biaya'), $fileName);
@@ -290,11 +290,13 @@ class BiayaController extends Controller
             if ($request->hasFile('file')) {
                 foreach ($request->file('file') as $uploadedFile) {
                     $originalName = str_replace(' ', '_', $uploadedFile->getClientOriginalName());
-                    $uploadedFile->move(public_path('upload_biaya'), $originalName);
+                    $randomPrefix = Str::random(5);
+                    $fileName = $randomPrefix . '_' . $originalName;
+                    $uploadedFile->move(public_path('upload_biaya'), $fileName);
 
                     FileBiaya::create([
                         'biaya_id' => $biaya->id,
-                        'nama_file' => $originalName,
+                        'nama_file' => $fileName,
                     ]);
                 }
             }
