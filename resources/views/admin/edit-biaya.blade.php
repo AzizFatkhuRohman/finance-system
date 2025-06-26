@@ -45,8 +45,8 @@
                                     <div class="col-lg-6">
                                         <label for="tanggal">Tanggal</label>
                                         <input class="form-control form-control-sm @error('tgl') is-invalid @enderror"
-                                            id="tgl" name="tgl" type="date" value="{{ $data->tgl_transaksi ?? old('tgl') }}"
-                                            readonly>
+                                            id="tgl" name="tgl" type="date"
+                                            value="{{ $data->tgl_transaksi ?? old('tgl') }}" readonly>
                                         @error('tgl')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -56,9 +56,7 @@
                                 <div class="row">
                                     <div class="col-md-6 form-group">
                                         <label for="nomor_rekening">Alamat Pengiriman</label>
-                                        <textarea name="alamat" id="alamat"
-                                            class="form-control @error('alamat') is-invalid @enderror"
-                                            readonly>{{ $data->supplier->alamat ?? old('alamat') }}</textarea>
+                                        <textarea name="alamat" id="alamat" class="form-control @error('alamat') is-invalid @enderror" readonly>{{ $data->supplier->alamat ?? old('alamat') }}</textarea>
                                         @error('alamat')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -79,10 +77,11 @@
                                     <select class="form-control custom-select-sm @error('sumber_dana') is-invalid @enderror"
                                         name="sumber_dana" id="sumber_dana" value="{{ old('sumber_dana') }}" disabled>
                                         <option value="{{ $data->chart_of_account_id }}">
-                                            {{$data->chartOfAccount->no_account}}
+                                            {{ $data->chartOfAccount->no_account }}
                                         </option>
                                         @foreach ($sumber_dana as $item)
-                                            <option value="{{ $item->id }}">{{ $item->no_account }} {{$item->description}}
+                                            <option value="{{ $item->id }}">{{ $item->no_account }}
+                                                {{ $item->description }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -147,8 +146,8 @@
                                                             class="form-control form-control-sm"
                                                             value="{{ $detail->total_harga }}" readonly>
                                                     </td>
-                                                    <td><button type="button" class="btn btn-danger btn-sm remove-row" hidden><i
-                                                                class="icon-trash txt-danger"></i></button></td>
+                                                    <td><button type="button" class="btn btn-danger btn-sm remove-row"
+                                                            hidden><i class="icon-trash txt-danger"></i></button></td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -191,8 +190,9 @@
                                                 <th class="input-group">
                                                     <span class="input-group-text form-control-sm"
                                                         id="basic-addon1">Rp</span>
-                                                    <input type="text" class="form-control form-control-sm" name="total"
-                                                        id="total" value="{{ $data->total_harga }}" readonly>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        name="total" id="total" value="{{ $data->total_harga }}"
+                                                        readonly>
                                                 </th>
                                             </tr>
                                         </thead>
@@ -216,7 +216,7 @@
                                         <div class="row">
                                             <div class="col-sm">
                                                 <div class="fallback">
-                                                    <input type="file" multiple name="file[]" required />
+                                                    <input type="file" multiple name="file[]" />
                                                 </div>
                                             </div>
                                         </div>
@@ -233,13 +233,14 @@
                                 </div>
                                 <div>
                                     <div class="d-flex">
-                                        <button type="submit" class="btn btn-primary" id="submit" name="action"
-                                            value="submit">Submit</button>
+                                        <button type="submit" class="btn btn-primary" id="submit"
+                                            name="action" value="submit">Submit</button>
                                         <button type="button" class="btn btn-success" style="margin-left: 2px"
                                             id="editButton">Edit</button>
                                     </div>
                                     <button type="button" onclick="biayaDelete('{{ $data->id }}')"
-                                        class="btn btn-danger btn-sm" id="delete" style="float: right;">Delete</button>
+                                        class="btn btn-danger btn-sm" id="delete"
+                                        style="float: right;">Delete</button>
                                 </div>
                             </form>
                         </div>
@@ -251,13 +252,12 @@
     <script>
         let editMode = false;
 
-        document.getElementById('editButton').addEventListener('click', function () {
-            const inputs = document.querySelectorAll('input, select');
+        document.getElementById('editButton').addEventListener('click', function() {
+            const inputs = document.querySelectorAll('input, select, textarea');
             const tombolSemua = document.querySelectorAll('.remove-row');
             const addRow = document.getElementById('add-row');
             const submitBtn = document.getElementById('submit');
             const editBtn = document.getElementById('editButton');
-            const fileSection = document.getElementById('fileUpload')
             const sumber_dana = document.getElementById('sumber_dana');
 
             editMode = !editMode;
@@ -265,10 +265,11 @@
             inputs.forEach(input => {
                 if (input.tagName === 'SELECT') {
                     input.disabled = !editMode;
-                }
-                // Untuk input selain total_harga[], tgl, kode_transaksi, dan harga
-                else if (input.name !== 'tgl' && input.name !== 'kode_transaksi' && input.name !==
-                    'total_harga[]') {
+                } else if (
+                    input.name !== 'tgl' &&
+                    input.name !== 'kode_transaksi' &&
+                    input.name !== 'total_harga[]'
+                ) {
                     input.readOnly = !editMode;
                 }
             });
@@ -278,31 +279,41 @@
             });
 
             if (editMode) {
+                // Aktifkan input
                 addRow?.removeAttribute('hidden');
-                sumber_dana.removeAttribute('disabled')
+                sumber_dana?.removeAttribute('disabled');
+                document.getElementById('tgl').removeAttribute('readonly')
                 submitBtn.textContent = 'Update';
                 submitBtn.value = 'update';
-                submitBtn.style.display = 'inline-block';
-                editBtn.style.display = 'none';
-                fileSection.style.display = 'block'; // Tampilkan section file upload
+                editBtn.textContent = 'Back'; // tombol edit berubah jadi Back
             } else {
+                // Kembali ke mode readonly
                 addRow?.setAttribute('hidden', true);
+                sumber_dana?.setAttribute('disabled', true);
                 submitBtn.textContent = 'Submit';
-                submitBtn.style.display = 'none';
-                editBtn.style.display = 'inline-block';
-                fileSection.style.display = 'none'; // Sembunyikan section file upload
+                submitBtn.value = 'submit';
+                editBtn.textContent = 'Edit'; // tombol back kembali jadi Edit
             }
+
+            // File upload section SELALU TAMPIL
+            document.getElementById('fileUpload').style.display = 'block';
+        });
+
+        // Pastikan file upload section langsung tampil saat halaman dibuka
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('fileUpload').style.display = 'block';
         });
     </script>
+
     <script>
         function deleteBiayaFile(id) {
             fetch('/file-biaya/' + id, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-            })
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                })
                 .then(response => {
                     if (response.ok) {
                         location.reload();
@@ -315,12 +326,12 @@
 
         function detailProduk(id) {
             fetch('/detail-produk-penjualan/' + id, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-            })
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                })
                 .then(response => {
                     if (response.ok) {
                         location.reload();
@@ -344,12 +355,12 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     fetch('/biaya/' + id, {
-                        method: 'DELETE',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        }
-                    })
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            }
+                        })
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
@@ -383,9 +394,9 @@
         }
     </script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // Ketika customer dipilih
-            $('#nama_supplier').on('change', function () {
+            $('#nama_supplier').on('change', function() {
                 var supplierId = $(this).val(); // Ambil ID customer yang dipilih
 
                 // Jika ID customer dipilih, kirim request AJAX
@@ -393,7 +404,7 @@
                     $.ajax({
                         url: '/supplier/' + supplierId + '/alamat', // URL untuk mengambil alamat
                         method: 'GET',
-                        success: function (response) {
+                        success: function(response) {
                             if (response.alamat) {
                                 // Isi textarea alamat dengan alamat yang diterima dari server
                                 $('#alamat').val(response.alamat);
@@ -402,7 +413,7 @@
                                 $('#alamat').val('');
                             }
                         },
-                        error: function (xhr, status, error) {
+                        error: function(xhr, status, error) {
                             console.log('Error:', error);
                             $('#alamat').val(''); // Kosongkan jika terjadi error
                         }
@@ -423,7 +434,7 @@
     </script>
     <script>
         // JavaScript untuk menambah input barang
-        document.getElementById('add-row').addEventListener('click', function () {
+        document.getElementById('add-row').addEventListener('click', function() {
             const tableBody = document.getElementById('dynamic-rows');
             const newRow = document.createElement('tr');
             newRow.innerHTML = `
@@ -441,7 +452,7 @@
                                 `;
             tableBody.appendChild(newRow);
         });
-        $('#dynamic-rows').on('click', '.remove-row', function () {
+        $('#dynamic-rows').on('click', '.remove-row', function() {
             $(this).closest('tr').remove();
         });
     </script>
@@ -450,7 +461,7 @@
             let totalKeseluruhan = 0;
 
             // Loop semua baris dan hitung total per baris
-            document.querySelectorAll('#dynamic-rows tr').forEach(function (row) {
+            document.querySelectorAll('#dynamic-rows tr').forEach(function(row) {
                 const qtyEl = row.querySelector('input[name="quantity[]"]');
                 const hargaEl = row.querySelector('input[name="harga[]"]');
                 const totalEl = row.querySelector('input[name="total_harga[]"]');
@@ -480,7 +491,7 @@
         }
 
         // Jalankan saat input berubah
-        document.addEventListener('input', function (e) {
+        document.addEventListener('input', function(e) {
             const namesToWatch = ['quantity[]', 'harga[]', 'pajak', 'diskon'];
             if (namesToWatch.includes(e.target.name)) {
                 hitungTotal();
@@ -490,7 +501,7 @@
         // Jalankan juga saat tambah baris
         const addRowBtn = document.getElementById('add-row');
         if (addRowBtn) {
-            addRowBtn.addEventListener('click', function () {
+            addRowBtn.addEventListener('click', function() {
                 setTimeout(() => {
                     hitungTotal();
                 }, 100);

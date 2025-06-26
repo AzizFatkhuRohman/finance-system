@@ -212,11 +212,12 @@ class BiayaController extends Controller
                     ]);
                 }
             }
-            $biaya = $this->biaya->Edit($id, [
+            $this->biaya->Edit($id, [
                 'status' => 'paid'
             ]);
+            $biaya = Biaya::find($id);
             $supplier = Supplier::findOrFail($biaya->supplier_id);
-            $detailBiaya = DetailBiaya::where('biaya_id',$id)->firts();
+            $detailBiaya = DetailBiaya::where('biaya_id',$id)->first();
             $coa = ChartOfAccount::find($detailBiaya->chart_of_account_id);
             $this->jurnalumum->Edit($biaya->id,[
                 'nama' => $supplier->nama_perusahaan,
