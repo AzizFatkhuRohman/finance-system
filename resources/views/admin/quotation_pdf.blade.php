@@ -50,7 +50,7 @@
 
         .table th,
         .table td {
-            border: 0.2px solid #7a7979;
+            border: 1px solid #333;
             padding: 6px;
             text-align: left;
             border: none;

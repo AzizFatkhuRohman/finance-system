@@ -114,7 +114,7 @@ class BiayaController extends Controller
             // 'diskon' => $request->diskon,
             'total_harga' => $request->total
         ]);
-        $supplier = Supplier::findOrFail($biaya->supplier_id);
+        //$supplier = Supplier::findOrFail($biaya->supplier_id);
         foreach ($request->produk as $index => $value) {
             DetailBiaya::create([
                 'biaya_id' => $biaya->id,
@@ -140,18 +140,18 @@ class BiayaController extends Controller
                 ]);
             }
         }
-        $detailBiaya = DetailBiaya::where('biaya_id',$biaya->id)->first();
-        $coa = ChartOfAccount::find($detailBiaya->chart_of_account_id);
-        $this->jurnalumum->Store([
-            'kategori' => 'biaya',
-            'relational_id' => $biaya->id,
-            'code_perusahaan'=>$supplier->code_supplier,
-            'no_account'=>$coa->no_account,
-            'nama' => $supplier->nama_perusahaan,
-            'tgl'=>$biaya->tgl_transaksi,
-            'debit' => $biaya->total_harga,
-            'kredit'=>0
-        ]);
+        // $detailBiaya = DetailBiaya::where('biaya_id',$biaya->id)->first();
+        // $coa = ChartOfAccount::find($detailBiaya->chart_of_account_id);
+        // $this->jurnalumum->Store([
+        //     'kategori' => 'biaya',
+        //     'relational_id' => $biaya->id,
+        //     'code_perusahaan'=>$supplier->code_supplier,
+        //     'no_account'=>$coa->no_account,
+        //     'nama' => $supplier->nama_perusahaan,
+        //     'tgl'=>$biaya->tgl_transaksi,
+        //     'debit' => $biaya->total_harga,
+        //     'kredit'=>0
+        // ]);
         return redirect('biaya')->with('success', 'Biaya berhasil dibuat');
     }
 
@@ -217,15 +217,20 @@ class BiayaController extends Controller
             ]);
             $biaya = Biaya::find($id);
             $supplier = Supplier::findOrFail($biaya->supplier_id);
-            $detailBiaya = DetailBiaya::where('biaya_id',$id)->first();
+
+            $detailBiaya = DetailBiaya::where('biaya_id',$biaya->id)->first();
             $coa = ChartOfAccount::find($detailBiaya->chart_of_account_id);
-            $this->jurnalumum->Edit($biaya->id,[
-                'nama' => $supplier->nama_perusahaan,
+            $this->jurnalumum->Store([
+                'kategori' => 'biaya',
+                'relational_id' => $biaya->id,
                 'code_perusahaan'=>$supplier->code_supplier,
                 'no_account'=>$coa->no_account,
+                'nama' => $supplier->nama_perusahaan,
+                'tgl'=>$biaya->tgl_transaksi,
                 'debit' => $biaya->total_harga,
                 'kredit'=>0
             ]);
+
             return redirect('biaya')->with('success', 'Biaya berhasil disubmit');
         } else {
             $request->validate([
