@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ChartOfAccount;
+use App\Models\Customer;
 use App\Models\JurnalUmum;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -40,6 +41,7 @@ class JurnalUmumController extends Controller
         return view('admin.jurnal', [
             'data' => $data,
             'coa' => ChartOfAccount::all(),
+            'customers' => Customer::all(),
             'penjualan_paid' => $penjualan_paid,
         ]);
     }
