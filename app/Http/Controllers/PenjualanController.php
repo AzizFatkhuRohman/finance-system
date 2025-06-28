@@ -579,7 +579,7 @@ class PenjualanController extends Controller
     public function fakturDelete($id)
     {
         $this->penjualan->Edit($id, [
-            'status' => 'created'
+            'status' => 'send'
         ]);
     }
 }

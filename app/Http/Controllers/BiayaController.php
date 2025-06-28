@@ -60,9 +60,9 @@ class BiayaController extends Controller
         $kodeTransaksi = 'EX-' . $monthYear . '/' . str_pad($lastNumber, 4, '0', STR_PAD_LEFT);
         return view('admin.form_biaya', [
             'supplier' => Supplier::all(),
-            'kode_akun' => ChartOfAccount::whereIn('category_account',[6,7,8,9])->get(),
+            'kode_akun' => ChartOfAccount::whereIn('category_account', [6, 7, 8, 9])->get(),
             'kodeTransaksi' => $kodeTransaksi,
-            'sumber_dana'=>ChartOfAccount::where('category_account',1)->get(),
+            'sumber_dana' => ChartOfAccount::where('category_account', 1)->get(),
         ]);
     }
 
@@ -76,7 +76,7 @@ class BiayaController extends Controller
             'tgl' => 'required|date',
             // 'pajak' => 'nullable|numeric',
             // 'diskon' => 'nullable|numeric',
-            'sumber_dana'=>'required',
+            'sumber_dana' => 'required',
             'produk' => 'required|array',
             'produk.*' => 'required',
             'quantity' => 'required|array',
@@ -90,7 +90,7 @@ class BiayaController extends Controller
         ], [
             'nama_supplier.required' => 'Nama supplier harus dipilih.',
             'tgl.required' => 'Tanggal Transaksi harus diisi.',
-            'sumber_dana.required'=>'Sumber dana wajib di pilih',
+            'sumber_dana.required' => 'Sumber dana wajib di pilih',
             'produk.required' => 'Produk harus dipilih.',
             'produk.*.required' => 'Setiap item harus dipilih.',
             'quantity.required' => 'Quantity item harus diisi.',
@@ -109,7 +109,7 @@ class BiayaController extends Controller
             'user_id' => Auth::user()->id,
             'kode_transaksi' => $request->kode_transaksi,
             'tgl_transaksi' => $request->tgl,
-            'chart_of_account_id'=>$request->sumber_dana,
+            'chart_of_account_id' => $request->sumber_dana,
             // 'pajak' => $request->pajak,
             // 'diskon' => $request->diskon,
             'total_harga' => $request->total
@@ -163,9 +163,9 @@ class BiayaController extends Controller
     {
         return view('admin.edit-biaya', [
             'supplier' => Supplier::all(),
-            'kode_akun' => ChartOfAccount::whereIn('category_account',[6,7,8,9])->get(),
-            'sumber_dana'=>ChartOfAccount::where('category_account',1)->get(),
-            'data' => Biaya::with('supplier','chartOfAccount')->find($id),
+            'kode_akun' => ChartOfAccount::whereIn('category_account', [6, 7, 8, 9])->get(),
+            'sumber_dana' => ChartOfAccount::where('category_account', 1)->get(),
+            'data' => Biaya::with('supplier', 'chartOfAccount')->find($id),
             'fileUpload' => FileBiaya::where('biaya_id', $id)->get(),
             'detailBiaya' => DetailBiaya::with('chartOfAccount')->where('biaya_id', $id)->get()
         ]);
@@ -178,7 +178,7 @@ class BiayaController extends Controller
     {
         return view('admin.edit-biaya-receipt', [
             'supplier' => Supplier::all(),
-             'kode_akun' => ChartOfAccount::whereIn('category_account',[6,7,8,9])->get(),
+            'kode_akun' => ChartOfAccount::whereIn('category_account', [6, 7, 8, 9])->get(),
             'data' => Biaya::with('supplier')->find($id),
             'fileUpload' => FileBiaya::where('biaya_id', $id)->get(),
             'detailBiaya' => DetailBiaya::with('chartOfAccount')->where('biaya_id', $id)->get()
@@ -218,42 +218,24 @@ class BiayaController extends Controller
             ]);
             $biaya = Biaya::find($id);
             $supplier = Supplier::findOrFail($biaya->supplier_id);
-
-
-                    $detailBiaya = DetailBiaya::where('biaya_id',$biaya->id)->first();
-                    $coa = ChartOfAccount::find($detailBiaya->chart_of_account_id);
-                    $coa2 = ChartOfAccount::find($biaya->chart_of_account_id);
-                    $this->jurnalumum->Store([
-                        'kategori' => 'biaya',
-                        'relational_id' => $biaya->id,
-                        'code_perusahaan'=>$biaya->chart_of_account_id = $coa2->no_account,
-                        'no_account'=>$coa->no_account,
-                        'nama' => $supplier->nama_perusahaan,
-                        'tgl'=>$biaya->tgl_transaksi,
-                        'debit' => $biaya->total_harga,
-                        'kredit'=>0
-                    ]);
-
-
-            // $detailBiaya = DetailBiaya::where('biaya_id',$biaya->id)->first();
-            // $coa = ChartOfAccount::find($detailBiaya->chart_of_account_id);
-            // $this->jurnalumum->Store([
-            //     'kategori' => 'biaya',
-            //     'relational_id' => $biaya->id,
-            //     'code_perusahaan'=>$supplier->code_supplier,
-            //     'no_account'=>$coa->no_account,
-            //     'nama' => $supplier->nama_perusahaan,
-            //     'tgl'=>$biaya->tgl_transaksi,
-            //     'debit' => $biaya->total_harga,
-            //     'kredit'=>0
-            // ]);
-
+            $detailBiaya = DetailBiaya::where('biaya_id', $biaya->id)->first();
+            $coa = ChartOfAccount::find($detailBiaya->chart_of_account_id);
+            $this->jurnalumum->Store([
+                'kategori' => 'biaya',
+                'relational_id' => $biaya->id,
+                'code_perusahaan' => $supplier->code_supplier,
+                'no_account' => $coa->no_account,
+                'nama' => $supplier->nama_perusahaan,
+                'tgl' => $biaya->tgl_transaksi,
+                'debit' => $biaya->total_harga,
+                'kredit' => 0
+            ]);
             return redirect('biaya')->with('success', 'Biaya berhasil disubmit');
         } else {
             $request->validate([
                 'nama_supplier' => 'required|exists:suppliers,id',
                 'tgl' => 'required|date',
-                'sumber_dana'=>'required',
+                'sumber_dana' => 'required',
                 'produk' => 'required|array',
                 'produk.*' => 'required',
                 'quantity' => 'required|array',
@@ -267,7 +249,7 @@ class BiayaController extends Controller
             ], [
                 'nama_supplier.required' => 'Nama supplier harus dipilih.',
                 'tgl.required' => 'Tanggal Transaksi harus diisi.',
-                'sumber_dana.required'=>'Sumber dana wajib di pilih',
+                'sumber_dana.required' => 'Sumber dana wajib di pilih',
                 'produk.required' => 'Produk harus dipilih.',
                 'produk.*.required' => 'Setiap item harus dipilih.',
                 'quantity.required' => 'Quantity item harus diisi.',
@@ -290,7 +272,7 @@ class BiayaController extends Controller
                 'user_id' => Auth::user()->id,
                 'kode_transaksi' => $request->kode_transaksi,
                 'tgl_transaksi' => $request->tgl,
-                'chart_of_account_id'=>$request->sumber_dana,
+                'chart_of_account_id' => $request->sumber_dana,
                 'total_harga' => $request->total
             ]);
 

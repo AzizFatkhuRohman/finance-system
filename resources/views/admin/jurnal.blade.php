@@ -61,7 +61,11 @@
                                 <tr>
                                     <td>{{ $item->tgl }}</td>
                                     <td>{{ $item->code_perusahaan }}</td>
-                                    <td>{{ collect($customers)->firstWhere('code_customer', $item->code_perusahaan)->nama_perusahaan ?? collect($coa)->firstWhere('no_account', $item->code_perusahaan)->description }}</td>
+                                    <td>
+                                        {{ collect($customers)->firstWhere('code_customer', $item->code_perusahaan)?->nama_perusahaan ??
+                                            (collect($coa)->firstWhere('no_account', $item->code_perusahaan)?->description ?? '-') }}
+                                    </td>
+
                                     <td>
                                         @if ($item->kategori === 'penjualan')
                                             @if (empty($item->kredit) || $item->kredit == 0)
